@@ -1,0 +1,230 @@
+/* ULTIMATE PROMESSA — carta, verso, pacote e efeito 3D holográfico (compartilhado) */
+.upc{--rc:#C9D2D6;--rc2:#4A555A;--rx:0deg;--ry:0deg;--px:50%;--py:50%;--tx:0px;--ty:0px;--hyp:0;
+  position:relative;width:100%;max-width:240px;aspect-ratio:5/7;padding:6px;
+  clip-path:polygon(14% 0,86% 0,100% 7%,100% 93%,86% 100%,14% 100%,0 93%,0 7%);
+  background:linear-gradient(150deg,color-mix(in srgb,var(--rc) 70%,#fff),var(--rc) 30%,var(--rc2) 70%,var(--rc));
+  filter:drop-shadow(0 12px 24px rgba(0,0,0,.62));container-type:inline-size;font-family:var(--fc,sans-serif);
+  transform-style:preserve-3d;will-change:transform;
+  transition:transform .38s cubic-bezier(.22,1,.36,1),filter .35s ease;user-select:none;touch-action:manipulation}
+.upc-in{position:relative;height:100%;overflow:hidden;
+  clip-path:polygon(13% 0,87% 0,100% 6.5%,100% 93.5%,87% 100%,13% 100%,0 93.5%,0 6.5%);
+  background:radial-gradient(ellipse 90% 60% at 60% 35%,color-mix(in srgb,var(--rc) 38%,transparent),transparent 70%),
+    linear-gradient(180deg,color-mix(in srgb,var(--rc2) 70%,#05080a),#05080a 80%)}
+.upc-in::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:4;
+  background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.14) 45%,transparent 55%)}
+.upc[data-tier="epica"] .upc-in::before,.upc[data-tier="lendaria"] .upc-in::before,.upc[data-tier="mitica"] .upc-in::before{
+  background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.22) 42%,color-mix(in srgb,var(--rc) 30%,transparent) 50%,transparent 60%);
+  background-size:250% 100%;animation:upcHolo 5s linear infinite}
+@keyframes upcHolo{0%{background-position:120% 0}100%{background-position:-120% 0}}
+.upc-coroas{position:absolute;top:2.5%;left:0;right:0;display:flex;justify-content:center;gap:2px;z-index:3}
+.upc-coroas svg{width:11cqw;height:auto;fill:var(--rc);filter:drop-shadow(0 0 4px color-mix(in srgb,var(--rc) 80%,transparent))}
+.upc-lado{position:absolute;top:9%;left:7%;z-index:3;display:flex;flex-direction:column;align-items:center;gap:1.6cqw;width:20cqw;transition:transform .12s ease-out}
+.upc-ovr{font:700 23cqw/.78 var(--fd,sans-serif);color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.5),0 0 12px color-mix(in srgb,var(--rc) 70%,transparent)}
+.upc-pos{font:700 8.5cqw/1 var(--fd,sans-serif);color:var(--rc);letter-spacing:.5px}
+.upc-band{width:15cqw;height:auto;aspect-ratio:3/2;object-fit:cover;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.3)}
+.upc-esc{width:15cqw;height:15cqw;object-fit:contain;filter:drop-shadow(0 1px 2px rgba(0,0,0,.6))}
+.upc-foto{position:absolute;left:18%;right:0;top:8%;bottom:30%;display:flex;align-items:flex-end;justify-content:center;z-index:1;transition:transform .12s ease-out}
+.upc-foto img{width:100%;height:100%;object-fit:contain;object-position:bottom}
+.upc-foto .silh{width:78%;height:auto;fill:color-mix(in srgb,var(--rc) 22%,#0c1214);opacity:.9}
+.upc-nome{position:absolute;left:0;right:0;bottom:16%;z-index:3;text-align:center;padding:2cqw 4cqw;
+  background:linear-gradient(90deg,transparent,rgba(0,0,0,.6) 15%,rgba(0,0,0,.6) 85%,transparent);
+  border-top:1px solid color-mix(in srgb,var(--rc) 60%,transparent);border-bottom:1px solid color-mix(in srgb,var(--rc) 60%,transparent);transition:transform .12s ease-out}
+.upc-nome b{display:block;font:700 10cqw/1 var(--fd,sans-serif);text-transform:uppercase;color:#fff;letter-spacing:.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.upc-nome span{display:block;font-size:3.9cqw;font-weight:800;letter-spacing:.9px;text-transform:uppercase;color:var(--rc);margin-top:.5cqw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.upc-st{position:absolute;left:8%;right:8%;bottom:6%;z-index:3;display:grid;grid-template-columns:repeat(6,1fr);transition:transform .12s ease-out}
+.upc-st div{text-align:center}
+.upc-st b{display:block;font:700 7cqw/1 var(--fd,sans-serif);color:#fff}
+.upc-st i{display:block;font-style:normal;font-size:3.6cqw;font-weight:800;color:var(--rc);letter-spacing:.5px}
+.upc-rod{position:absolute;left:0;right:0;bottom:1.5%;z-index:3;text-align:center;font-size:3.6cqw;font-weight:700;color:rgba(255,255,255,.55);letter-spacing:.8px}
+.upc-delta{position:absolute;top:9%;right:7%;z-index:3;display:inline-flex;align-items:center;gap:.8cqw;padding:.8cqw 2cqw;border-radius:2cqw;
+  font:700 6.5cqw/1 var(--fd,sans-serif);background:rgba(0,0,0,.55)}
+.upc-delta svg{width:5cqw;height:5cqw;fill:currentColor}
+.upc-delta.up{color:#2BE38A}.upc-delta.dn{color:#FF4D5E}
+/* verso */
+.upc-verso .upc-in{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5cqw;
+  background:radial-gradient(circle at 50% 42%,color-mix(in srgb,var(--rc) 45%,transparent),transparent 60%),
+    repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0 2px,transparent 2px 10px),#06090b}
+.upc-goat{width:55%;aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 0 14px color-mix(in srgb,var(--rc) 70%,transparent))}
+.upc-wm{font:700 9cqw/.9 var(--fd,sans-serif);color:var(--rc);text-transform:uppercase;letter-spacing:1px;text-align:center;font-style:italic}
+/* edição de Natal: filete vermelho/creme */
+.upc[data-edicao="natal"]{background:linear-gradient(150deg,#E84B4B,#FBE7A8 30%,var(--rc) 55%,#E84B4B)}
+.upc[data-edicao="raizes"] .upc-nome span{color:#fff}
+/* pacote laminado */
+.envelope.foil{background:
+  linear-gradient(125deg,transparent 20%,rgba(255,255,255,.45) 32%,transparent 44%,transparent 58%,rgba(255,255,255,.25) 66%,transparent 76%),
+  linear-gradient(160deg,color-mix(in srgb,var(--c) 55%,#fff),var(--c) 35%,color-mix(in srgb,var(--c) 40%,#000) 75%,color-mix(in srgb,var(--c) 70%,#fff));
+  clip-path:polygon(0 3%,8% 0,16% 3%,24% 0,32% 3%,40% 0,48% 3%,56% 0,64% 3%,72% 0,80% 3%,88% 0,96% 3%,100% 0,100% 97%,92% 100%,84% 97%,76% 100%,68% 97%,60% 100%,52% 97%,44% 100%,36% 97%,28% 100%,20% 97%,12% 100%,4% 97%,0 100%);
+  border-radius:0}
+.envelope.foil .goat{position:absolute;left:50%;top:44%;width:56%;aspect-ratio:1;transform:translate(-50%,-50%);object-fit:contain;
+  filter:drop-shadow(0 4px 10px rgba(0,0,0,.45))}
+.envelope.foil .arte{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+@media (prefers-reduced-motion:reduce){.upc-in::before{animation:none!important}}
+
+/* ===== arte oficial (assets/cartas) — sobrepõe o desenho em CSS ===== */
+.upc{background:var(--arte) center/100% 100% no-repeat;clip-path:none;padding:0;border-radius:4%}
+.upc-in{clip-path:none;background:none}
+.upc-in::before{inset:4%;border-radius:3%}
+.upc-miolo{position:absolute;inset:7% 8% 6%;border-radius:3%;z-index:0;
+  background:radial-gradient(ellipse 85% 55% at 60% 32%,color-mix(in srgb,var(--rc) 30%,transparent),transparent 70%),
+    linear-gradient(180deg,#0b0f12 0%,#06090b 75%);box-shadow:inset 0 0 18px rgba(0,0,0,.8)}
+.upc-coroas{display:none}
+.upc-coroa{position:absolute;top:-1%;left:50%;transform:translateX(-50%);width:34%;z-index:5;mix-blend-mode:screen;pointer-events:none;transition:transform .12s ease-out}
+.upc-lado{top:10%;left:11%}
+.upc-foto{left:24%;right:8%;top:9%;bottom:30%}
+.upc-nome{left:8%;right:8%;bottom:17%}
+.upc-st{left:11%;right:11%;bottom:8%}
+.upc-rod{bottom:3%}
+.upc-delta{top:10%;right:11%}
+.upc-verso .upc-in{background:none}
+.upc[data-edicao="natal"]{background:var(--arte) center/100% 100% no-repeat;box-shadow:0 0 0 2px #E84B4B}
+.envelope.foil{background:none;clip-path:none;box-shadow:none;filter:drop-shadow(0 14px 24px rgba(0,0,0,.65));aspect-ratio:764/1024}
+.envelope.foil::before,.envelope.foil::after{display:none}
+.envelope.foil .arte{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.envelope.foil .em{display:none}
+.envelope.foil .faixa,.envelope.foil .goat{display:none}
+
+/* PATCH-20261021 */
+.upc-foto img{width:100%;height:100%;object-fit:contain;object-position:bottom center;filter:drop-shadow(0 6px 12px rgba(0,0,0,.68))}
+.upc-nome{left:8%;right:8%;bottom:16.8%;padding:1.6cqw 3.5cqw}
+.upc-nome b{font-size:9.6cqw;line-height:.96}
+.upc-nome span{font-size:3.8cqw;letter-spacing:.7px;margin-top:.4cqw}
+.upc-st{left:10%;right:10%;bottom:7.6%}
+.upc-st b{font-size:7.2cqw;line-height:1}
+.upc-st i{font-size:3.5cqw;margin-top:.3cqw}
+.upc-rod{bottom:2.8%;font-size:3.4cqw}
+
+/* ===== EFEITO 3D TILT + FOIL HOLOGRÁFICO + SPECULAR GLARE ===== */
+.upc-holo{
+  position:absolute;inset:5.5% 6.5% 5.5%;border-radius:3.5%;pointer-events:none;z-index:4;
+  background-image:
+    repeating-linear-gradient(125deg,
+      rgba(255,255,255,.04) 0px,
+      rgba(255,255,255,.04) 1px,
+      transparent 1px,
+      transparent 4px),
+    linear-gradient(115deg,
+      transparent 10%,
+      rgba(255,0,140,.46) 24%,
+      rgba(255,210,0,.42) 36%,
+      rgba(0,255,180,.46) 48%,
+      rgba(0,195,255,.48) 60%,
+      rgba(165,65,255,.46) 72%,
+      rgba(255,60,180,.42) 84%,
+      transparent 94%),
+    radial-gradient(circle at var(--px,50%) var(--py,50%),
+      color-mix(in srgb,var(--rc) 65%,#ffffff) 0%,
+      transparent 58%);
+  background-size:100% 100%, 240% 240%, 100% 100%;
+  background-position:0 0, var(--px,50%) var(--py,50%), 0 0;
+  mix-blend-mode:color-dodge;
+  opacity:.18;
+  transition:opacity .25s ease;
+}
+.upc[data-tier="rara"] .upc-holo{opacity:.26}
+.upc[data-tier="epica"] .upc-holo{opacity:.38}
+.upc[data-tier="lendaria"] .upc-holo,.upc[data-tier="mitica"] .upc-holo{opacity:.5}
+
+.upc-glare{
+  position:absolute;inset:3.5%;border-radius:4%;pointer-events:none;z-index:6;
+  background:
+    radial-gradient(circle at var(--px,50%) var(--py,50%),
+      rgba(255,255,255,.58) 0%,
+      rgba(255,255,255,.18) 28%,
+      color-mix(in srgb,var(--rc) 22%,transparent) 52%,
+      transparent 72%);
+  mix-blend-mode:overlay;
+  opacity:0;
+  transition:opacity .22s ease;
+}
+
+/* Estado interativo quando o usuário move o mouse/dedo sobre a carta */
+.upc.upc-ativo{
+  transition:transform .07s ease-out,filter .15s ease;
+  transform:perspective(860px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale3d(1.04,1.04,1.04)!important;
+  filter:
+    drop-shadow(calc(var(--tx,0px) * -1.4) calc(14px + var(--ty,0px) * -1.2) 26px rgba(0,0,0,.82))
+    drop-shadow(0 0 22px color-mix(in srgb,var(--rc) 48%,transparent));
+  z-index:10;
+}
+.upc.upc-ativo .upc-holo{
+  opacity:.68;
+}
+.upc[data-tier="comum"].upc-ativo .upc-holo{
+  opacity:.45;
+}
+.upc[data-tier="lendaria"].upc-ativo .upc-holo,
+.upc[data-tier="mitica"].upc-ativo .upc-holo{
+  opacity:.84;
+}
+.upc.upc-ativo .upc-glare{
+  opacity:calc(.42 + var(--hyp,.3) * .45);
+}
+
+/* Parallax de profundidade nos elementos internos da carta ao inclinar */
+.upc.upc-ativo .upc-foto{
+  transform:translate3d(calc(var(--tx,0px) * .55),calc(var(--ty,0px) * .55),16px) scale(1.025);
+}
+.upc.upc-ativo .upc-lado{
+  transform:translate3d(calc(var(--tx,0px) * .38),calc(var(--ty,0px) * .38),20px);
+}
+.upc.upc-ativo .upc-nome,
+.upc.upc-ativo .upc-st{
+  transform:translate3d(calc(var(--tx,0px) * .25),calc(var(--ty,0px) * .25),14px);
+}
+.upc.upc-ativo .upc-coroa{
+  transform:translateX(-50%) translate3d(calc(var(--tx,0px) * .42),calc(var(--ty,0px) * .42),22px);
+}
+
+/* Movimento 3D holográfico suave contínuo (idle) na inspeção de carta e na revelação de pacote */
+@keyframes upcFloat3D{
+  0%,100%{
+    transform:perspective(860px) rotateX(2.5deg) rotateY(-4.5deg) translateY(0px);
+  }
+  25%{
+    transform:perspective(860px) rotateX(-2deg) rotateY(4.5deg) translateY(-3px);
+  }
+  50%{
+    transform:perspective(860px) rotateX(-3deg) rotateY(-3.5deg) translateY(-5px);
+  }
+  75%{
+    transform:perspective(860px) rotateX(2.5deg) rotateY(4deg) translateY(-2px);
+  }
+}
+@keyframes upcHoloSweep{
+  0%,100%{background-position:0 0, 15% 25%, 0 0}
+  50%{background-position:0 0, 85% 75%, 0 0}
+}
+.det .upc:not(.upc-ativo),
+.cena .slot.vira .f-f .upc:not(.upc-ativo),
+.modal-carta .upc:not(.upc-ativo){
+  animation:upcFloat3D 6.5s ease-in-out infinite;
+}
+.det .upc:not(.upc-ativo) .upc-holo,
+.cena .slot.vira .f-f .upc:not(.upc-ativo) .upc-holo,
+.modal-carta .upc:not(.upc-ativo) .upc-holo{
+  animation:upcHoloSweep 5.5s ease-in-out infinite;
+  opacity:.42;
+}
+.det .upc[data-tier="epica"]:not(.upc-ativo) .upc-holo,
+.det .upc[data-tier="lendaria"]:not(.upc-ativo) .upc-holo,
+.det .upc[data-tier="mitica"]:not(.upc-ativo) .upc-holo,
+.cena .slot.vira .f-f .upc[data-tier="epica"]:not(.upc-ativo) .upc-holo,
+.cena .slot.vira .f-f .upc[data-tier="lendaria"]:not(.upc-ativo) .upc-holo,
+.cena .slot.vira .f-f .upc[data-tier="mitica"]:not(.upc-ativo) .upc-holo{
+  opacity:.58;
+}
+@media (prefers-reduced-motion:reduce){
+  .det .upc:not(.upc-ativo),
+  .cena .slot.vira .f-f .upc:not(.upc-ativo),
+  .modal-carta .upc:not(.upc-ativo),
+  .det .upc:not(.upc-ativo) .upc-holo,
+  .cena .slot.vira .f-f .upc:not(.upc-ativo) .upc-holo,
+  .modal-carta .upc:not(.upc-ativo) .upc-holo{animation:none!important}
+}
+
+/* holo/glare removidos a pedido */
+.upc-holo,.upc-glare{display:none!important}
+
+/* cadeado: carta ainda presa para venda/troca */
+.upc-pos{display:inline-flex;align-items:center;gap:1.4cqw}
+.upc-cad{width:7cqw;height:7cqw;color:#fff;opacity:.92;filter:drop-shadow(0 1px 1px rgba(0,0,0,.6));flex:none}

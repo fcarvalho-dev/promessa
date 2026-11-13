@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<link rel="icon" type="image/x-icon" href="/favicon.ico?v=20261023">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon.png?v=20261023">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>PROMESSA · Conectar Computador</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Montserrat:wght@500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#04100a; --panel:#0C2417; --border:#1F5138; --dim:#8FB09C;
+    --branco:#FFF8EA; --ouro:#E8B84B; --verde:#00FF87; --rosa:#FF2E5B;
+    --f-disp:'Outfit'; --f-corpo:'Montserrat'; --f-mono:'Share Tech Mono';
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body {
+    background:var(--bg); color:var(--branco); font-family:var(--f-corpo), sans-serif;
+    min-height:100vh; display:flex; align-items:center; justify-content:center; padding:16px;
+  }
+  .card {
+    width:100%; max-width:400px; border-radius:24px; padding:28px 22px; position:relative; overflow:hidden;
+    background:radial-gradient(ellipse at 50% 10%, #0B331E, #04140B 65%, #010703);
+    border:2px solid var(--verde); box-shadow:0 24px 60px rgba(0,0,0,.9), 0 0 34px rgba(0,255,135,.2);
+    text-align:center;
+  }
+  .crest { width:52px; height:52px; border-radius:12px; margin-bottom:12px; object-fit:cover; box-shadow:0 4px 14px rgba(0,0,0,0.6); }
+  h1 { font-family:var(--f-disp); font-size:22px; font-weight:800; letter-spacing:1px; color:#fff; margin-bottom:6px; }
+  p.sub { font-size:13px; color:var(--dim); line-height:1.45; margin-bottom:18px; }
+
+  .user-info {
+    display:flex; align-items:center; gap:12px; background:rgba(0,255,135,0.05); border:1px solid rgba(0,255,135,0.25);
+    border-radius:14px; padding:12px 14px; margin-bottom:20px; text-align:left;
+  }
+  .av { width:42px; height:42px; border-radius:10px; background:var(--ouro); color:#231704; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:20px; flex-shrink:0; }
+  .user-txt { overflow:hidden; }
+  .user-txt b { font-size:14px; color:#fff; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .user-txt span { font-size:12px; color:var(--dim); display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+  .box-input {
+    background:rgba(0,0,0,0.35); border:1.5px solid var(--border); border-radius:16px;
+    padding:16px 14px; margin-bottom:20px; text-align:center; transition:border-color .2s;
+  }
+  .box-input:focus-within { border-color:var(--verde); box-shadow:0 0 16px rgba(0,255,135,0.25); }
+  .box-input label { display:block; font-family:var(--f-mono); font-size:11px; color:var(--dim); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px; }
+  .input-cod {
+    width:100%; background:transparent; border:none; outline:none;
+    font-family:var(--f-mono); font-size:28px; font-weight:900; letter-spacing:4px;
+    color:var(--verde); text-align:center; text-transform:uppercase;
+  }
+  .input-cod::placeholder { color:rgba(143,176,156,0.35); letter-spacing:3px; }
+
+  .btn {
+    width:100%; border:none; border-radius:12px; padding:15px; font-family:var(--f-disp);
+    font-weight:800; font-size:15px; letter-spacing:1px; cursor:pointer; margin-bottom:10px; transition:transform .1s, opacity .15s;
+  }
+  .btn:active { transform:scale(0.98); }
+  .btn.verde { background:var(--verde); color:#04120a; box-shadow:0 8px 24px rgba(0,255,135,0.25); }
+  .btn.verde:disabled { opacity:0.5; cursor:not-allowed; box-shadow:none; }
+  .btn.sec { background:transparent; color:var(--dim); border:1px solid var(--border); }
+  .sucesso { color:var(--verde); font-weight:700; margin-top:14px; font-size:15px; display:none; line-height:1.5; }
+  .erro { color:var(--rosa); font-weight:600; margin-top:12px; font-size:13px; display:none; line-height:1.4; }
+  .spin { display:inline-block; width:16px; height:16px; border:2px solid rgba(4,18,10,.3); border-top-color:#04120a; border-radius:50%; animation:g .7s linear infinite; vertical-align:-2px; margin-right:6px; }
+  @keyframes g { to { transform:rotate(360deg); } }
+</style>
+<meta name="theme-color" content="#061009"><link rel="stylesheet" href="/comum/ui-promessa.css"><script type="module" src="/comum/promessa-boot.js"></script>
+</head>
+<body>
+<div class="card">
+  <img class="crest" src="../assets/logo_goat_oficial.jpg" alt="Logo">
+  <h1>CONECTAR PC</h1>
+  <p class="sub">Digite o código exibido na tela do computador para autorizar o acesso à sua conta.</p>
+
+  <div class="user-info" id="boxUser">
+    <div class="av" id="avLetra">P</div>
+    <div class="user-txt">
+      <b id="txtNome">Carregando conta...</b>
+      <span id="txtEmail">---</span>
+    </div>
+  </div>
+
+  <div class="box-input">
+    <label for="inpCod">Código do Computador</label>
+    <input class="input-cod" id="inpCod" type="text" maxlength="9" placeholder="XXXX-XXXX" autocomplete="off" spellcheck="false" autofocus>
+  </div>
+
+  <div id="acoes">
+    <button class="btn verde" id="btAutorizar">AUTORIZAR COMPUTADOR</button>
+    <button class="btn sec" id="btVoltar" type="button">VOLTAR AO JOGO</button>
+  </div>
+
+  <div class="sucesso" id="msgSucesso">
+    <div style="font-size:34px;line-height:1;margin-bottom:8px;color:var(--verde)">&#10003;</div>
+    <b>Computador conectado com sucesso!</b><br>
+    <span style="font-size:12.5px;color:var(--dim)">O jogo foi liberado na tela do seu computador.</span>
+  </div>
+  <div class="erro" id="msgErro"></div>
+</div>
+
+<script src="vendor/supabase.js?v=20261023"></script>
+<script src="config.js?v=20261023"></script>
+<script src="sessao.js?v=20261023"></script>
+<script>
+(async function() {
+  var CFG = window.PROMESSA_CARTAS || {
+    SUPABASE_URL: 'https://qtdycffnwqblysfgvmck.supabase.co',
+    SUPABASE_KEY: 'sb_publishable_7FbcotsG3ThADGIyoSMFsg_m6R9ySxY'
+  };
+  var sb = window.PROMESSA_SB || window.supabase.createClient(CFG.SUPABASE_URL, CFG.SUPABASE_KEY);
+
+  var params = new URLSearchParams(location.search);
+  var codInicial = (params.get('cod') || params.get('codigo') || '').toUpperCase().trim();
+
+  var inpCod = document.getElementById('inpCod');
+  var elNome = document.getElementById('txtNome');
+  var elEmail = document.getElementById('txtEmail');
+  var elLetra = document.getElementById('avLetra');
+  var elAcoes = document.getElementById('acoes');
+  var elSucesso = document.getElementById('msgSucesso');
+  var elErro = document.getElementById('msgErro');
+  var btAuth = document.getElementById('btAutorizar');
+  var btVoltar = document.getElementById('btVoltar');
+
+  // Formata o código automaticamente com hífen (XXXX-XXXX)
+  function formatarCodigo(val) {
+    var limpo = val.replace(/[^A-Za-z0-9]/g, '').toUpperCase().slice(0, 8);
+    if (limpo.length > 4) {
+      return limpo.slice(0, 4) + '-' + limpo.slice(4);
+    }
+    return limpo;
+  }
+
+  inpCod.addEventListener('input', function() {
+    var formatado = formatarCodigo(inpCod.value);
+    inpCod.value = formatado;
+    elErro.style.display = 'none';
+  });
+
+  if (codInicial) {
+    inpCod.value = formatarCodigo(codInicial);
+  }
+
+  // Verifica usuário ativo no celular
+  var u = null;
+  var cl = null;
+  try { u = await window.Promessa.usuario(); } catch (e) {}
+  try {
+    var rawCl = localStorage.getItem('promessa_conta_local');
+    if (rawCl) cl = JSON.parse(rawCl);
+  } catch (e) {}
+
+  if (!u && !cl) {
+    // Redireciona para login no celular e volta para cá
+    location.replace('login.html?next=' + encodeURIComponent('conta/autorizar.html' + location.search));
+    return;
+  }
+
+  var apelido = (u && u.user_metadata && (u.user_metadata.apelido || u.user_metadata.nick)) ||
+                (cl && cl.nick) ||
+                (u && u.email && u.email.split('@')[0]) || 'Jogador';
+  var email = (u && u.email) || (cl && cl.email) || 'Conta Promessa';
+
+  elNome.textContent = apelido;
+  elEmail.textContent = email;
+  elLetra.textContent = apelido.charAt(0).toUpperCase();
+
+  // Função hash do canal (SHA-256)
+  async function hashCanal(cod) {
+    var limpo = cod.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+    var d = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('promessa:' + limpo));
+    return 'lgc_' + Array.from(new Uint8Array(d)).slice(0, 16).map(function(b) {
+      return b.toString(16).padStart(2, '0');
+    }).join('');
+  }
+
+  btAuth.addEventListener('click', async function() {
+    var cod = inpCod.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+    if (cod.length !== 8) {
+      elErro.textContent = 'Digite o código completo de 8 letras e números exibido no computador.';
+      elErro.style.display = 'block';
+      inpCod.focus();
+      return;
+    }
+
+    btAuth.disabled = true;
+    btAuth.innerHTML = '<span class="spin"></span> Conectando ao computador...';
+    elErro.style.display = 'none';
+
+    try {
+      var canalNome = await hashCanal(cod);
+      var channel = sb.channel(canalNome);
+      var pcPubJwk = null;
+      var transferido = false;
+
+      // Par de chaves ECDH do celular
+      var parCel = await crypto.subtle.generateKey({ name: 'ECDH', namedCurve: 'P-256' }, false, ['deriveKey']);
+      var pubCelJwk = await crypto.subtle.exportKey('jwk', parCel.publicKey);
+
+      // Função de cifragem e envio seguro
+      async function enviarPayloadCifrado(pubKeyJwk) {
+        if (transferido) return;
+        var pubPC = await crypto.subtle.importKey('jwk', pubKeyJwk, { name: 'ECDH', namedCurve: 'P-256' }, false, []);
+        var chaveCompartilhada = await crypto.subtle.deriveKey(
+          { name: 'ECDH', public: pubPC },
+          parCel.privateKey,
+          { name: 'AES-GCM', length: 256 },
+          false,
+          ['encrypt']
+        );
+
+        var s = await sb.auth.getSession();
+        var sessionData = s && s.data && s.data.session;
+
+        var dados = {
+          session: sessionData ? {
+            access_token: sessionData.access_token,
+            refresh_token: sessionData.refresh_token
+          } : null,
+          contaLocal: cl ? { id: cl.id, email: cl.email, nick: cl.nick, criado_em: cl.criado_em } : null,
+          user: u,
+          codigo: cod,
+          timestamp: Date.now()
+        };
+
+        var iv = crypto.getRandomValues(new Uint8Array(12));
+        var enc = new TextEncoder().encode(JSON.stringify(dados));
+        var ctBuffer = await crypto.subtle.encrypt({ name: 'AES-GCM', iv: iv }, chaveCompartilhada, enc);
+
+        var payload = {
+          pub: pubCelJwk,
+          iv: btoa(String.fromCharCode.apply(null, Array.from(iv))),
+          ct: btoa(String.fromCharCode.apply(null, Array.from(new Uint8Array(ctBuffer))))
+        };
+
+        await channel.send({
+          type: 'broadcast',
+          event: 'autorizado',
+          payload: payload
+        });
+      }
+
+      // Escuta chave pública do PC
+      channel.on('broadcast', { event: 'pubkey' }, async function(ev) {
+        if (ev && ev.payload && ev.payload.pub) {
+          pcPubJwk = ev.payload.pub;
+          await enviarPayloadCifrado(pcPubJwk);
+        }
+      });
+
+      // Escuta confirmação do PC
+      channel.on('broadcast', { event: 'ack' }, function() {
+        transferido = true;
+        elAcoes.style.display = 'none';
+        elSucesso.style.display = 'block';
+        setTimeout(function() {
+          try { sb.removeChannel(channel); } catch (e) {}
+          location.href = '../index.html';
+        }, 2500);
+      });
+
+      channel.subscribe(async function(status) {
+        if (status === 'SUBSCRIBED') {
+          // Pede a chave do PC
+          await channel.send({ type: 'broadcast', event: 'hello', payload: {} });
+        }
+      });
+
+      // Timeout de resposta se o código estiver errado
+      setTimeout(function() {
+        if (!transferido) {
+          btAuth.disabled = false;
+          btAuth.innerHTML = 'AUTORIZAR COMPUTADOR';
+          elErro.textContent = 'Não foi possível encontrar esse computador. Verifique se o código ainda está na tela do PC e não expirou.';
+          elErro.style.display = 'block';
+          try { sb.removeChannel(channel); } catch (e) {}
+        }
+      }, 7000);
+
+    } catch (err) {
+      console.error(err);
+      btAuth.disabled = false;
+      btAuth.innerHTML = 'AUTORIZAR COMPUTADOR';
+      elErro.textContent = err.message || 'Erro ao autorizar computador.';
+      elErro.style.display = 'block';
+    }
+  });
+
+  btVoltar.addEventListener('click', function() {
+    location.href = '../index.html';
+  });
+})();
+</script>
+</body>
+</html>

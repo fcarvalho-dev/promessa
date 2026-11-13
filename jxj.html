@@ -1,0 +1,1987 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<link rel="icon" type="image/x-icon" href="/favicon.ico?v=20261022">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon.png?v=20261022">
+<link rel="shortcut icon" href="/favicon.ico?v=20261022">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=20261022">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PROMESSA — J × J</title>
+<!-- JXJ-2: página do J × J 2.0 (tema Hero, direção B). O montador só embute o logo; não aplica a pele antiga. -->
+<style>
+@font-face{font-family:'Teko';font-weight:500;src:url('fontes/teko-500.woff2') format('woff2')}
+@font-face{font-family:'Teko';font-weight:600;src:url('fontes/teko-600.woff2') format('woff2')}
+@font-face{font-family:'Teko';font-weight:700;src:url('fontes/teko-700.woff2') format('woff2')}
+@font-face{font-family:'Rajdhani';font-weight:500;src:url('fontes/rajdhani-500.woff2') format('woff2')}
+@font-face{font-family:'Rajdhani';font-weight:600;src:url('fontes/rajdhani-600.woff2') format('woff2')}
+@font-face{font-family:'Rajdhani';font-weight:700;src:url('fontes/rajdhani-700.woff2') format('woff2')}
+:root{
+  --bg:#040908;--bg2:#07100e;--pn:rgba(9,16,15,.92);--pn2:rgba(255,255,255,.035);
+  --ln:rgba(255,255,255,.1);--ln2:rgba(255,255,255,.18);
+  --br:#F2F7F4;--dim:rgba(242,247,244,.6);--dim2:rgba(242,247,244,.38);
+  --modo:#4DA3FF;--ouro:#E8B84B;--der:#FF5A6A;--ok:#00FF87;
+  --j1:#00FF87;--j1-rgb:0,255,135;--j2:#FF8A1F;--j2-rgb:255,138,31;
+  --on1:#03140b;--on2:#1c0d02;
+  --s-gol:#FFD24A;--s-def:#5AA8FF;--s-mei:#00FF87;--s-ata:#FF7A5C;
+  --cut:18px;
+}
+body.dirB{--j1:#4DA3FF;--j1-rgb:77,163,255;--j2:#FF5A6A;--j2-rgb:255,90,106;--on1:#03101f;--on2:#22060a}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--br);
+  font:600 15px/1.35 'Rajdhani','Segoe UI',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;margin:0;padding:0}
+button:focus-visible,input:focus-visible{outline:2px solid var(--modo);outline-offset:2px}
+img{display:block}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- palco ---------- */
+#st{position:fixed;left:0;right:0;top:0;bottom:0;display:flex;flex-direction:column;overflow:hidden;
+  background:radial-gradient(900px 480px at 0% 0%,rgba(var(--j1-rgb),.08),transparent 60%),
+             radial-gradient(900px 480px at 100% 0%,rgba(var(--j2-rgb),.08),transparent 60%),var(--bg)}
+body.dirB #st{background:radial-gradient(1200px 520px at 50% -10%,rgba(77,163,255,.10),transparent 60%),var(--bg)}
+
+/* cabeçalho A: arena dividida */
+.hdA{flex:none;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:12px clamp(14px,2.4vw,36px) 10px}
+.pl{display:flex;align-items:center;gap:12px;min-width:0}
+.pl.d{justify-content:flex-end;text-align:right}
+.pl .bar{width:6px;align-self:stretch;background:var(--c);box-shadow:0 0 14px var(--c)}
+.pl small{display:block;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--dim2)}
+.pl b{display:block;font:700 30px/.9 'Teko',sans-serif;text-transform:uppercase;letter-spacing:.5px;color:var(--c);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pl .pts{font:700 34px/1 'Teko',sans-serif;color:var(--br);padding:0 4px}
+.vs{display:flex;flex-direction:column;align-items:center;gap:2px}
+.vs .x{font:700 34px/.8 'Teko',sans-serif;letter-spacing:2px}
+.vs .x i{font-style:normal;color:var(--modo)}
+.vs small{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--dim)}
+/* cabeçalho B: transmissão */
+.hdB{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px clamp(14px,2.4vw,36px) 10px}
+.marca{display:flex;align-items:center;gap:10px;font:700 24px/1 'Teko',sans-serif;letter-spacing:1px;text-transform:uppercase}
+.marca i{font-style:normal;color:var(--modo)}
+.marca .nmj{font:inherit;letter-spacing:inherit;color:inherit}
+.marca span:not(.nmj){font:600 11px/1 'Rajdhani',sans-serif;letter-spacing:3px;color:var(--dim2)}
+.bug{display:flex;align-items:stretch;height:40px;background:#0b1316;border:1px solid var(--ln2);
+  clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%)}
+.bug .t{display:flex;align-items:center;gap:8px;padding:0 14px;font:700 22px/1 'Teko',sans-serif;text-transform:uppercase;letter-spacing:1px}
+.bug .t.a{background:var(--j1);color:var(--on1);padding-left:20px}
+.bug .t.b{background:var(--j2);color:var(--on2);padding-right:20px}
+.bug .m{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0 14px;min-width:96px}
+.bug .m b{font:700 22px/1 'Teko',sans-serif;letter-spacing:2px}
+.bug .m small{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim)}
+.hdB .fase{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--dim)}
+
+.corpo{flex:1;min-height:0;padding:0 clamp(14px,2.4vw,36px) clamp(12px,2vh,22px);display:grid;gap:14px}
+.rola{overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent;min-height:0}
+
+/* painel angular */
+.pn{position:relative;background:var(--pn);border:1px solid var(--ln);padding:16px;min-height:0;
+  clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% var(--cut),100% 100%,var(--cut) 100%,0 calc(100% - var(--cut)))}
+.pn h3,.h3{margin:0 0 10px;font:600 13px/1 'Rajdhani',sans-serif;letter-spacing:3px;text-transform:uppercase;color:var(--dim)}
+.h3 b{color:var(--br)}
+.novo{display:inline-block;margin-left:6px;padding:2px 7px 1px;font:700 10px/1.2 'Rajdhani',sans-serif;letter-spacing:2px;color:#000;background:var(--modo);vertical-align:2px;
+  clip-path:polygon(5px 0,100% 0,calc(100% - 5px) 100%,0 100%)}
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:50px;white-space:nowrap;padding:0 26px;background:var(--modo);color:#03101f;
+  font:700 24px/1 'Teko',sans-serif;letter-spacing:1.5px;text-transform:uppercase;box-shadow:0 0 26px rgba(77,163,255,.35);
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%)}
+.cta.c1{background:var(--j1);color:var(--on1);box-shadow:0 0 26px rgba(var(--j1-rgb),.35)}
+.cta.c2{background:var(--j2);color:var(--on2);box-shadow:0 0 26px rgba(var(--j2-rgb),.35)}
+.sec{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 18px;border:1px solid var(--ln2);
+  font:600 20px/1 'Teko',sans-serif;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{height:38px;padding:0 14px;border:1px solid var(--ln2);font:600 19px/1 'Teko',sans-serif;letter-spacing:1px;text-transform:uppercase;color:var(--dim)}
+.chip[aria-pressed=true]{background:var(--modo);border-color:var(--modo);color:#03101f}
+.chip small{display:block;font:600 11px/1 'Rajdhani',sans-serif;letter-spacing:1px;text-transform:none;opacity:.75}
+.op{display:grid;grid-template-columns:repeat(var(--n,2),minmax(0,1fr));gap:8px}
+.op button{display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:10px 12px;border:1px solid var(--ln2);text-align:left;min-width:0}
+.op button b{font:700 21px/1 'Teko',sans-serif;letter-spacing:1px;text-transform:uppercase}
+.op button span{font-size:12.5px;color:var(--dim);line-height:1.25}
+.op button[aria-pressed=true]{border-color:var(--modo);background:rgba(77,163,255,.1)}
+.op button[aria-pressed=true] b{color:var(--modo)}
+.dica{font-size:13px;color:var(--dim);line-height:1.4}
+.ico{width:18px;height:18px;flex:none}
+
+/* posição */
+.pos{flex:none;width:40px;text-align:center;padding:3px 0 2px;font:700 15px/1 'Teko',sans-serif;letter-spacing:1px;border:1px solid currentColor}
+.pos.GOL{color:var(--s-gol)}.pos.DEF{color:var(--s-def)}.pos.MEI{color:var(--s-mei)}.pos.ATA{color:var(--s-ata)}
+.pos i{display:block;font:600 9px/1 'Rajdhani',sans-serif;letter-spacing:0;opacity:.7;margin-top:1px;font-style:normal}
+
+/* cartão de jogador */
+.pc{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;background:var(--pn2);border:1px solid var(--ln);text-align:left;min-width:0}
+.pc img{width:30px;height:30px;object-fit:contain}
+.pc .nm{min-width:0;flex:1}
+.pc .nm b{display:block;font-size:15px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc .nm span{display:block;font-size:12px;color:var(--dim2)}
+.pc .f{font:700 26px/1 'Teko',sans-serif;font-variant-numeric:tabular-nums}
+.pc.trava{border-color:var(--ouro);background:rgba(232,184,75,.08)}
+.pc.desc{border-color:var(--der);background:rgba(255,90,106,.07)}
+.pc.usa{border-color:rgba(var(--j-rgb),.6);background:rgba(var(--j-rgb),.07)}
+.pc .mk{display:flex;align-items:center;gap:4px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase}
+.pc.trava .mk{color:var(--ouro)}.pc.desc .mk{color:var(--der)}
+.setor{display:flex;align-items:center;gap:8px;margin:12px 0 6px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--dim2)}
+.setor:first-child{margin-top:0}
+.setor::after{content:"";flex:1;height:1px;background:var(--ln)}
+.grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px}
+
+/* ======== LOBBY ======== */
+.lob{grid-template-columns:minmax(0,1fr) minmax(380px,520px)}
+.heroimg{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;gap:12px;padding:clamp(18px,3vw,36px)}
+.heroimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;filter:saturate(.9)}
+.heroimg::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(4,9,8,.05) 20%,rgba(4,9,8,.7) 60%,#040908)}
+.heroimg{isolation:isolate}
+.heroimg .eyb{display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--modo)}
+.heroimg .eyb::before{content:"";width:8px;height:8px;transform:rotate(45deg);background:var(--modo);box-shadow:0 0 10px var(--modo)}
+.heroimg h1{margin:0;font:700 clamp(54px,9vh,100px)/.82 'Teko',sans-serif;text-transform:uppercase}
+.heroimg h1 em{font-style:normal;color:var(--modo)}
+.riv{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;max-width:520px;padding:12px 16px;background:rgba(0,0,0,.55);border:1px solid var(--ln2);
+  clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))}
+.riv .n{font:700 22px/1 'Teko',sans-serif;text-transform:uppercase}
+.riv .n.a{color:var(--j1)}.riv .n.b{color:var(--j2);text-align:right}
+.riv .p{font:700 40px/1 'Teko',sans-serif;letter-spacing:2px;text-align:center}
+.riv .rod{grid-column:1/-1;display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--dim);border-top:1px solid var(--ln);padding-top:8px}
+.cfg{display:flex;flex-direction:column;gap:14px}
+.nomes{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+.nome{display:flex;align-items:center;gap:0;border:1px solid var(--ln2);background:rgba(0,0,0,.3)}
+.nome i{width:6px;align-self:stretch;background:var(--c)}
+.nome input{flex:1;min-width:0;height:46px;padding:0 12px;background:none;border:0;color:var(--c);font:700 24px/1 'Teko',sans-serif;text-transform:uppercase;letter-spacing:1px}
+.liga{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--ln2)}
+.liga img{width:34px;height:24px;object-fit:cover}
+.liga b{display:block;font:700 22px/1 'Teko',sans-serif;text-transform:uppercase}
+.liga span{font-size:12.5px;color:var(--dim)}
+.liga .sec{margin-left:auto;height:34px;font-size:17px}
+
+/* ======== DRAFT ======== */
+.drf{grid-template-columns:240px minmax(0,1fr) 240px;grid-template-rows:auto minmax(0,1fr)}
+.ordem{grid-column:1/-1;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ordem .o{width:34px;height:30px;display:grid;place-items:center;font:700 20px/1 'Teko',sans-serif;border:1px solid var(--ln2);color:var(--dim2)}
+.ordem .o.a{color:var(--j1);border-color:rgba(var(--j1-rgb),.4)}.ordem .o.b{color:var(--j2);border-color:rgba(var(--j2-rgb),.4)}
+.ordem .o.feito{opacity:.35}
+.ordem .o.agora{background:var(--j2);color:var(--on2);border-color:var(--j2);box-shadow:0 0 14px rgba(var(--j2-rgb),.5)}
+.picks{display:flex;flex-direction:column;gap:8px}
+.picks .h3{color:var(--c)}
+.slotc{display:flex;align-items:center;gap:10px;height:62px;padding:0 12px;border:1px solid var(--ln);background:var(--pn2)}
+.slotc img{width:40px;height:40px;object-fit:contain}
+.slotc b{font:700 21px/1 'Teko',sans-serif;text-transform:uppercase}
+.slotc span{display:block;font-size:12px;color:var(--dim2)}
+.slotc.vazio{border-style:dashed;justify-content:center;color:var(--dim2);font-size:13px;letter-spacing:2px;text-transform:uppercase}
+.picks .tot{margin-top:auto;font-size:12.5px;color:var(--dim)}
+.clubes{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;align-content:start}
+.clube{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 8px 10px;border:1px solid var(--ln);background:var(--pn2);transition:border-color .2s,transform .2s}
+.clube:hover{border-color:var(--j2);transform:translateY(-2px)}
+.clube img{width:58px;height:58px;object-fit:contain;filter:drop-shadow(0 6px 14px rgba(0,0,0,.5))}
+.clube b{font:700 20px/1 'Teko',sans-serif;text-transform:uppercase;text-align:center}
+.clube .ov{font:700 16px/1 'Teko',sans-serif;letter-spacing:1px;color:var(--dim)}
+.clube .ov b{font-size:20px;color:var(--br)}
+.clube.tom{opacity:.28;pointer-events:none}
+.clube .dono{position:absolute;top:6px;left:6px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 6px;color:#000;background:var(--c)}
+.clube .estr{position:absolute;top:6px;right:8px;display:flex;gap:2px}
+.clube .estr i{width:6px;height:6px;transform:rotate(45deg);background:var(--ouro)}
+
+/* ======== ROUBO ======== */
+.rb{grid-template-columns:minmax(0,1fr) 320px}
+.passo{display:flex;flex-direction:column;gap:12px}
+.alvo{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--ln2);background:rgba(0,0,0,.3)}
+.alvo .ic{width:42px;height:42px;display:grid;place-items:center;border:1px solid currentColor}
+.alvo b{display:block;font:700 22px/1 'Teko',sans-serif;text-transform:uppercase}
+.alvo span{font-size:12.5px;color:var(--dim)}
+.alvo.t{color:var(--ouro)}.alvo.d{color:var(--der)}
+.alvo.t b,.alvo.d b{color:var(--br)}
+/* revelação */
+.rev{grid-template-columns:1fr 1fr;align-items:center}
+.carta{perspective:1200px;height:min(56vh,420px)}
+.carta .in{position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:vira 1s .3s both}
+@keyframes vira{from{transform:rotateY(180deg)}to{transform:rotateY(0)}}
+.carta .fr,.carta .vs2{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:20px;text-align:center;border:1px solid var(--ln2);
+  clip-path:polygon(0 0,calc(100% - 26px) 0,100% 26px,100% 100%,26px 100%,0 calc(100% - 26px))}
+.carta .vs2{transform:rotateY(180deg);background:repeating-linear-gradient(45deg,#0b1513 0 12px,#0e1a18 12px 24px)}
+.carta .fr{background:linear-gradient(180deg,rgba(var(--c-rgb),.14),rgba(0,0,0,.6))}
+.carta .quem{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--c)}
+.carta .ped{font-size:14px;color:var(--dim)}
+.carta .ped s{color:var(--br)}
+.carta img{width:74px;height:74px;object-fit:contain}
+.carta .lev{font:700 clamp(30px,5vh,46px)/.9 'Teko',sans-serif;text-transform:uppercase}
+.carta .res{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;font:700 18px/1 'Teko',sans-serif;letter-spacing:1.5px;text-transform:uppercase}
+.carta .res.tr{background:var(--ouro);color:#1a1003}.carta .res.ok{background:var(--c);color:#000}
+.carta .f{font:700 44px/1 'Teko',sans-serif}
+
+/* ======== PASSAR ======== */
+.pas{place-items:center;text-align:center;position:relative;overflow:hidden}
+.pas .cort{position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(var(--c-rgb),.06) 0 2px,transparent 2px 60px),linear-gradient(180deg,rgba(var(--c-rgb),.10),transparent 70%)}
+.pas .cx{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;max-width:560px}
+.pas small{font-size:13px;letter-spacing:5px;text-transform:uppercase;color:var(--dim)}
+.pas h2{margin:0;font:700 clamp(64px,13vh,140px)/.82 'Teko',sans-serif;text-transform:uppercase;color:var(--c);text-shadow:0 0 40px rgba(var(--c-rgb),.35)}
+.pas p{margin:0;color:var(--dim);font-size:16px}
+.segura{position:relative;width:min(340px,80vw);height:58px;border:1px solid var(--c);color:var(--c);font:700 24px/1 'Teko',sans-serif;letter-spacing:2px;text-transform:uppercase;overflow:hidden;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%)}
+.segura i{position:absolute;left:0;top:0;bottom:0;width:38%;background:rgba(var(--c-rgb),.25)}
+.segura span{position:relative}
+.pas.B{background:#000}
+.pas.B .cort{background:radial-gradient(600px 300px at 50% 50%,rgba(var(--c-rgb),.12),transparent 70%)}
+
+/* ======== ESCALAÇÃO ======== */
+.esc{grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr)}
+.campo{position:relative;display:flex;flex-direction:column;justify-content:space-around;padding:14px 8px;border:1px solid rgba(var(--j-rgb),.22);min-height:0;
+  background:repeating-linear-gradient(180deg,rgba(255,255,255,.025) 0 9%,rgba(255,255,255,.0) 9% 18%),linear-gradient(180deg,#0a1714,#071210)}
+.campo::before{content:"";position:absolute;left:50%;top:50%;width:18%;aspect-ratio:1;transform:translate(-50%,-50%);border:1px solid rgba(255,255,255,.08);border-radius:50%}
+.campo::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(255,255,255,.08)}
+.campo .ar{position:absolute;left:30%;right:30%;height:12%;border:1px solid rgba(255,255,255,.08)}
+.campo .ar.t{top:0;border-top:0}.campo .ar.b{bottom:0;border-bottom:0}
+.lin{position:relative;z-index:1;display:flex;justify-content:space-evenly}
+.vg{position:relative;display:flex;flex-direction:column;align-items:center;gap:1px;width:clamp(62px,9vw,96px)}
+.vg .cam{position:relative;width:clamp(36px,5.4vh,52px);height:clamp(36px,5.4vh,52px)}
+.vg .cam img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(0,0,0,.6))}
+.vg .fz{position:absolute;right:-12px;top:-4px;min-width:26px;padding:1px 4px 0;background:#000;border:1px solid rgba(var(--j-rgb),.6);font:700 16px/1.1 'Teko',sans-serif;text-align:center;font-variant-numeric:tabular-nums}
+.vg .fz.pen{border-color:var(--ouro);color:var(--ouro)}
+.vg .nm{max-width:100%;padding:2px 6px 1px;background:rgba(0,0,0,.7);font-size:12.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vg .ps{font-size:10px;letter-spacing:1.5px;color:var(--dim2)}
+.vg .dots{display:flex;gap:3px;margin-top:2px}
+.vg .dots i{width:6px;height:6px;transform:rotate(45deg);background:#1b2724;border:1px solid rgba(255,255,255,.2)}
+.vg .dots i.c{background:var(--ok);border-color:var(--ok);box-shadow:0 0 6px var(--ok)}
+.vg .dots i.m{background:var(--ouro);border-color:var(--ouro)}
+.vg.vazia .cam{border:1.5px dashed rgba(var(--j-rgb),.45);display:grid;place-items:center;color:rgba(var(--j-rgb),.7);font:700 26px/1 'Teko',sans-serif}
+.lado{display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;gap:12px;min-height:0}
+.forms{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.forms::-webkit-scrollbar{display:none}
+.forms .chip{flex:none}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.nums>div{padding:8px 10px;border:1px solid var(--ln);background:var(--pn2)}
+.nums small{display:block;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--dim2)}
+.nums b{font:700 30px/1 'Teko',sans-serif;font-variant-numeric:tabular-nums}
+.nums b.j{color:var(--j)}
+.nums b.w{color:var(--ouro)}
+.entro{grid-column:1/-1}
+.entro .barra{position:relative;height:8px;background:#121c1a;margin:6px 0 4px}
+.entro .barra i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,rgba(var(--j-rgb),.4),var(--j))}
+.entro .leg{display:flex;justify-content:space-between;font-size:12px;color:var(--dim)}
+.banco .pc{padding:6px 8px}
+.banco .pc img{width:26px;height:26px}
+.banco .pc .f{font-size:22px}
+
+/* ======== AO VIVO ======== */
+.viv{grid-template-columns:minmax(0,1fr) minmax(320px,400px);grid-template-rows:auto minmax(0,1fr)}
+.placar{grid-column:1/-1;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:clamp(12px,3vw,40px);padding:16px 22px}
+.placar .t{display:flex;align-items:center;gap:12px;min-width:0}
+.placar .t.d{flex-direction:row-reverse;text-align:right}
+.placar .t b{display:block;font:700 clamp(28px,4.4vh,40px)/.9 'Teko',sans-serif;text-transform:uppercase;color:var(--c)}
+.placar .t span{font-size:12.5px;color:var(--dim)}
+.placar .esc3{display:flex;gap:4px}
+.placar .esc3 img{width:30px;height:30px;object-fit:contain}
+.placar .sc{text-align:center}
+.placar .sc b{display:block;font:700 clamp(64px,10vh,96px)/.8 'Teko',sans-serif;letter-spacing:3px;font-variant-numeric:tabular-nums}
+.placar .sc b i{font-style:normal;color:var(--dim2);margin:0 6px}
+.placar .sc span{display:inline-flex;align-items:center;gap:6px;font-size:13px;letter-spacing:2px;color:var(--der)}
+.placar .sc span::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--der);animation:pisca 1s infinite}
+@keyframes pisca{50%{opacity:.25}}
+.mini{display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;gap:12px;min-height:0}
+.pressao .lab{display:flex;justify-content:space-between;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--dim2);margin-bottom:6px}
+.pressao .br{display:flex;height:10px;gap:2px}
+.pressao .br i{background:var(--j1)}.pressao .br i+i{background:var(--j2)}
+.gramado{position:relative;height:120px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(90deg,#0b1a16,#08130f)}
+.gramado::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(255,255,255,.1)}
+.gramado::after{content:"";position:absolute;left:50%;top:50%;width:46px;height:46px;transform:translate(-50%,-50%);border:1px solid rgba(255,255,255,.1);border-radius:50%}
+.gramado .gA,.gramado .gB{position:absolute;top:30%;bottom:30%;width:5%;border:1px solid rgba(255,255,255,.12)}
+.gramado .gA{left:0;border-left:0}.gramado .gB{right:0;border-right:0}
+.gramado .bola{position:absolute;left:68%;top:40%;width:12px;height:12px;border-radius:50%;background:#fff;box-shadow:0 0 14px #fff;transition:left .6s,top .6s}
+.gramado .ataq{position:absolute;left:50%;right:20%;top:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(var(--j1-rgb),.14))}
+.stt{display:grid;grid-template-columns:1fr auto 1fr;gap:12px 14px;font-size:14px;align-content:start}
+.stt .a{text-align:right;font:700 20px/1 'Teko',sans-serif}.stt .b{font:700 20px/1 'Teko',sans-serif}
+.stt .k{text-align:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--dim2);align-self:center}
+.ctrl{display:flex;gap:6px}
+.ctrl .chip{flex:1}
+.feed{display:flex;flex-direction:column;gap:6px}
+.ev{display:grid;grid-template-columns:44px minmax(0,1fr);gap:10px;align-items:center;padding:9px 12px;background:var(--pn2);border-left:3px solid var(--c);animation:entra .35s ease both}
+@keyframes entra{from{opacity:0;transform:translateY(-6px)}}
+.ev .m{font:700 22px/1 'Teko',sans-serif;color:var(--dim)}
+.ev small{display:block;font-size:12px;color:var(--dim)}
+.ev.gol{background:linear-gradient(90deg,rgba(var(--c-rgb),.18),transparent);}
+.ev.gol b.t{font:700 22px/1 'Teko',sans-serif;letter-spacing:1px;color:var(--c)}
+.ev.verm{border-left-color:var(--der)}
+.ev .cv{display:inline-block;width:10px;height:14px;background:var(--der);vertical-align:-2px;margin-right:6px}
+.ev.neu{border-left-color:var(--ln2);grid-template-columns:1fr;text-align:center;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+/* B: feed em duas colunas como transmissão */
+body.dirB .feed{display:grid;grid-template-columns:1fr 44px 1fr;gap:6px 8px}
+body.dirB .ev{grid-template-columns:1fr;border-left:0;border-top:2px solid var(--c);text-align:left}
+body.dirB .ev.e{grid-column:1;text-align:right}
+body.dirB .ev.d{grid-column:3}
+body.dirB .ev .m{display:none}
+body.dirB .mm{grid-column:2;text-align:center;font:700 20px/2 'Teko',sans-serif;color:var(--dim)}
+body.dirB .ev.neu{grid-column:1/-1}
+
+/* ======== INTERVALO ======== */
+.itv{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.post .op button{align-items:center;text-align:center}
+.post .op svg{width:44px;height:28px}
+.subs{display:flex;flex-direction:column;gap:6px}
+.troca{display:grid;grid-template-columns:minmax(0,1fr) 30px minmax(0,1fr);align-items:center;gap:6px}
+.troca .seta{display:grid;place-items:center;color:var(--modo)}
+.troca .pc.sai{border-color:rgba(255,90,106,.5)}
+.troca .pc.ent{border-color:rgba(0,255,135,.5)}
+.contador{display:flex;gap:6px}
+.contador i{width:28px;height:8px;background:#1b2724}
+.contador i.u{background:var(--j)}
+
+/* ======== PÊNALTIS ======== */
+.pen{grid-template-columns:minmax(0,1fr) 300px}
+.golpen{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+.trave{position:relative;width:min(100%,640px);aspect-ratio:3/1.15;border:6px solid #E9EEF0;border-bottom:0;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 1px,transparent 1px 16px),repeating-linear-gradient(0deg,rgba(255,255,255,.06) 0 1px,transparent 1px 16px)}
+.zonas{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr)}
+.zonas button{border-right:1px dashed rgba(255,255,255,.12);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:700 26px/1 'Teko',sans-serif;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.zonas button:last-child{border-right:0}
+.zonas button:hover{background:rgba(var(--c-rgb),.08);color:var(--br)}
+.zonas button[aria-pressed=true]{background:rgba(var(--c-rgb),.18);color:var(--c);box-shadow:inset 0 0 0 2px var(--c)}
+.zonas small{font:600 12px/1 'Rajdhani',sans-serif;letter-spacing:1px;color:var(--dim2);text-transform:none}
+.marcapen{width:min(100%,640px);height:10px;border-top:2px solid rgba(255,255,255,.3)}
+.duelo{display:flex;align-items:center;gap:18px}
+.duelo .q{display:flex;align-items:center;gap:10px}
+.duelo .q b{display:block;font:700 26px/1 'Teko',sans-serif;text-transform:uppercase}
+.duelo .q span{font-size:12px;color:var(--dim)}
+.duelo .q img{width:42px;height:42px;object-fit:contain}
+.duelo .x{font:700 22px/1 'Teko',sans-serif;color:var(--dim2)}
+.serie{display:flex;flex-direction:column;gap:10px}
+.serie .ln{display:flex;align-items:center;gap:8px}
+.serie .ln b{width:84px;font:700 20px/1 'Teko',sans-serif;text-transform:uppercase;color:var(--c);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.serie .ln i{width:20px;height:20px;border:1px solid var(--ln2);display:grid;place-items:center}
+.serie .ln i.g{background:var(--c);border-color:var(--c)}
+.serie .ln i.x{border-color:var(--der)}
+.serie .ln i.x::after{content:"";width:12px;height:2px;background:var(--der);transform:rotate(45deg)}
+.serie .ln i.p{border-style:dashed}
+.etapas{display:flex;flex-direction:column;gap:8px}
+.etapas div{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--dim)}
+.etapas div b{flex:none;width:24px;height:24px;display:grid;place-items:center;font:700 18px/1 'Teko',sans-serif;border:1px solid var(--ln2)}
+.etapas div.on{color:var(--br)}.etapas div.on b{background:var(--c);color:#000;border-color:var(--c)}
+
+/* ======== FIM ======== */
+.fim{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr)}
+.ban{grid-column:1/-1;position:relative;overflow:hidden;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;padding:18px 24px;
+  background:linear-gradient(90deg,rgba(var(--j1-rgb),.22),rgba(0,0,0,.5) 55%)}
+.ban .w small{display:block;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--j1)}
+.ban .w b{display:block;font:700 clamp(46px,8vh,80px)/.82 'Teko',sans-serif;text-transform:uppercase;color:var(--j1);text-shadow:0 0 30px rgba(var(--j1-rgb),.4)}
+.ban .w span{font-size:14px;color:var(--dim)}
+.ban .sc{text-align:center}
+.ban .sc b{display:block;font:700 clamp(60px,9vh,90px)/.8 'Teko',sans-serif;letter-spacing:3px}
+.ban .sc span{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.ban .sr{justify-self:end;text-align:right}
+.ban .sr small{display:block;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--dim2)}
+.ban .sr b{font:700 36px/1 'Teko',sans-serif}
+.ban .sr b .a{color:var(--j1)}.ban .sr b .b{color:var(--j2)}
+.craque{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center}
+.craque .sel{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--ouro)}
+.craque img{width:96px;height:96px;object-fit:contain;filter:drop-shadow(0 10px 24px rgba(0,0,0,.6))}
+.craque b{font:700 38px/.9 'Teko',sans-serif;text-transform:uppercase}
+.craque .nt{font:700 64px/1 'Teko',sans-serif;color:var(--ouro)}
+.craque span{display:block;font-size:13px;color:var(--dim)}
+.notas .pc{padding:5px 8px}
+.notas .pc img{width:24px;height:24px}
+.notas .nt{font:700 20px/1 'Teko',sans-serif;padding:3px 6px 1px;min-width:40px;text-align:center}
+.nt.b{background:rgba(0,255,135,.14);color:var(--ok)}.nt.m{background:rgba(232,184,75,.14);color:var(--ouro)}.nt.r{background:rgba(255,90,106,.14);color:var(--der)}
+.acoes{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ======== SALA ONLINE ======== */
+.sala{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-content:start}
+.salaw{display:flex;flex-direction:column;gap:14px}
+.cod{display:flex;gap:10px}
+.cod span,.cod input{width:clamp(56px,7vw,84px);height:clamp(72px,10vh,104px);display:grid;place-items:center;text-align:center;border:1px solid var(--ln2);background:rgba(0,0,0,.35);
+  font:700 clamp(48px,7vh,72px)/1 'Teko',sans-serif;color:var(--modo);text-transform:uppercase}
+.cod span{border-color:rgba(77,163,255,.5);box-shadow:inset 0 0 24px rgba(77,163,255,.12)}
+.cod input{color:var(--br)}
+/* campo de codigo: 4 caracteres cabem na mesma largura de 4 caixas */
+.cod.in input{width:min(100%,calc(4 * clamp(56px,7vw,84px) + 30px));letter-spacing:.34em;text-indent:.34em;padding:0 6px}
+.cod.in input::placeholder{color:rgba(242,247,244,.25)}
+@media (max-width:460px){.cod.in input{font-size:clamp(34px,11vw,52px);height:clamp(60px,14vw,86px)}}
+.esp{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--dim)}
+.esp i{width:10px;height:10px;border-radius:50%;background:var(--modo);animation:pisca 1s infinite}
+.jog{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.jog div{padding:10px 12px;border:1px solid var(--ln);border-top:3px solid var(--c)}
+.jog b{display:block;font:700 24px/1 'Teko',sans-serif;text-transform:uppercase;color:var(--c)}
+.jog span{font-size:12px;color:var(--dim2)}
+.jog .vaz{border-style:dashed;border-top-style:solid;opacity:.6}
+.tirar{margin-left:auto;height:28px;padding:0 10px;border:1px solid var(--ln2);font:600 16px/1 'Teko',sans-serif;letter-spacing:1px;text-transform:uppercase;color:var(--dim)}
+.tirar:hover{border-color:var(--der);color:var(--der)}
+.esc3 .lg{width:40px;height:40px;object-fit:cover;border-radius:10px;border:1px solid var(--ln2)}
+.vg.entrou .cam::after{content:"";position:absolute;left:-6px;top:-6px;width:12px;height:12px;background:var(--ok);transform:rotate(45deg);box-shadow:0 0 8px var(--ok)}
+.pc.saiu{opacity:.45}.pc.saiu .mk{color:var(--der)}
+.itv2 .lado{grid-template-rows:auto auto minmax(0,1fr) auto}
+.post .op button{padding:8px 10px}.post .op svg{width:36px;height:22px}
+
+/* ======== responsivo: celular ======== */
+@media (max-width:860px){
+  :root{--cut:12px}
+  .hdA{grid-template-columns:1fr auto 1fr;padding:10px 14px 8px}
+  .pl b{font-size:22px}.pl small{display:none}.vs .x{font-size:26px}.vs small{font-size:9px;letter-spacing:2px}
+  .hdB{padding:10px 14px 8px}.hdB .marca span,.hdB .fase{display:none}.bug .t{font-size:18px;padding:0 10px}.bug .m{min-width:70px}
+  .corpo{gap:10px}
+  .lob{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
+  .heroimg{min-height:0;padding:14px}.heroimg h1{font-size:42px}.heroimg .eyb{font-size:11px}
+  .riv{padding:8px 10px}.riv .p{font-size:28px}.riv .rod{display:none}
+  .cfg{gap:10px}.cfg .acl{position:sticky;bottom:-16px;margin:0 -16px -16px;padding:10px 16px 16px;background:linear-gradient(180deg,rgba(9,16,15,0),#09100f 30%)}
+  .lob{grid-template-rows:auto minmax(0,1fr)}.heroimg h1{font-size:38px}
+  .drf{grid-template-columns:1fr 1fr;grid-template-rows:auto auto minmax(0,1fr)}
+  .drf .picks{gap:4px}.drf .picks .tot{display:none}.slotc{height:40px}.slotc img{width:26px;height:26px}.slotc b{font-size:16px}.slotc span{display:none}
+  .drf .clubes-w{grid-column:1/-1}
+  .clubes{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .clube img{width:40px;height:40px}.clube b{font-size:16px}
+  .rb{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto}
+  .rev{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
+  .carta{height:100%}.carta img{width:48px;height:48px}.carta .f{font-size:30px}
+  .esc{grid-template-columns:1fr;grid-template-rows:minmax(0,1.25fr) minmax(0,1fr)}
+  .lado{gap:8px}.lado .cta{height:44px;font-size:21px}
+  .nums b{font-size:24px}.entro .leg span{display:none}
+  .cta{padding:0 18px;font-size:21px}
+  .viv{grid-template-columns:1fr;grid-template-rows:auto auto minmax(0,1fr)}
+  .placar{padding:10px 12px}.placar .esc3,.placar .t span{display:none}
+  .mini{grid-template-rows:auto auto}.mini .wgram,.mini .stt{display:none}
+  .itv{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
+  .pen{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto}.pen .etapas{display:none}
+  .zonas button{font-size:18px}.zonas small{display:none}
+  .sala{grid-template-columns:1fr}.cod span,.cod input{width:60px;height:72px;font-size:48px}
+  .post .op span{display:none}
+  .fim{grid-template-columns:1fr;grid-template-rows:auto auto minmax(0,1fr) minmax(0,1fr)}
+  .ban{grid-template-columns:1fr auto;padding:12px 14px}.ban .sr{display:none}
+  .craque{grid-column:1/-1;flex-direction:row;padding:10px}.craque img{width:52px;height:52px}.craque b{font-size:26px}.craque .nt{font-size:40px!important}.craque>div:not(.acoes) span,.craque .sel{display:none}
+  .grade{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ===== J × J 2.0: extras do jogo (o resto veio do teste aprovado) ===== */
+body{margin:0}
+.modo{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.mcard{position:relative;overflow:hidden;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-end;gap:10px;padding:clamp(18px,3vw,34px)!important;text-align:left;cursor:pointer;transition:transform .25s,border-color .25s}
+.mcard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;filter:saturate(.85)}
+.mcard::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(4,9,8,.05) 25%,rgba(4,9,8,.8) 65%,#040908)}
+.mcard.on{background:radial-gradient(700px 420px at 70% 20%,rgba(77,163,255,.22),transparent 60%),repeating-linear-gradient(90deg,rgba(77,163,255,.05) 0 2px,transparent 2px 60px),var(--pn)}
+.mcard:hover,.mcard:focus-visible{transform:translateY(-3px);border-color:var(--modo)}
+.mcard .tag{align-self:flex-start;font-size:12px;letter-spacing:3px;text-transform:uppercase;padding:4px 10px;color:#03101f;background:var(--modo);clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%)}
+.mcard b{font:700 clamp(46px,8vh,84px)/.85 'Teko',sans-serif;text-transform:uppercase}
+.mcard span:not(.tag){font-size:16px;color:var(--dim);max-width:44ch}
+.mcard i{font:700 24px/1 'Teko',sans-serif;font-style:normal;letter-spacing:1.5px;text-transform:uppercase;color:var(--modo);display:flex;align-items:center;gap:8px}
+.rodape{flex:none;display:flex;justify-content:center;align-items:center;gap:10px;padding:0 16px clamp(10px,2vh,18px)}
+.erro{padding:10px 12px;border:1px solid rgba(255,90,106,.5);background:rgba(255,90,106,.1);color:#ffb3bb;font-size:14px}
+.liga select{margin-left:auto;max-width:44%;height:36px;background:#0b1316;color:var(--br);border:1px solid var(--ln2);font:600 14px 'Rajdhani',sans-serif;padding:0 8px}
+.liga select:disabled{opacity:.6}
+button:disabled{cursor:not-allowed}
+.cta:disabled{opacity:.4;box-shadow:none}
+.op button:disabled,.chip:disabled{opacity:.75}
+.clube:disabled:not(.tom){opacity:.85}
+.ordem .o.agora.q0{background:var(--j1);color:var(--on1);border-color:var(--j1);box-shadow:0 0 14px rgba(var(--j1-rgb),.5)}
+.ordem .o.agora.q1{background:var(--j2);color:var(--on2);border-color:var(--j2);box-shadow:0 0 14px rgba(var(--j2-rgb),.5)}
+.picks .sec{height:36px;font-size:17px}
+.slotc>div{min-width:0;flex:1}.slotc b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rev.um{grid-template-columns:minmax(0,560px);justify-content:center}
+.vg{cursor:grab;touch-action:none;user-select:none}
+.vg.expulso{opacity:.35}.vg.expulso .nm{text-decoration:line-through}
+.vg.alvo .cam{outline:2px solid var(--modo);outline-offset:4px}
+.pc{cursor:pointer;touch-action:manipulation}
+.fant{position:fixed;z-index:99;transform:translate(-50%,-50%);pointer-events:none;background:var(--modo);color:#03101f;font:700 18px/1 'Teko',sans-serif;letter-spacing:1px;padding:6px 10px;box-shadow:0 6px 18px #000b}
+.pnult{font:700 22px/1 'Teko',sans-serif;letter-spacing:1px;text-transform:uppercase;padding:6px 12px}
+.pnult.ok{color:var(--ok)}.pnult.no{color:var(--der)}
+.zonas button:disabled{cursor:default}
+.segura{cursor:pointer;touch-action:none}
+.segura i{width:0;transition:none}
+.esc .lado,.itv2 .lado{display:flex;flex-direction:column;gap:10px;min-height:0}
+.esc .lado .banco{flex:1 1 auto;min-height:0}
+.esc .lado>*{flex:none}
+.esc .lado>.banco{flex:1 1 auto}
+@media (max-width:860px){
+  .modo{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
+  .mcard b{font-size:40px}.mcard span:not(.tag){font-size:14px}
+  .liga select{max-width:50%}
+  .placar{gap:8px}.placar .t,.placar .t>div{min-width:0}
+  .placar .t b{font-size:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .placar .sc b{font-size:52px;white-space:nowrap}
+  .ban .w b{font-size:38px}.ban .sc b{font-size:46px;white-space:nowrap}
+  .craque{flex-wrap:wrap;justify-content:center}.craque .acoes{flex-wrap:wrap;justify-content:center}
+  .craque .cta{height:42px;font-size:19px;padding:0 14px}
+}
+
+/* ======== escalação: o elenco precisa aparecer (antes o banco ficava com 2-3 linhas) ======== */
+/* PC: o painel lateral rola inteiro e o banco tem altura mínima garantida */
+.esc .lado{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding-right:2px}
+.esc .lado>.banco{min-height:clamp(240px,42vh,560px)}
+.esc .lado>.cta{position:sticky;bottom:0;z-index:2;box-shadow:0 -10px 18px rgba(0,0,0,.55)}
+.esc .nums>div{padding:6px 10px}.esc .nums b{font-size:26px}
+@media (max-height:820px) and (min-width:861px){
+  .esc .post .op span,.esc .entro .leg{display:none}
+  .esc .post .op button{padding:6px 10px}
+  .esc .lado{gap:8px}
+}
+/* celular e tela estreita: a página rola; campo em proporção fixa, elenco inteiro embaixo */
+@media (max-width:860px){
+  .corpo.esc{display:flex;flex-direction:column;overflow-y:auto;overscroll-behavior:contain;gap:10px}
+  .corpo.esc>.campo{flex:none;height:min(58vh,118vw);min-height:300px}
+  .esc .lado{overflow:visible;flex:none}
+  .esc .lado>.banco{flex:none;min-height:0;max-height:none;overflow:visible}
+  .esc .lado>.cta{position:sticky;bottom:0}
+  .esc .post .op button{padding:6px 8px}
+}
+</style>
+<script src="sons.js?v=20261022"></script>
+<script src="conta/vendor/supabase.js?v=20261022b"></script>
+<script src="conta/config.js?v=20261022b"></script>
+<script src="conta/sessao.js?v=20261025"></script>
+<meta name="theme-color" content="#061009"><link rel="stylesheet" href="/comum/ui-promessa.css"><script type="module" src="/comum/promessa-boot.js"></script>
+</head>
+<body class="dirB">
+<main id="st"></main>
+<script>
+'use strict';
+/* =====================================================================
+   J x J 2.0 — duelo de dois técnicos, no mesmo aparelho ou online.
+   Base: lê DATA_2026, WORLD e RECAL do próprio Dashboard (mesma fonte da
+   carreira). As forças dos jogadores já vêm na escala do EA FC 26
+   (fonte/gera-forca-fc26.mjs), então o deslocamento de força da
+   recalibragem não é mais somado aqui; a reputação do clube continua.
+   ===================================================================== */
+const $ = (s) => document.querySelector(s);
+const st = () => document.getElementById('st');
+const LOGO = (() => { const l = 'data:image/png;base64,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'; return l.startsWith('data:') ? l : 'assets/logo_goat_oficial.jpg'; })();
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const embaralha = (a) => { const x = a.slice(); for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [x[i], x[j]] = [x[j], x[i]]; } return x; };
+const limpaNome = (s, padrao) => { const t = String(s || '').replace(/[\u0000-\u001f<>]/g, '').trim().slice(0, 14); return t || padrao; };
+const sobre = (n) => { const p = String(n || '').trim().split(' '); return p.length > 1 && p[p.length - 1].length > 2 ? p[p.length - 1] : String(n || ''); };
+const num = (v, casas) => (casas ? Number(v).toFixed(casas) : String(Math.round(v))).replace('.', ',');
+
+let D = null, W = null, RECAL = {};
+const shard = {};
+async function carregar() {
+  const t = await fetch('Dashboard Carreira.dc.html').then((r) => { if (!r.ok) throw new Error('Dashboard ' + r.status); return r.text(); });
+  const pega = (n) => {
+    const a = 'const ' + n + ' = '; const i = t.indexOf(a);
+    if (i < 0) throw new Error('base sem ' + n);
+    let s = t.slice(i + a.length, t.indexOf('\n', i)).trim();
+    if (s.endsWith(';')) s = s.slice(0, -1);
+    return JSON.parse(s);
+  };
+  D = pega('DATA_2026'); W = pega('WORLD');
+  try { RECAL = pega('RECAL'); } catch (e) { RECAL = {}; console.warn('[jxj] build sem RECAL, reputação crua:', e.message); }
+  const rep = (t) => { const v = RECAL[t]; return v == null ? 0 : (Array.isArray(v) ? v[1] : v); };
+  const cl = (v) => Math.max(1, Math.min(99, Math.round(v)));
+  for (const t in RECAL) {
+    if (typeof D.RATINGS[t] === 'number') D.RATINGS[t] = cl(D.RATINGS[t] + rep(t));
+    if (W.WRATINGS && typeof W.WRATINGS[t] === 'number') W.WRATINGS[t] = cl(W.WRATINGS[t] + rep(t));
+  }
+}
+const reputacao = (t) => Math.round((D.RATINGS || {})[t] || (W.WRATINGS || {})[t] || 0);
+/* Só o que a tela e o motor usam: elenco menor para mandar pela sala online. */
+const enxuga = (p, time) => ({ id: String(p.id || (time + '|' + p.nome)), nome: p.nome, idade: p.idade, pos: p.pos, posAlt: Array.isArray(p.posAlt) ? p.posAlt.slice(0, 3) : [], forca: p.forca || 50, nac: p.nac, cl: time });
+async function elencoDe(time) {
+  const sh = D.SHARDS[time], sl = D.SLUGS[time];
+  if (!sh) return [];
+  if (!shard[sh]) shard[sh] = await fetch('dados/elencos/' + sh + '.json').then((r) => { if (!r.ok) throw new Error('elenco ' + sh + ' ' + r.status); return r.json(); });
+  const v = shard[sh][time] || shard[sh][sl];
+  return (v && v.elenco ? v.elenco : []).map((p) => enxuga(p, time));
+}
+const camisa = (time) => (D && D.KITS && D.KITS[time]) || ('assets/camisas/' + ((D && D.SLUGS[time]) || '') + '.png');
+const escudo = (time) => 'assets/escudos/' + ((D && D.SLUGS[time]) || '') + '.png';
+const im = (src, cls, alt) => `<img src="${esc(src)}" alt="${esc(alt || '')}" ${cls ? 'class="' + cls + '"' : ''} onerror="this.style.visibility='hidden'">`;
+
+function ligas() {
+  const out = [];
+  for (const cod of Object.keys(W.LEAGUES)) {
+    const L = W.LEAGUES[cod];
+    if (!L || (L.divisao || 1) !== 1 || (L.teams || []).length < 12) continue;
+    out.push({ cod, nome: L.name, pais: L.country, nation: L.nation, n: L.teams.length });
+  }
+  for (const dv of ['A', 'B']) if ((D.TEAMS[dv] || []).length >= 12) out.push({ cod: 'BR-' + dv, nome: 'Brasileirão Série ' + dv, pais: 'Brasil', nation: 'brasil', n: D.TEAMS[dv].length });
+  return out.sort((a, b) => (a.pais === 'Brasil' ? -1 : b.pais === 'Brasil' ? 1 : a.pais.localeCompare(b.pais)));
+}
+const timesDaLiga = (cod) => (cod.startsWith('BR-') ? (D.TEAMS[cod.slice(3)] || []) : ((W.LEAGUES[cod] || {}).teams || [])).slice();
+
+/* ---------- ícones (SVG, sem emoji) ---------- */
+const ICO = {
+  cad: '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+  lix: '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg>',
+  troca: '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h14l-4-4M20 16H6l4 4"/></svg>',
+  seta: '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+  pf: '<svg viewBox="0 0 44 28" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h36M8 16h28"/></svg>',
+  pe: '<svg viewBox="0 0 44 28" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14h36M16 8l6 6-6 6"/></svg>',
+  pc: '<svg viewBox="0 0 44 28" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20l10-10 8 6 18-12"/></svg>',
+};
+
+/* =====================================================================
+   REGRAS (herdadas do J x J 1.0, que já tinham sido calibradas com o F)
+   ===================================================================== */
+const SETOR = { GOL: 'GOL', ZAG: 'DEF', LD: 'DEF', LE: 'DEF', VOL: 'MEI', MC: 'MEI', MEI: 'MEI', PE: 'ATA', PD: 'ATA', ATA: 'ATA' };
+const N_ELENCO = 22;
+/* Faixas do sorteio por partida, iguais para os dois (ver J x J 1.0). */
+const SPLITS = [[4, 6, 6, 6], [3, 6, 7, 6]];
+const FAIXAS = [[0, 0.15], [0.15, 0.40], [0.40, 0.70], [0.70, 1.00]];
+const MIN_POS = { GOL: 2, LD: 1, LE: 1, ZAG: 3, VOL: 2, MC: 2, MEI: 1, PD: 1, PE: 1, ATA: 2 };
+const MAX_POS = { GOL: 3 };
+const POSICOES = ['GOL', 'LD', 'LE', 'ZAG', 'VOL', 'MC', 'MEI', 'PD', 'PE', 'ATA'];
+function sortearElenco(pool, nTimes, split) {
+  const ord = pool.slice().sort((a, b) => (b.forca || 0) - (a.forca || 0));
+  let sel;
+  if (nTimes <= 1) sel = embaralha(ord).slice(0, N_ELENCO);
+  else {
+    const n = ord.length;
+    const corta = (ini, fim, q) => embaralha(ord.slice(Math.floor(ini * n), Math.floor(fim * n))).slice(0, q);
+    sel = [];
+    FAIXAS.forEach(([a, b], k) => sel.push(...corta(a, b, split[k])));
+    const falta = N_ELENCO - sel.length;
+    if (falta > 0) { const ids = new Set(sel.map((p) => p.id)); sel.push(...embaralha(ord.filter((p) => !ids.has(p.id))).slice(0, falta)); }
+  }
+  balanceiaPosicoes(sel, pool);
+  return sel;
+}
+function balanceiaPosicoes(sel, pool) {
+  const cont = (x) => sel.filter((p) => p.pos === x).length;
+  const trocar = (entra, saiDe) => {
+    let iSai = -1;
+    for (let i = 0; i < sel.length; i++) if (sel[i].pos === saiDe && (iSai < 0 || (sel[i].forca || 0) < (sel[iSai].forca || 0))) iSai = i;
+    if (iSai < 0) return false;
+    const dentro = new Set(sel.map((p) => p.id)); const sai = sel[iSai];
+    const cand = pool.filter((p) => p.pos === entra && !dentro.has(p.id)).sort((a, b) => Math.abs((a.forca || 0) - (sai.forca || 0)) - Math.abs((b.forca || 0) - (sai.forca || 0)));
+    if (!cand.length) return false;
+    sel[iSai] = cand[0]; return true;
+  };
+  for (const x of Object.keys(MAX_POS)) { let v = 0; while (cont(x) > MAX_POS[x] && v++ < 30) { const es = POSICOES.filter((y) => y !== x).map((y) => [y, cont(y) - (MIN_POS[y] || 0)]).sort((a, b) => a[1] - b[1])[0][0]; if (!trocar(es, x)) break; } }
+  for (const x of POSICOES) { let v = 0; while (cont(x) < (MIN_POS[x] || 0) && v++ < 30) { const fo = POSICOES.filter((y) => y !== x).map((y) => [y, cont(y) - (MIN_POS[y] || 0)]).sort((a, b) => b[1] - a[1])[0]; if (!fo || fo[1] <= 0) break; if (!trocar(x, fo[0])) break; } }
+}
+
+/* ---------- formações (esquerda para a direita, time atacando para cima) ---------- */
+const FORMS = {
+  '4-3-3': [['GOL'], ['LE', 'ZAG', 'ZAG', 'LD'], ['MC', 'VOL', 'MEI'], ['PE', 'ATA', 'PD']],
+  '4-4-2': [['GOL'], ['LE', 'ZAG', 'ZAG', 'LD'], ['PE', 'VOL', 'MC', 'PD'], ['ATA', 'ATA']],
+  '4-2-3-1': [['GOL'], ['LE', 'ZAG', 'ZAG', 'LD'], ['VOL', 'VOL'], ['PE', 'MEI', 'PD'], ['ATA']],
+  '3-5-2': [['GOL'], ['ZAG', 'ZAG', 'ZAG'], ['LE', 'MC', 'VOL', 'MEI', 'LD'], ['ATA', 'ATA']],
+  '5-3-2': [['GOL'], ['LE', 'ZAG', 'ZAG', 'ZAG', 'LD'], ['MC', 'VOL', 'MEI'], ['ATA', 'ATA']],
+  '4-1-4-1': [['GOL'], ['LE', 'ZAG', 'ZAG', 'LD'], ['VOL'], ['PE', 'MC', 'MC', 'PD'], ['ATA']],
+  '3-4-3': [['GOL'], ['ZAG', 'ZAG', 'ZAG'], ['LE', 'MC', 'MC', 'LD'], ['PE', 'ATA', 'PD']],
+  '4-5-1': [['GOL'], ['LE', 'ZAG', 'ZAG', 'LD'], ['PE', 'MC', 'VOL', 'MEI', 'PD'], ['ATA']],
+  '5-4-1': [['GOL'], ['LE', 'ZAG', 'ZAG', 'ZAG', 'LD'], ['PE', 'VOL', 'MC', 'PD'], ['ATA']],
+  '3-4-2-1': [['GOL'], ['ZAG', 'ZAG', 'ZAG'], ['LE', 'VOL', 'MC', 'LD'], ['MEI', 'MEI'], ['ATA']],
+};
+const vagasDaForma = (f) => FORMS[f].flat();
+const ORDEM = { GOL: 0, DEF: 1, MEI: 2, ATA: 3 };
+const ESPELHO = { LD: 'LE', LE: 'LD', PD: 'PE', PE: 'PD' };
+/* Posição secundária real (posAlt) custa 1, igual lateral invertido. */
+function penalidade(posJog, posVaga, alt) {
+  if (posJog === posVaga) return 0;
+  if (alt && alt.indexOf(posVaga) >= 0) return 1;
+  const a = SETOR[posJog], b = SETOR[posVaga];
+  if (a === 'GOL' || b === 'GOL') return 12;
+  if (a === b) return ESPELHO[posJog] === posVaga ? 1 : 2;
+  return Math.abs(ORDEM[a] - ORDEM[b]) === 1 ? 5 : 9;
+}
+const forcaEfetiva = (p, vaga) => Math.max(1, (p.forca || 0) - penalidade(p.pos, vaga, p.posAlt));
+const LIGACOES = {};
+function ligacoesDaForma(form) {
+  if (LIGACOES[form]) return LIGACOES[form];
+  const linhas = []; let k = 0;
+  for (const lin of FORMS[form]) linhas.push(lin.map(() => k++));
+  const liga = []; for (let i = 0; i < 11; i++) liga.push(new Set());
+  const par = (a, b) => { liga[a].add(b); liga[b].add(a); };
+  const x = (arr, i) => (i + 0.5) / arr.length;
+  linhas.forEach((lin, li) => {
+    for (let i = 1; i < lin.length; i++) par(lin[i - 1], lin[i]);
+    const prox = linhas[li + 1]; if (!prox) return;
+    lin.forEach((v, i) => { let m = 0, d = 9; prox.forEach((w, j) => { const dd = Math.abs(x(lin, i) - x(prox, j)); if (dd < d) { d = dd; m = j; } }); par(v, prox[m]); });
+    prox.forEach((w, j) => { let m = 0, d = 9; lin.forEach((v, i) => { const dd = Math.abs(x(prox, j) - x(lin, i)); if (dd < d) { d = dd; m = i; } }); par(w, lin[m]); });
+  });
+  return (LIGACOES[form] = liga.map((s) => [...s]));
+}
+function bolinhas(xi, idx, form) {
+  const p = xi[idx]; if (!p) return [0, 0, 0];
+  const vg = vagasDaForma(form)[idx];
+  const pen = penalidade(p.pos, vg, p.posAlt);
+  const bPos = pen === 0 || (pen === 1 && (p.posAlt || []).indexOf(vg) >= 0) ? 1 : (SETOR[p.pos] === SETOR[vg] ? 0.5 : 0);
+  const viz = ligacoesDaForma(form)[idx].map((i) => xi[i]).filter(Boolean);
+  const conta = (k) => viz.filter((v) => v[k] != null && p[k] != null && v[k] === p[k]).length;
+  const nota = (n) => (n >= 2 ? 1 : n === 1 ? 0.5 : 0);
+  return [bPos, nota(conta('cl')), nota(conta('nac'))];
+}
+const QUIMICA_TETO = 4;
+function quimica(xi, form) {
+  const cheios = xi.filter(Boolean).length;
+  if (!cheios) return { total: 0, pos: 0, clube: 0, nac: 0 };
+  let pos = 0, c = 0, n = 0;
+  for (let i = 0; i < xi.length; i++) { if (!xi[i]) continue; const b = bolinhas(xi, i, form); pos += b[0]; c += b[1]; n += b[2]; }
+  return { total: +(QUIMICA_TETO * (pos + c + n) / (cheios * 3)).toFixed(2), pos: +pos.toFixed(1), clube: +c.toFixed(1), nac: +n.toFixed(1) };
+}
+function forcaDoXI(xi, form) {
+  const vg = vagasDaForma(form);
+  const ps = xi.map((p, i) => (p ? forcaEfetiva(p, vg[i]) : 0)).filter((v, i) => xi[i]);
+  if (!ps.length) return 0;
+  return +(ps.reduce((a, b) => a + b, 0) / 11 + quimica(xi, form).total).toFixed(2);
+}
+
+/* ---------- partida (mesmo motor de gols da carreira: diferença /11, teto 2,2, Poisson) ----------
+   Postura (regra nova do J x J 2.0, inventada e calibrada só aqui):
+   fechado = ×0,80 nas chances dos dois; pra cima = ×1,20 nas suas e ×1,15 nas dele.
+   Expulsão: ~6% dos jogos por time; o time com 10 rende ×0,80 e o outro ×1,15. */
+const POSTURA = { fechado: [0.8, 0.8], eq: [1, 1], cima: [1.2, 1.15] };
+function lambdas(fa, fb) {
+  const dif = Math.max(-2.2, Math.min(2.2, (fa - fb) / 11));
+  return [1.32 + Math.max(0, dif), 1.08 + Math.max(0, -dif)];
+}
+const PESO_GOL = { ATA: 10, PE: 7, PD: 7, MEI: 4.5, MC: 2.5, VOL: 1.2, LD: 0.8, LE: 0.8, ZAG: 1, GOL: 0.02 };
+const PESO_ASS = { MEI: 8, PE: 7, PD: 7, MC: 5, ATA: 4, VOL: 2.5, LD: 3, LE: 3, ZAG: 0.8, GOL: 0.05 };
+function sorteiaPor(lista, pesos, excluir) {
+  const l = lista.filter((p) => p && p.id !== excluir);
+  if (!l.length) return null;
+  const w = l.map((p) => (pesos[p.pos] || 1) * Math.pow(Math.max(20, p.forca || 50) / 60, 2));
+  let r = Math.random() * w.reduce((a, b) => a + b, 0);
+  for (let i = 0; i < l.length; i++) { r -= w[i]; if (r <= 0) return l[i]; }
+  return l[l.length - 1];
+}
+const LANCES = [
+  ['{A} chega com perigo, o goleiro espalma', 1], ['falta perigosa para {A}, na barreira', 1], ['{A} arrisca de fora, pela linha de fundo', 1],
+  ['escanteio para {A}, a defesa afasta', 0], ['{A} troca passes no campo de ataque', 0], ['{A} pede pênalti, o juiz manda seguir', 0],
+  ['{A} cabeceia por cima do travessão', 1], ['{A} bate cruzado, a bola passa raspando', 1],
+];
+
+/* =====================================================================
+   ESTADO + AÇÕES
+   Tudo o que muda o jogo passa por act(assento, tipo, dados). No mesmo
+   aparelho, act roda aqui. Online, só o anfitrião roda act: o convidado
+   manda a ação pela sala e recebe o estado de volta. Por isso act valida
+   tudo como se viesse de fora (assento, ids, limites).
+   ===================================================================== */
+const novoJ = (nome) => ({ nome, times: [], parou: false, elenco: [], form: '4-3-3', xi: Array(11).fill(null), postura: 'eq', lock: null, desc: null, alvo: null, pronto: false, saiu: [], entrou: [], apito: false });
+function estadoNovo() {
+  return {
+    v: 2, modo: null, fase: 'modo', rev: 0,
+    cfg: { formato: 'unico', liga: 'BR-A', montagem: 'draft', roubos: 1, pen: 'auto' },
+    j: [novoJ('Jogador 1'), novoJ('Jogador 2')],
+    pick: 0, split: null, roubo: null, log: [], serie: { jogo: 1, v: [0, 0], hist: [] }, jogo: null, pen: null, telaDe: null, erro: null,
+  };
+}
+let S = estadoNovo();
+const ORDEM_DRAFT = [0, 1, 1, 0, 0, 1];
+const HIDE = new Set(['roubo', 'escalar', 'intervalo']);
+
+function vezDraft() {
+  while (S.pick < ORDEM_DRAFT.length) {
+    const q = ORDEM_DRAFT[S.pick];
+    if (S.j[q].times.length < 3 && !S.j[q].parou) return q;
+    S.pick++;
+  }
+  return -1;
+}
+/** O que o assento tem de fazer agora (null = nada, espera). */
+function pendente(s) {
+  const j = S.j[s];
+  if (S.fase === 'draft') return vezDraft() === s ? 'draft' : null;
+  if (S.fase === 'roubo') {
+    const R = S.roubo;
+    if (R.tranca.includes(s) && !R.tr[s]) return 'trancar';
+    const todosTrancaram = R.tranca.every((k) => R.tr[k]);
+    if (R.rouba.includes(s) && !R.es[s] && (S.modo === 'online' || todosTrancaram)) return 'escolher';
+    return null;
+  }
+  if (S.fase === 'escalar') return j.pronto ? null : 'escalar';
+  if (S.fase === 'intervalo') return j.pronto ? null : 'intervalo';
+  if (S.fase === 'penaltis' && S.pen && S.cfg.pen === 'escuro' && !S.pen.fim) {
+    if (S.pen.etapa === 'chute') return S.pen.vez === s ? 'chute' : null;
+    return S.pen.vez === s ? null : 'pulo';
+  }
+  return null;
+}
+/** No mesmo aparelho: quem está com o aparelho agora. */
+function ativoLocal() {
+  for (const s of [0, 1]) if (pendente(s)) return s;
+  return null;
+}
+
+function act(s, tipo, d) {
+  d = d || {};
+  if (s !== 0 && s !== 1) return false;
+  const j = S.j[s], o = S.j[1 - s];
+  const dono = (id) => j.elenco.find((p) => p.id === id);
+  switch (tipo) {
+    /* ---------- preparação ---------- */
+    case 'nome': j.nome = limpaNome(d.nome, 'Jogador ' + (s + 1)); return true;
+    case 'cfg': {
+      if (S.fase !== 'cfg' || (S.modo === 'online' && s !== 0)) return false;
+      const c = S.cfg;
+      if (d.formato === 'unico' || d.formato === 'md3') c.formato = d.formato;
+      if (d.montagem === 'draft' || d.montagem === 'sorteio') c.montagem = d.montagem;
+      if (d.pen === 'auto' || d.pen === 'escuro') c.pen = d.pen;
+      if (Number.isInteger(d.roubos) && d.roubos >= 0 && d.roubos <= 3) c.roubos = d.roubos;
+      if (typeof d.liga === 'string' && ligas().some((l) => l.cod === d.liga)) c.liga = d.liga;
+      return true;
+    }
+    case 'comecar': {
+      if (S.fase !== 'cfg' || (S.modo === 'online' && s !== 0)) return false;
+      if (S.cfg.montagem === 'sorteio') {
+        const ts = embaralha(timesDaLiga(S.cfg.liga)).slice(0, 4);
+        S.j[0].times = ts.slice(0, 2); S.j[1].times = ts.slice(2, 4);
+        S.fase = 'sorteando'; sortearTudo(); return true;
+      }
+      S.fase = 'draft'; S.pick = 0; return true;
+    }
+    /* ---------- draft ---------- */
+    case 'pegar': {
+      if (S.fase !== 'draft' || vezDraft() !== s) return false;
+      const t = d.time;
+      if (!timesDaLiga(S.cfg.liga).includes(t) || j.times.includes(t) || o.times.includes(t) || j.times.length >= 3) return false;
+      j.times.push(t); S.pick++;
+      if (vezDraft() < 0) { S.fase = 'sorteando'; sortearTudo(); }
+      return true;
+    }
+    case 'tirar': {
+      /* Devolve o clube e a vez continua sua: escolhe outro agora (pedido do F). */
+      if (S.fase !== 'draft' || vezDraft() !== s || !j.times.includes(d.time)) return false;
+      j.times = j.times.filter((x) => x !== d.time); return true;
+    }
+    case 'parar': {
+      if (S.fase !== 'draft' || vezDraft() !== s || !j.times.length) return false;
+      j.parou = true;
+      if (vezDraft() < 0) { S.fase = 'sorteando'; sortearTudo(); }
+      return true;
+    }
+    /* ---------- roubo ---------- */
+    case 'marcar': {
+      if (pendente(s) !== 'trancar' || !dono(d.id)) return false;
+      if (j.lock === d.id) j.lock = null; else if (j.desc === d.id) j.desc = null; else if (!j.lock) j.lock = d.id; else if (!j.desc) j.desc = d.id; else return false;
+      return true;
+    }
+    case 'confTrancar': {
+      if (pendente(s) !== 'trancar' || !j.lock || !j.desc || j.lock === j.desc) return false;
+      S.roubo.tr[s] = true; S.telaDe = null; return fechaRoubo();
+    }
+    case 'mirar': {
+      if (pendente(s) !== 'escolher' || !o.elenco.some((p) => p.id === d.id)) return false;
+      j.alvo = d.id; return true;
+    }
+    case 'confEscolher': {
+      if (pendente(s) !== 'escolher' || !j.alvo) return false;
+      S.roubo.es[s] = true; S.telaDe = null; return fechaRoubo();
+    }
+    case 'revelado': {
+      if (S.fase !== 'revela') return false;
+      S.revVisto = S.revVisto || [false, false]; S.revVisto[s] = true;
+      if (S.modo === 'local' || (S.revVisto[0] && S.revVisto[1])) proxRoubo();
+      return true;
+    }
+    /* ---------- escalação e intervalo ---------- */
+    case 'form': {
+      if (pendente(s) !== 'escalar' || !FORMS[d.f]) return false;
+      remontaXI(j, d.f); return true;
+    }
+    case 'auto': {
+      if (pendente(s) !== 'escalar') return false;
+      const p = dono(d.id); if (!p) return false;
+      const at = j.xi.findIndex((x) => x && x.id === p.id);
+      if (at >= 0) { j.xi[at] = null; return true; }
+      const vg = vagasDaForma(j.form); let m = -1, c = 99;
+      vg.forEach((v, i) => { if (j.xi[i]) return; const pe = penalidade(p.pos, v, p.posAlt); if (pe < c) { c = pe; m = i; } });
+      if (m < 0 || c > 5) return false;
+      j.xi[m] = p; return true;
+    }
+    case 'por': {
+      /* Escalação: põe na vaga; se o jogador já estava em outra vaga, as duas trocam.
+         Intervalo: entrar do banco é substituição (até 3, quem sai não volta). */
+      const fase = pendente(s); if (fase !== 'escalar' && fase !== 'intervalo') return false;
+      const idx = d.idx | 0; if (idx < 0 || idx > 10) return false;
+      const p = dono(d.id); if (!p) return false;
+      const de = j.xi.findIndex((x) => x && x.id === p.id);
+      if (fase === 'intervalo' && de < 0) {
+        if (j.saiu.includes(p.id) || j.entrou.length >= 3) return false;
+        const sai = j.xi[idx]; if (!sai || (S.jogo && S.jogo.expulsos[s].includes(sai.id))) return false;
+        j.saiu.push(sai.id); j.entrou.push(p.id); j.xi[idx] = p; return true;
+      }
+      const ocup = j.xi[idx];
+      if (de >= 0) j.xi[de] = ocup || null;
+      j.xi[idx] = p; return true;
+    }
+    case 'completar': {
+      /* Preenche as vagas abertas com o melhor encaixe (força efetiva na vaga), sem mexer em quem já está. */
+      if (pendente(s) !== 'escalar') return false;
+      const vg = vagasDaForma(j.form), usa = new Set(j.xi.filter(Boolean).map((p) => p.id));
+      const pares = [];
+      vg.forEach((v, i) => { if (j.xi[i]) return; j.elenco.forEach((p) => { if (!usa.has(p.id)) pares.push([forcaEfetiva(p, v) - (v === 'GOL' && p.pos !== 'GOL' ? 50 : 0), i, p]); }); });
+      pares.sort((x, y) => y[0] - x[0]);
+      for (const [, i, p] of pares) { if (j.xi[i] || usa.has(p.id)) continue; j.xi[i] = p; usa.add(p.id); }
+      return true;
+    }
+    case 'tirarVaga': {
+      if (pendente(s) !== 'escalar') return false;
+      const idx = d.idx | 0; if (idx < 0 || idx > 10) return false; j.xi[idx] = null; return true;
+    }
+    case 'postura': {
+      const f = pendente(s); if ((f !== 'escalar' && f !== 'intervalo') || !POSTURA[d.p]) return false;
+      j.postura = d.p; return true;
+    }
+    case 'pronto': {
+      const f = pendente(s);
+      if (f === 'escalar') { if (j.xi.filter(Boolean).length !== 11) return false; j.pronto = true; S.telaDe = null; if (S.j[0].pronto && S.j[1].pronto) apitoInicial(); return true; }
+      if (f === 'intervalo') { j.pronto = true; S.telaDe = null; if (S.j[0].pronto && S.j[1].pronto) segundoTempo(); return true; }
+      return false;
+    }
+    /* ---------- partida ---------- */
+    case 'apito': {
+      /* o relógio de cada aparelho chegou ao fim do tempo (ou a pessoa pulou) */
+      if (S.fase !== 'vivo' || !S.jogo) return false;
+      if (S.modo === 'local') { S.j[0].apito = S.j[1].apito = true; } else j.apito = true;
+      if (S.j[0].apito && S.j[1].apito) { S.j[0].apito = S.j[1].apito = false; fimDoTempo(); }
+      return true;
+    }
+    case 'cobrar': {
+      if (S.fase !== 'penaltis' || S.cfg.pen !== 'auto' || S.pen.fim) return false;
+      cobranca(null, null); return true;
+    }
+    case 'canto': {
+      const f = pendente(s); if ((f !== 'chute' && f !== 'pulo') || !['E', 'M', 'D'].includes(d.z)) return false;
+      if (f === 'chute') { S.pen.cz = d.z; S.pen.etapa = 'pulo'; S.telaDe = null; return true; }
+      S.pen.gz = d.z; cobranca(S.pen.cz, S.pen.gz); return true;
+    }
+    case 'proxJogo': {
+      if (S.fase !== 'fim' || S.cfg.formato !== 'md3' || Math.max(...S.serie.v) >= 2) return false;
+      if (S.modo === 'online' && s !== 0) return false;
+      proximoJogoDaSerie(); return true;
+    }
+    default: return false;
+  }
+}
+
+/* ---------- sorteio e roubos ---------- */
+async function sortearTudo() {
+  try {
+    S.split = SPLITS[Math.floor(Math.random() * SPLITS.length)];
+    for (const j of S.j) {
+      const pool = [];
+      for (const t of j.times) pool.push(...await elencoDe(t));
+      j.elenco = sortearElenco(pool, j.times.length, S.split);
+      if (j.elenco.length < 11) throw new Error('elenco curto em ' + j.times.join(', '));
+    }
+    if (S.cfg.roubos > 0) iniciaRoubo(S.cfg.roubos, [0, 1], [0, 1], false);
+    else iniciaEscalacao();
+  } catch (e) {
+    console.error('[jxj] sorteio:', e);
+    S.erro = 'Não deu para montar os elencos. Confira se o jogo está aberto pelo servidor local e tente de novo.';
+    S.fase = 'cfg';
+  }
+  mudou();
+}
+function iniciaRoubo(total, tranca, rouba, extra) {
+  S.roubo = { rodada: 1, total, tranca, rouba, extra, tr: [false, false], es: [false, false] };
+  for (const j of S.j) { j.lock = j.desc = j.alvo = null; }
+  S.fase = 'roubo'; S.telaDe = null;
+}
+function fechaRoubo() {
+  const R = S.roubo;
+  if (!R.tranca.every((k) => R.tr[k]) || !R.rouba.every((k) => R.es[k])) return true;
+  const tira = (dn, id) => { const i = dn.elenco.findIndex((p) => p.id === id); return i < 0 ? null : dn.elenco.splice(i, 1)[0]; };
+  const nomeEm = (dn, id) => (dn.elenco.find((p) => p.id === id) || {}).nome || '';
+  const dec = R.rouba.map((k) => {
+    const q = S.j[k], dn = S.j[1 - k];
+    const tranc = R.tranca.includes(1 - k) && q.alvo === dn.lock;
+    const id = tranc ? dn.desc : q.alvo;
+    return { k, tranc, pedido: nomeEm(dn, q.alvo), id };
+  });
+  const levou = dec.map((x) => ({ ...x, p: tira(S.j[1 - x.k], x.id) }));
+  for (const x of levou) if (x.p) { S.j[x.k].elenco.push(x.p); const dn = S.j[1 - x.k]; const i = dn.xi.findIndex((p) => p && p.id === x.p.id); if (i >= 0) dn.xi[i] = null; }
+  S.log.push({ jogo: S.serie.jogo, r: R.rodada, extra: R.extra, itens: levou.map((x) => ({ k: x.k, pedido: x.pedido, tranc: x.tranc, p: x.p })) });
+  for (const j of S.j) { j.lock = j.desc = j.alvo = null; }
+  S.revVisto = [false, false];
+  S.fase = 'revela';
+  return true;
+}
+function proxRoubo() {
+  const R = S.roubo;
+  if (R.rodada < R.total) { R.rodada++; R.tr = [false, false]; R.es = [false, false]; S.fase = 'roubo'; S.telaDe = null; }
+  else iniciaEscalacao();
+}
+function iniciaEscalacao() {
+  for (const j of S.j) { j.pronto = false; j.saiu = []; j.entrou = []; j.apito = false; j.xi = j.xi.map((p) => (p && j.elenco.some((x) => x.id === p.id) ? j.elenco.find((x) => x.id === p.id) : null)); }
+  S.fase = 'escalar'; S.telaDe = null;
+}
+function remontaXI(j, nova) {
+  const antigos = j.xi.filter(Boolean).sort((a, b) => (b.forca || 0) - (a.forca || 0));
+  j.form = nova;
+  const vg = vagasDaForma(nova); const xi = vg.map(() => null);
+  for (const p of antigos) { let m = -1, c = 99; vg.forEach((v, i) => { if (xi[i]) return; const pe = penalidade(p.pos, v, p.posAlt); if (pe < c) { c = pe; m = i; } }); if (m >= 0) xi[m] = p; }
+  j.xi = xi;
+}
+
+/* =====================================================================
+   PARTIDA — simulada pelo anfitrião (ou pelo aparelho, no local), um tempo
+   de cada vez: o 2º tempo só existe depois das decisões do intervalo.
+   Cada minuto tem chance de gol lambda/45 por tempo, a mesma média do
+   simScore da carreira.
+   ===================================================================== */
+function apitoInicial() {
+  const fa = forcaDoXI(S.j[0].xi, S.j[0].form), fb = forcaDoXI(S.j[1].xi, S.j[1].form);
+  S.jogo = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), tempo: 1, fa, fb, qa: quimica(S.j[0].xi, S.j[0].form), qb: quimica(S.j[1].xi, S.j[1].form),
+    ga: 0, gb: 0, ev: [], chutes: [], cartoes: [], st: { fin: [0, 0], ama: [0, 0], ver: [0, 0], posse: 50 }, expulsos: [[], []], amarelos: [{}, {}], gols: {}, ass: {}, depois: null, posturas: [[], []] };
+  const dif = Math.max(-12, Math.min(12, fa - fb));
+  S.jogo.st.posse = Math.round(Math.max(36, Math.min(64, 50 + dif * 1.1 + (Math.random() * 6 - 3))));
+  for (const j of S.j) j.apito = false;
+  simTempo(1);
+  S.fase = 'vivo'; S.telaDe = null;
+}
+function segundoTempo() {
+  for (const j of S.j) { j.pronto = false; j.apito = false; }
+  S.jogo.tempo = 2;
+  simTempo(2);
+  S.fase = 'vivo'; S.telaDe = null;
+}
+function lambdasAgora() {
+  const g = S.jogo;
+  const xa = S.j[0].xi.filter((p) => p && !g.expulsos[0].includes(p.id)), xb = S.j[1].xi.filter((p) => p && !g.expulsos[1].includes(p.id));
+  void xa; void xb;
+  let [la, lb] = lambdas(forcaDoXI(S.j[0].xi, S.j[0].form), forcaDoXI(S.j[1].xi, S.j[1].form));
+  const pa = POSTURA[S.j[0].postura] || POSTURA.eq, pb = POSTURA[S.j[1].postura] || POSTURA.eq;
+  la *= pa[0] * pb[1]; lb *= pb[0] * pa[1];
+  for (let k = 0; k < g.expulsos[0].length; k++) { la *= 0.8; lb *= 1.15; }
+  for (let k = 0; k < g.expulsos[1].length; k++) { lb *= 0.8; la *= 1.15; }
+  return [la, lb];
+}
+function simTempo(t) {
+  const g = S.jogo;
+  g.posturas[t - 1] = [S.j[0].postura, S.j[1].postura];
+  const ini = t === 1 ? 1 : 46, fim = t === 1 ? 45 : 90;
+  const emCampo = (k) => S.j[k].xi.filter((p) => p && !g.expulsos[k].includes(p.id));
+  if (t === 2) for (const k of [0, 1]) if (S.j[k].entrou.length) g.ev.push({ m: 46, k, t: 'sub', txt: S.j[k].entrou.length + (S.j[k].entrou.length > 1 ? ' substituições' : ' substituição') });
+  for (let m = ini; m <= fim; m++) {
+    const [la, lb] = lambdasAgora();
+    for (const k of [0, 1]) {
+      const lam = k === 0 ? la : lb;
+      if (Math.random() < lam / 90) {
+        const xi = emCampo(k);
+        const autor = sorteiaPor(xi, PESO_GOL);
+        const assist = Math.random() < 0.72 ? sorteiaPor(xi, PESO_ASS, autor && autor.id) : null;
+        if (k === 0) g.ga++; else g.gb++;
+        g.st.fin[k]++; g.chutes.push({ m, k });
+        if (autor) g.gols[autor.id] = (g.gols[autor.id] || 0) + 1;
+        if (assist) g.ass[assist.id] = (g.ass[assist.id] || 0) + 1;
+        g.ev.push({ m, k, t: 'gol', a: autor ? autor.nome : '?', s: assist ? 'assistência de ' + assist.nome : '', pl: g.ga + '–' + g.gb });
+      }
+      /* finalização que não entra: ~7 por time por jogo, puxada pela força */
+      if (Math.random() < lam * 4.5 / 90 / 1.2) {
+        const p = sorteiaPor(emCampo(k), PESO_GOL); g.st.fin[k]++; g.chutes.push({ m, k });
+        if (Math.random() < 0.35) { const L = LANCES.filter((x) => x[1]); g.ev.push({ m, k, t: 'lance', a: p ? p.nome : '', s: L[Math.floor(Math.random() * L.length)][0] }); }
+      }
+      if (Math.random() < 1.9 / 90) {
+        const p = sorteiaPor(emCampo(k).filter((x) => x.pos !== 'GOL'), { ZAG: 3, VOL: 3, LD: 2, LE: 2, MC: 2, MEI: 1, PE: 1, PD: 1, ATA: 1 });
+        if (p) {
+          g.st.ama[k]++; g.cartoes.push({ m, k });
+          const a = g.amarelos[k]; a[p.id] = (a[p.id] || 0) + 1;
+          if (a[p.id] >= 2) { g.expulsos[k].push(p.id); g.st.ver[k]++; g.ev.push({ m, k, t: 'verm', a: p.nome, s: 'segundo amarelo · ' + S.j[k].nome + ' fica com ' + (11 - g.expulsos[k].length) }); }
+        }
+      }
+      if (Math.random() < 0.045 / 90) {
+        const p = sorteiaPor(emCampo(k).filter((x) => x.pos !== 'GOL'), { ZAG: 3, VOL: 3, LD: 1, LE: 1, MC: 1 });
+        if (p && !g.expulsos[k].includes(p.id)) { g.expulsos[k].push(p.id); g.st.ver[k]++; g.ev.push({ m, k, t: 'verm', a: p.nome, s: 'vermelho direto · ' + S.j[k].nome + ' fica com ' + (11 - g.expulsos[k].length) }); }
+      }
+    }
+  }
+  if (t === 1) g.ev.push({ m: 45, k: null, t: 'neu', a: 'Intervalo · ' + g.ga + ' × ' + g.gb });
+  else g.ev.push({ m: 90, k: null, t: 'neu', a: 'Fim de jogo · ' + g.ga + ' × ' + g.gb });
+}
+function fimDoTempo() {
+  const g = S.jogo;
+  if (g.tempo === 1) { for (const j of S.j) j.pronto = false; S.fase = 'intervalo'; S.telaDe = null; return; }
+  if (g.ga === g.gb) {
+    const ordem = [0, 1].map((k) => S.j[k].xi.filter((p) => p && !g.expulsos[k].includes(p.id)).sort((a, b) => (PESO_GOL[b.pos] || 1) * b.forca - (PESO_GOL[a.pos] || 1) * a.forca).map((p) => p.id));
+    S.pen = { g: [[], []], vez: 0, morte: false, fim: false, ordem, etapa: 'chute', cz: null, gz: null, ult: null };
+    S.fase = 'penaltis'; S.telaDe = null; return;
+  }
+  encerraJogo();
+}
+const goleiroEm = (k) => { const x = S.j[k].xi; return x[0] || x.find((p) => p && p.pos === 'GOL') || x.find(Boolean); };
+const cobradorDe = (k) => { const P = S.pen; const ids = P.ordem[k]; const id = ids[P.g[k].length % ids.length]; return S.j[k].elenco.find((p) => p.id === id) || S.j[k].xi.find((p) => p && p.id === id); };
+/* Pênalti no escuro (regra nova, inventada): mesmo lado do pulo = 30% de gol (meio contra meio 15%);
+   lado errado = 90% (meio 92%). A diferença de força mexe ±0,4 ponto por ponto. Automático: 55% a 92%. */
+function cobranca(cz, gz) {
+  const P = S.pen, v = P.vez, cob = cobradorDe(v), gk = goleiroEm(1 - v);
+  const dif = ((cob ? cob.forca : 60) - (gk ? gk.forca : 60)) * 0.004;
+  let p;
+  if (cz) p = (cz === gz ? (cz === 'M' ? 0.15 : 0.30) : (cz === 'M' ? 0.92 : 0.90)) + dif;
+  else p = 0.74 + dif;
+  p = cz ? Math.max(0.05, Math.min(0.97, p)) : Math.max(0.55, Math.min(0.92, p));
+  const ok = Math.random() < p;
+  P.g[v].push({ nome: cob ? cob.nome : '?', ok, cz, gz });
+  P.ult = { v, nome: cob ? cob.nome : '?', ok, cz, gz };
+  P.vez = 1 - v; P.etapa = 'chute'; P.cz = P.gz = null; S.telaDe = null;
+  const feitos = (k) => P.g[k].filter((x) => x.ok).length;
+  const a = P.g[0].length, b = P.g[1].length;
+  let venc = null;
+  if (!P.morte) {
+    if (feitos(0) > feitos(1) + (5 - b)) venc = 0;
+    else if (feitos(1) > feitos(0) + (5 - a)) venc = 1;
+    else if (a >= 5 && b >= 5) { if (feitos(0) !== feitos(1)) venc = feitos(0) > feitos(1) ? 0 : 1; else P.morte = true; }
+  } else if (a === b && feitos(0) !== feitos(1)) venc = feitos(0) > feitos(1) ? 0 : 1;
+  if (venc != null) { P.fim = true; S.jogo.penA = feitos(0); S.jogo.penB = feitos(1); S.jogo.venceuPen = venc; encerraJogo(); }
+}
+function encerraJogo() {
+  const g = S.jogo;
+  const venc = g.venceuPen != null ? g.venceuPen : g.ga > g.gb ? 0 : 1;
+  g.venc = venc;
+  S.serie.v[venc]++;
+  S.serie.hist.push({ jogo: S.serie.jogo, ga: g.ga, gb: g.gb, penA: g.penA, penB: g.penB, venc });
+  S.fase = 'fim'; S.telaDe = null;
+  if (ULT.on) ULT.reporta();
+}
+function proximoJogoDaSerie() {
+  const perd = 1 - S.jogo.venc;
+  S.serie.jogo++;
+  S.jogo = null; S.pen = null;
+  /* Entre os jogos da série: quem perdeu rouba 1 do vencedor; o vencedor tranca (regra nova). */
+  iniciaRoubo(1, [1 - perd], [perd], true);
+}
+/* ---------- notas ---------- */
+function notasDoTime(k) {
+  const g = S.jogo, meus = S.j[k].xi.filter(Boolean), adv = S.j[1 - k].xi.filter(Boolean);
+  const vg = vagasDaForma(S.j[k].form);
+  const feitos = k === 0 ? g.ga : g.gb, sofr = k === 0 ? g.gb : g.ga;
+  const fAdv = adv.reduce((a, p) => a + (p.forca || 0), 0) / (adv.length || 1);
+  const res = g.venc === k ? 0.6 : -0.6;
+  return S.j[k].xi.map((p, i) => {
+    if (!p) return null;
+    let n = 6.0 + res + (g.gols[p.id] || 0) * 1.1 + (g.ass[p.id] || 0) * 0.6 + ((p.forca || 0) - fAdv) * 0.035 - penalidade(p.pos, vg[i], p.posAlt) * 0.06;
+    if (SETOR[p.pos] === 'GOL') n += sofr === 0 ? 0.9 : -0.25 * sofr;
+    if (SETOR[p.pos] === 'DEF') n += sofr === 0 ? 0.4 : -0.15 * sofr;
+    if (g.expulsos[k].includes(p.id)) n -= 1.5;
+    void feitos;
+    return { p, n: Math.max(3, Math.min(10, +n.toFixed(1))) };
+  }).filter(Boolean).sort((a, b) => b.n - a.n);
+}
+const classeNota = (n) => (n >= 7.5 ? 'b' : n >= 6 ? 'm' : 'r');
+
+/* ---------- rivalidade (guardada neste aparelho) ---------- */
+const CHAVE_RIVAL = 'promessa-jxj-rival-v1';
+const chaveDupla = () => S.j.map((j) => j.nome.trim().toLowerCase()).sort().join('|');
+function lerRival() { try { return JSON.parse(localStorage.getItem(CHAVE_RIVAL) || '{}') || {}; } catch (e) { console.warn('[jxj] rivalidade ilegível:', e); return {}; } }
+function rivalDe() { const r = lerRival()[chaveDupla()]; return r || null; }
+function gravaRival() {
+  /* Guarda por id do jogo neste aparelho: online o estado chega de novo a cada mudança. */
+  const g = S.jogo; if (!g) return;
+  const feitos = (() => { try { return JSON.parse(sessionStorage.getItem('promessa-jxj-rival-feitos') || '[]'); } catch (e) { return []; } })();
+  if (feitos.includes(g.id)) return;
+  try { sessionStorage.setItem('promessa-jxj-rival-feitos', JSON.stringify(feitos.concat(g.id).slice(-20))); } catch (e) { console.warn('[jxj] marca de rivalidade:', e); }
+  try {
+    const todos = lerRival(); const k = chaveDupla();
+    const r = todos[k] || { jogos: 0, vit: {}, emp: 0, goleada: null, art: {} };
+    r.jogos++;
+    const nv = S.j[g.venc].nome; r.vit[nv] = (r.vit[nv] || 0) + 1;
+    if (g.ga === g.gb) r.emp++;
+    const dif = Math.abs(g.ga - g.gb);
+    if (dif && (!r.goleada || dif > r.goleada.dif)) r.goleada = { dif, placar: Math.max(g.ga, g.gb) + ' × ' + Math.min(g.ga, g.gb), quem: S.j[g.ga > g.gb ? 0 : 1].nome };
+    for (const k of [0, 1]) for (const p of S.j[k].elenco) if (g.gols[p.id]) r.art[p.nome] = (r.art[p.nome] || 0) + g.gols[p.id];
+    todos[k] = r;
+    localStorage.setItem(CHAVE_RIVAL, JSON.stringify(todos));
+  } catch (e) { console.warn('[jxj] não consegui gravar a rivalidade:', e); }
+}
+
+/* =====================================================================
+   TELAS (direção B · Transmissão, aprovada pelo F)
+   ===================================================================== */
+const UI = { seat: 0, sel: null, min: 0, relKey: null, vel: 1, timer: null, net: null };
+const meuOnline = () => (NET.papel === 'host' ? 0 : 1);
+function seatTela() {
+  if (S.modo === 'online') return meuOnline();
+  const a = ativoLocal();
+  if (a != null) return a;
+  if (S.fase === 'draft') return Math.max(0, vezDraft());
+  return 0;
+}
+function faz(tipo, d) {
+  if (S.modo === 'online' && NET.papel === 'guest') { NET.manda('acao', { tipo, d }); return; }
+  const s = S.modo === 'online' ? 0 : UI.seat;
+  if (act(s, tipo, d)) mudou();
+}
+function mudou() { S.rev++; render(); if (S.modo === 'online' && NET.papel === 'host') NET.publica(); }
+
+const corJ = (k) => `--c:var(--j${k + 1});--c-rgb:var(--j${k + 1}-rgb)`;
+function cab(fase, placar) {
+  const sr = S.cfg.formato === 'md3' && S.fase !== 'modo' && S.fase !== 'sala' && S.fase !== 'cfg' ? `Série melhor de 3 · jogo ${S.serie.jogo} · ${S.serie.v[0]}–${S.serie.v[1]}` : (S.modo === 'online' ? 'Online' + (NET.codigo ? ' · sala ' + NET.codigo : '') : 'Mesmo aparelho');
+  return `<header class="hdB"><div class="marca"><span class="nmj">PRO<i>MESSA</i></span><span>J × J</span></div>
+    <div class="bug"><span class="t a">${esc(S.j[0].nome)}</span><span class="m"><b class="num">${placar || '0 – 0'}</b><small>${esc(fase)}</small></span><span class="t b">${esc(S.j[1].nome)}</span></div>
+    <div class="fase">${esc(sr)}</div></header>`;
+}
+const SETOR_NOME = { GOL: 'Goleiros', DEF: 'Defesa', MEI: 'Meio', ATA: 'Ataque' };
+function setorizado(el, linha) {
+  return ['GOL', 'DEF', 'MEI', 'ATA'].map((s) => {
+    const l = el.filter((p) => SETOR[p.pos] === s).sort((a, b) => b.forca - a.forca);
+    return l.length ? `<div class="setor">${SETOR_NOME[s]} · ${l.length}</div><div class="grade">${l.map(linha).join('')}</div>` : '';
+  }).join('');
+}
+const clubeNome = (t) => String(t || '').replace(/\s*\(.*?\)\s*$/, '');
+function cartao(p, cls, extra, attrs) {
+  return `<button type="button" class="pc ${cls || ''}" ${attrs || ''}><span class="pos ${SETOR[p.pos]}">${esc(p.pos)}${p.posAlt && p.posAlt.length ? '<i>' + p.posAlt.map(esc).join('/') + '</i>' : ''}</span>
+    ${im(camisa(p.cl))}<span class="nm"><b>${esc(p.nome)}</b><span>${esc(p.idade)} anos · ${esc(clubeNome(p.cl))}</span>${extra || ''}</span><span class="f num">${p.forca}</span></button>`;
+}
+function pinta(html) {
+  /* troca de tela (outra section): entra com o fade comum do PROMESSA (síncrono, o DOM fica pronto na hora) */
+  const t0 = (st().querySelector('section') || {}).className || '';
+  pintaJa(html);
+  const sec = st().querySelector('section');
+  if (sec && t0 && sec.className !== t0) { sec.classList.add('pm-entra'); }
+}
+function pintaJa(html) {
+  const r = st(), se = document.scrollingElement || document.documentElement;
+  const tela = (r.querySelector('section') || {}).className || '';
+  const pos = { pag: se.scrollTop, raiz: r.scrollTop, rolas: [...r.querySelectorAll('.rola')].map((e) => e.scrollTop) };
+  r.innerHTML = html;
+  // mesma tela (ex.: escolher jogador): mantém onde o usuário estava; tela nova começa do topo
+  if (tela && ((r.querySelector('section') || {}).className || '') === tela) {
+    se.scrollTop = pos.pag; r.scrollTop = pos.raiz;
+    r.querySelectorAll('.rola').forEach((e, i) => { if (pos.rolas[i] != null) e.scrollTop = pos.rolas[i]; });
+  }
+}
+
+function render() {
+  try {
+    clearTimeout(UI.tRender);
+    if (!D) return pinta('<section class="corpo"><div class="pn"><div class="pm-esq" aria-busy="true" aria-label="Carregando a base"><div class="pm-esq-l"></div><div class="pm-esq-l"></div><div class="pm-esq-l"></div></div></div></section>');
+    UI.seat = seatTela();
+    const hid = HIDE.has(S.fase) || (S.fase === 'penaltis' && S.cfg.pen === 'escuro' && !(S.pen && S.pen.fim));
+    if (S.modo === 'local' && hid) {
+      const a = ativoLocal();
+      if (a != null && S.telaDe !== a) return telaCortina(a);
+    }
+    const T = { modo: telaModo, sala: telaSala, ultsala: () => ULT.tela(), cfg: telaCfg, sorteando: telaSorteando, draft: telaDraft, roubo: telaRoubo, revela: telaRevela, escalar: telaEscalar, vivo: telaVivo, intervalo: telaEscalar, penaltis: telaPenaltis, fim: telaFim };
+    (T[S.fase] || telaModo)();
+  } catch (e) {
+    console.error('[jxj] tela ' + S.fase + ':', e);
+    pinta(`<section class="corpo"><div class="pn"><h3 class="h3">Algo deu errado nesta tela</h3><p class="dica">Volte ao menu e comece de novo. Se repetir, use o Relatório de erros na engrenagem do menu.</p><button type="button" class="sec" onclick="location.href='index.html'">Menu</button></div></section>`);
+  }
+}
+function telaEspera(fase, quem) {
+  pinta(`${cab(fase)}<section class="corpo pas B" style="${corJ(1 - UI.seat)}"><div class="cort"></div>
+    <div class="cx"><small>${esc(fase)}</small><h2 style="font-size:clamp(44px,8vh,90px)">Esperando ${esc(quem)}</h2><p>A tela muda sozinha quando ${esc(quem)} terminar.</p></div></section>`);
+}
+
+/* ---------- 0. local ou online ---------- */
+function telaModo() {
+  pinta(`${cab('Escolha o modo')}
+  <section class="corpo modo">
+    <button type="button" class="pn mcard" id="mLocal"><img src="assets/foto_jxj_real.jpg" alt="" onerror="this.remove()"><span class="tag">No mesmo aparelho</span><b>Lado a lado</b><span>Os dois no mesmo celular ou PC, passando o aparelho na hora de esconder o time.</span><i>Jogar ${ICO.seta}</i></button>
+    <button type="button" class="pn mcard" id="mOnline"><img src="assets/foto_jxj_online.jpg" alt="" onerror="this.remove()"><span class="tag">Online</span><b>Cada um no seu</b><span>Um cria a sala e manda o código de 4 letras. O outro entra de onde estiver.</span><i>Criar ou entrar ${ICO.seta}</i></button>
+  </section>
+  <div class="rodape"><button type="button" class="sec" onclick="location.href='index.html'">Voltar ao menu</button></div>`);
+  $('#mLocal').onclick = () => { S.modo = 'local'; S.fase = 'cfg'; mudou(); };
+  $('#mOnline').onclick = () => { S.modo = 'online'; S.fase = 'sala'; render(); };
+}
+
+/* ---------- 1. configuração ---------- */
+function telaCfg() {
+  const host = S.modo === 'local' || NET.papel === 'host';
+  const c = S.cfg, L = ligas(), r = rivalDe();
+  const op = (campo, val, titulo, txt) => `<button type="button" data-cfg="${campo}" data-v="${val}" aria-pressed="${c[campo] === val}" ${host ? '' : 'disabled'}><b>${titulo}</b><span>${txt}</span></button>`;
+  const vit = (n) => (r && r.vit[n]) || 0;
+  const art = r ? Object.entries(r.art).sort((a, b) => b[1] - a[1])[0] : null;
+  const lg = L.find((x) => x.cod === c.liga) || L[0];
+  pinta(`${cab('Preparação')}
+  <section class="corpo lob">
+    <div class="pn heroimg"><img src="assets/foto_jxj_real.jpg" alt="" onerror="this.remove()">
+      <span class="eyb">${S.modo === 'online' ? 'Duelo online' : 'Duelo direto'}</span>
+      <h1>Dois técnicos,<br><em>${S.modo === 'online' ? 'uma sala' : 'um aparelho'}</em></h1>
+      ${r ? `<div class="riv"><span class="n a">${esc(S.j[0].nome)}</span><span class="p num">${vit(S.j[0].nome)} <span style="color:var(--dim2)">×</span> ${vit(S.j[1].nome)}</span><span class="n b">${esc(S.j[1].nome)}</span>
+        <div class="rod"><span>${r.jogos} jogo${r.jogos > 1 ? 's' : ''} · ${r.emp} empate${r.emp === 1 ? '' : 's'} nos 90'</span>${r.goleada ? `<span>maior goleada: ${esc(r.goleada.placar)}, ${esc(r.goleada.quem)}</span>` : ''}${art ? `<span>artilheiro: ${esc(art[0])}, ${art[1]}</span>` : ''}</div></div>`
+        : '<div class="dica" style="max-width:520px">Primeiro duelo entre esses dois nomes. O retrospecto fica guardado neste aparelho.</div>'}
+    </div>
+    <div class="pn cfg rola">
+      ${S.erro ? `<div class="erro">${esc(S.erro)}</div>` : ''}
+      <div><h3>Quem joga</h3><div class="nomes">
+        <label class="nome" style="--c:var(--j1)"><i></i><input id="n0" value="${esc(S.j[0].nome)}" maxlength="14" aria-label="Jogador 1" ${S.modo === 'online' && UI.seat !== 0 ? 'disabled' : ''}></label>
+        <label class="nome" style="--c:var(--j2)"><i></i><input id="n1" value="${esc(S.j[1].nome)}" maxlength="14" aria-label="Jogador 2" ${S.modo === 'online' && UI.seat !== 1 ? 'disabled' : ''}></label></div></div>
+      <div><h3>Formato</h3><div class="op">${op('formato', 'unico', 'Jogo único', 'Empatou, pênaltis.')}${op('formato', 'md3', 'Melhor de 3', 'Quem perde um jogo rouba 1 do rival antes do próximo.')}</div></div>
+      <div><h3>Liga</h3><div class="liga">${im('flags/' + (lg.nation || '') + '.png')}<div><b>${esc(lg.nome)}</b><span>${esc(lg.pais)} · ${lg.n} clubes</span></div>
+        <select id="lg" aria-label="Liga" ${host ? '' : 'disabled'}>${L.map((x) => `<option value="${x.cod}" ${x.cod === c.liga ? 'selected' : ''}>${esc(x.pais)} · ${esc(x.nome)}</option>`).join('')}</select></div></div>
+      <div><h3>Montagem dos elencos</h3><div class="op">${op('montagem', 'draft', 'Draft alternado', 'Até 3 clubes cada, ordem 1-2-2-1-1-2.')}${op('montagem', 'sorteio', 'Sorteio rápido', '2 clubes para cada, direto para o roubo.')}</div></div>
+      <div><h3>Rodadas de roubo</h3><div class="chips">${[0, 1, 2, 3].map((n) => `<button type="button" class="chip" data-cfg="roubos" data-v="${n}" aria-pressed="${c.roubos === n}" ${host ? '' : 'disabled'}>${n}</button>`).join('')}</div>
+        <p class="dica" style="margin:8px 0 0">Você tranca um jogador, deixa um descartável e pede um do rival. Se pedir o trancado, leva o descartável.</p></div>
+      <div><h3>Pênaltis</h3><div class="op">${op('pen', 'auto', 'Automático', 'A força do cobrador contra a do goleiro decide.')}${op('pen', 'escuro', 'No escuro', S.modo === 'online' ? 'Um escolhe o canto, o outro o pulo, cada um na sua tela.' : 'Um escolhe o canto, passa o aparelho, o outro escolhe o pulo.')}</div></div>
+      <div class="acl" style="display:flex;gap:8px;margin-top:auto">${host ? `<button type="button" class="cta" id="btIni">Começar duelo ${ICO.seta}</button>` : `<span class="dica" style="align-self:center">${esc(S.j[0].nome)} escolhe as regras e começa.</span>`}<button type="button" class="sec" id="btSair">Sair</button></div>
+    </div>
+  </section>`);
+  const nm = (k) => { const el = $('#n' + k); if (!el || el.disabled) return; el.onchange = () => { if (S.modo === 'online') faz('nome', { nome: el.value }); else { UI.seat = k; if (act(k, 'nome', { nome: el.value })) mudou(); } }; };
+  nm(0); nm(1);
+  st().querySelectorAll('[data-cfg]').forEach((b) => b.onclick = () => { const campo = b.dataset.cfg; const v = campo === 'roubos' ? +b.dataset.v : b.dataset.v; S.erro = null; faz('cfg', { [campo]: v }); });
+  const sel = $('#lg'); if (sel) sel.onchange = () => faz('cfg', { liga: sel.value });
+  const bi = $('#btIni'); if (bi) bi.onclick = () => { for (const k of [0, 1]) { const el = $('#n' + k); if (el && !el.disabled) { if (S.modo === 'online') faz('nome', { nome: el.value }); else act(k, 'nome', { nome: el.value }); } } S.erro = null; faz('comecar'); };
+  $('#btSair').onclick = () => { if (S.modo === 'online') NET.sair(); location.href = 'jxj.html'; };
+}
+function telaSorteando() { pinta(`${cab('Sorteio dos elencos')}<section class="corpo pas B" style="${corJ(0)}"><div class="cort"></div><div class="cx"><small>Montando os elencos</small><h2 style="font-size:clamp(44px,8vh,90px)">Sorteando…</h2><p>22 jogadores para cada um, pelas faixas de força dos clubes escolhidos.</p></div></section>`); }
+
+/* ---------- 2. draft ---------- */
+function telaDraft() {
+  const vez = vezDraft(), eu = UI.seat;
+  const posso = S.modo === 'local' || vez === eu;
+  const tom = {}; S.j.forEach((j, k) => j.times.forEach((t) => { tom[t] = k; }));
+  const todos = timesDaLiga(S.cfg.liga).sort((a, b) => reputacao(b) - reputacao(a));
+  const picks = (k) => `<div class="pn picks" style="--c:var(--j${k + 1})"><h3 class="h3">${esc(S.j[k].nome)} · ${S.j[k].times.length}/3${S.j[k].parou ? ' · satisfeito' : ''}</h3>
+      ${[0, 1, 2].map((i) => { const t = S.j[k].times[i]; return t ? `<div class="slotc">${im(escudo(t))}<div><b>${esc(clubeNome(t))}</b><span>força ${reputacao(t)}</span></div>${k === vez && posso ? `<button type="button" class="tirar" data-tirar="${esc(t)}" title="Devolver o clube">Tirar</button>` : ''}</div>` : '<div class="slotc vazio">livre</div>'; }).join('')}
+      ${k === vez && posso && S.j[k].times.length ? `<button type="button" class="sec" data-parar="1">Estou satisfeito</button>` : ''}
+      <div class="tot">${S.j[k].times.length > 1 ? '2 ou 3 clubes: sorteio por faixa de força' : '1 clube: sorteio puro, entrosamento alto'}</div></div>`;
+  pinta(`${cab('Draft de clubes')}
+  <section class="corpo drf">
+    <div class="ordem"><span class="h3" style="margin:0 8px 0 0">Ordem</span>${ORDEM_DRAFT.map((q, i) => `<span class="o ${q ? 'b' : 'a'} ${i < S.pick ? 'feito' : ''} ${i === S.pick ? 'agora q' + q : ''}">${q + 1}</span>`).join('')}
+      <span class="dica" style="margin-left:10px">${vez >= 0 ? `Vez de <b style="color:var(--j${vez + 1})">${esc(S.j[vez].nome)}</b>${posso ? ' · escolha 1 clube' : ''}` : ''}</span></div>
+    ${picks(0)}
+    <div class="pn rola clubes-w"><div class="clubes">${todos.map((t) => { const d = tom[t]; const r = reputacao(t);
+      return `<button type="button" class="clube ${d != null ? 'tom' : ''}" data-t="${esc(t)}" ${d != null || !posso ? 'disabled' : ''}>${d != null ? `<span class="dono" style="--c:var(--j${d + 1})">${esc(S.j[d].nome)}</span>` : ''}
+        <span class="estr">${'<i></i>'.repeat(r >= 74 ? 3 : r >= 68 ? 2 : 1)}</span>${im(escudo(t))}<b>${esc(clubeNome(t))}</b><span class="ov">força <b>${r || '–'}</b></span></button>`; }).join('')}</div></div>
+    ${picks(1)}
+  </section>`);
+  st().querySelectorAll('[data-t]').forEach((b) => b.onclick = () => faz('pegar', { time: b.dataset.t }));
+  st().querySelectorAll('[data-tirar]').forEach((b) => b.onclick = () => faz('tirar', { time: b.dataset.tirar }));
+  st().querySelectorAll('[data-parar]').forEach((b) => b.onclick = () => faz('parar'));
+}
+
+/* ---------- 3. roubo ---------- */
+function telaRoubo() {
+  const s = UI.seat, pend = pendente(s), j = S.j[s], o = S.j[1 - s], R = S.roubo;
+  const rot = R.extra ? 'Roubo da série' : `Roubo ${R.rodada} de ${R.total}`;
+  if (!pend) return telaEspera(rot, o.nome);
+  if (pend === 'trancar') {
+    const nm = (id) => (j.elenco.find((p) => p.id === id) || {}).nome || '';
+    pinta(`${cab(rot)}<section class="corpo rb" style="--j-rgb:var(--j${s + 1}-rgb)">
+      <div class="pn rola"><h3 class="h3"><b style="color:var(--j${s + 1})">${esc(j.nome)}</b>, proteja seu elenco</h3>
+        ${setorizado(j.elenco, (p) => cartao(p, j.lock === p.id ? 'trava' : j.desc === p.id ? 'desc' : '', j.lock === p.id ? `<span class="mk">${ICO.cad} trancado</span>` : j.desc === p.id ? `<span class="mk">${ICO.lix} descartável</span>` : '', `data-m="${esc(p.id)}"`))}</div>
+      <div class="pn passo"><h3 class="h3">Seu lance</h3>
+        <div class="alvo t"><span class="ic">${ICO.cad}</span><div><b>${j.lock ? esc(nm(j.lock)) : 'Escolha quem trancar'}</b><span>Se ${esc(o.nome)} pedir ele, não leva.</span></div></div>
+        <div class="alvo d"><span class="ic">${ICO.lix}</span><div><b>${j.desc ? esc(nm(j.desc)) : 'Escolha o descartável'}</b><span>Sai no lugar do trancado.</span></div></div>
+        <p class="dica">Toque uma vez para trancar, depois em outro para o descartável. Tocar de novo desmarca.${R.rouba.includes(s) ? ` Depois você escolhe quem pedir do ${esc(o.nome)}, sem ver o que ele trancou.` : ''}</p>
+        <button type="button" class="cta c${s + 1}" id="btOk" style="margin-top:auto" ${j.lock && j.desc ? '' : 'disabled'}>Confirmar ${ICO.seta}</button></div></section>`);
+    st().querySelectorAll('[data-m]').forEach((b) => b.onclick = () => faz('marcar', { id: b.dataset.m }));
+    $('#btOk').onclick = () => faz('confTrancar');
+    return;
+  }
+  pinta(`${cab(rot)}<section class="corpo rb" style="--j-rgb:var(--j${s + 1}-rgb)">
+    <div class="pn rola"><h3 class="h3"><b style="color:var(--j${s + 1})">${esc(j.nome)}</b>, escolha um jogador de ${esc(o.nome)}</h3>
+      ${setorizado(o.elenco, (p) => cartao(p, j.alvo === p.id ? 'usa' : '', '', `data-a="${esc(p.id)}" style="--j-rgb:var(--j${s + 1}-rgb)"`))}</div>
+    <div class="pn passo"><h3 class="h3">Seu pedido</h3>
+      <div class="alvo" style="color:var(--j${s + 1})"><span class="ic">${ICO.troca}</span><div><b>${j.alvo ? esc((o.elenco.find((p) => p.id === j.alvo) || {}).nome) : 'Ninguém ainda'}</b><span>${R.tranca.includes(1 - s) ? 'Se ele estiver trancado, você leva o descartável.' : 'Ele não pôde trancar ninguém: o pedido vem certo.'}</span></div></div>
+      <button type="button" class="cta c${s + 1}" id="btOk" style="margin-top:auto" ${j.alvo ? '' : 'disabled'}>Confirmar ${ICO.seta}</button></div></section>`);
+  st().querySelectorAll('[data-a]').forEach((b) => b.onclick = () => faz('mirar', { id: b.dataset.a }));
+  $('#btOk').onclick = () => faz('confEscolher');
+}
+function telaRevela() {
+  const u = S.log[S.log.length - 1];
+  const carta = (it, i) => it.p ? `<div class="carta" style="${corJ(it.k)}"><div class="in" style="animation-delay:${0.3 + i * 0.6}s"><div class="vs2"></div>
+    <div class="fr"><span class="quem">${esc(S.j[it.k].nome)} pediu</span><span class="ped">${it.tranc ? `<s>${esc(it.pedido)}</s>` : esc(it.pedido)}</span>
+      ${it.tranc ? `<span class="res tr">${ICO.cad} Estava trancado</span>` : '<span class="res ok">Roubou</span>'}
+      ${im(camisa(it.p.cl))}<span class="lev">${esc(it.p.nome)}</span><span class="f num">${it.p.forca}</span><span class="dica">${esc(it.p.pos)} · ${esc(clubeNome(it.p.cl))}</span></div></div></div>` : '';
+  const ja = S.modo === 'online' && S.revVisto && S.revVisto[UI.seat];
+  pinta(`${cab('Revelação')}<section class="corpo rev ${u.itens.length === 1 ? 'um' : ''}">${u.itens.map(carta).join('')}</section>
+    <div class="rodape">${ja ? `<span class="dica">Esperando ${esc(S.j[1 - UI.seat].nome)}…</span>` : `<button type="button" class="cta" id="btRev">${S.roubo.rodada < S.roubo.total ? 'Próximo roubo' : 'Ir para a escalação'} ${ICO.seta}</button>`}</div>`);
+  const b = $('#btRev'); if (b) b.onclick = () => faz('revelado');
+}
+function telaCortina(a) {
+  const rot = { roubo: 'Roubo', escalar: 'Escalação', intervalo: 'Intervalo', penaltis: 'Pênaltis' }[S.fase] || '';
+  const oq = S.fase === 'penaltis' ? (pendente(a) === 'chute' ? 'Escolha o canto do chute' : 'Escolha o pulo do goleiro') : rot;
+  pinta(`${cab('Passe o aparelho')}<section class="corpo pas B" style="${corJ(a)}"><div class="cort"></div>
+    <div class="cx"><small>${esc(oq)}</small><h2>Vez de ${esc(S.j[a].nome)}</h2>
+      <p>${esc(S.j[1 - a].nome)}, não olhe.</p>
+      <button type="button" class="segura" id="btSeg" aria-label="Segure para abrir"><i id="segBar" style="width:0"></i><span>Segure para abrir</span></button></div></section>`);
+  /* segurar 0,8 s evita abrir sem querer enquanto o aparelho passa de mão */
+  const b = $('#btSeg'), bar = $('#segBar'); let t0 = 0, raf = 0;
+  const solta = () => { cancelAnimationFrame(raf); t0 = 0; bar.style.width = '0'; };
+  const anda = () => { const p = Math.min(1, (performance.now() - t0) / 800); bar.style.width = (p * 100) + '%'; if (p >= 1) { S.telaDe = a; render(); return; } raf = requestAnimationFrame(anda); };
+  b.addEventListener('pointerdown', (e) => { e.preventDefault(); t0 = performance.now(); raf = requestAnimationFrame(anda); });
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach((ev) => b.addEventListener(ev, solta));
+  b.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { S.telaDe = a; render(); } });
+}
+
+/* ---------- 4. escalação e intervalo (mesma tela: campinho + banco) ---------- */
+function campinho(j, k, modo) {
+  const vg = vagasDaForma(j.form); const linhas = []; let n = 0;
+  for (const lin of FORMS[j.form]) linhas.push(lin.map(() => n++));
+  linhas.reverse();
+  const exp = (S.jogo && S.jogo.expulsos[k]) || [];
+  const dots = (i) => bolinhas(j.xi, i, j.form).map((x) => `<i class="${x === 1 ? 'c' : x ? 'm' : ''}"></i>`).join('');
+  return `<div class="campo" id="campo"><span class="ar t"></span><span class="ar b"></span>
+    ${linhas.map((l) => `<div class="lin">${l.map((i) => {
+      const p = j.xi[i]; const pen = p ? penalidade(p.pos, vg[i], p.posAlt) : 0;
+      if (!p) return `<div class="vg vazia" data-vaga="${i}"><div class="cam">+</div><span class="ps">${vg[i]}</span></div>`;
+      const cls = [modo === 'intervalo' && j.entrou.includes(p.id) ? 'entrou' : '', exp.includes(p.id) ? 'expulso' : '', UI.sel && UI.sel.vaga === i ? 'alvo' : ''].join(' ');
+      return `<div class="vg ${cls}" data-vaga="${i}" title="${esc(p.nome)} · ${p.pos}${pen ? ' em ' + vg[i] + ', −' + pen : ''}"><div class="cam">${im(camisa(p.cl))}<span class="fz ${pen ? 'pen' : ''}">${Math.max(1, p.forca - pen)}</span></div><span class="nm">${esc(sobre(p.nome))}</span><span class="ps">${vg[i]}${pen ? ' · −' + pen : ''}</span><span class="dots">${dots(i)}</span></div>`;
+    }).join('')}</div>`).join('')}</div>`;
+}
+function telaEscalar() {
+  const s = UI.seat, modo = S.fase, pend = pendente(s), j = S.j[s];
+  const rot = modo === 'intervalo' ? 'Intervalo' : 'Escalação';
+  if (!pend) return telaEspera(rot, S.j[1 - s].nome);
+  const cheios = j.xi.filter(Boolean);
+  const q = quimica(j.xi, j.form);
+  const vg = vagasDaForma(j.form);
+  const perda = j.xi.reduce((a, p, i) => a + (p ? penalidade(p.pos, vg[i], p.posAlt) : 0), 0);
+  const forca = cheios.length ? (j.xi.reduce((a, p, i) => a + (p ? forcaEfetiva(p, vg[i]) : 0), 0) / cheios.length) : 0;
+  const usados = new Set(cheios.map((p) => p.id));
+  const banco = modo === 'intervalo' ? j.elenco.filter((p) => !usados.has(p.id)) : j.elenco;
+  const placar = modo === 'intervalo' && S.jogo ? S.jogo.ga + '–' + S.jogo.gb : null;
+  const postura = `<div class="post"><h3 class="h3">${modo === 'intervalo' ? 'Como volta o time' : 'Como o time entra'}</h3><div class="op" style="--n:3">
+      <button type="button" data-post="fechado" aria-pressed="${j.postura === 'fechado'}">${ICO.pf}<b>Fechado</b><span>Menos chances para os dois.</span></button>
+      <button type="button" data-post="eq" aria-pressed="${j.postura === 'eq'}">${ICO.pe}<b>Equilibrado</b><span>Segue como está.</span></button>
+      <button type="button" data-post="cima" aria-pressed="${j.postura === 'cima'}">${ICO.pc}<b>Pra cima</b><span>Mais chances para os dois.</span></button></div></div>`;
+  const cta = modo === 'intervalo' ? 'Voltar para o 2º tempo' : (S.modo === 'local' && s === 0 ? 'Passar para ' + S.j[1].nome : 'Pronto para o jogo');
+  pinta(`${cab(rot, placar)}
+  <section class="corpo esc itv2" style="--j:var(--j${s + 1});--j-rgb:var(--j${s + 1}-rgb)">
+    ${campinho(j, s, modo)}
+    <div class="lado">
+      ${modo === 'escalar' ? `<div class="forms">${Object.keys(FORMS).map((f) => `<button type="button" class="chip" data-f="${f}" aria-pressed="${j.form === f}">${f}</button>`).join('')}</div>` : ''}
+      ${postura}
+      <div class="nums"><div><small>${modo === 'intervalo' ? 'Trocas' : 'XI'}</small><b class="num j">${modo === 'intervalo' ? j.entrou.length + '/3' : cheios.length + '/11'}</b></div><div><small>Força</small><b class="num j">${num(forca, 1)}</b></div><div><small>${modo === 'intervalo' ? '1º tempo' : 'Fora de pos.'}</small><b class="num ${modo === 'intervalo' ? '' : 'w'}">${modo === 'intervalo' ? S.jogo.ga + ' × ' + S.jogo.gb : (perda ? '−' + perda : '0')}</b></div>
+        <div class="entro"><small style="font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--dim2)">Entrosamento</small><div class="barra"><i style="width:${Math.round(100 * q.total / QUIMICA_TETO)}%"></i></div><div class="leg"><span>posição ${num(q.pos, 1)} · clube ${num(q.clube, 1)} · seleção ${num(q.nac, 1)}</span><b style="color:var(--j)">+${num(q.total, 1)} de 4</b></div></div></div>
+      <div class="pn rola banco" id="banco" style="--cut:12px;padding:10px"><div class="dica" style="margin-bottom:8px">${modo === 'intervalo' ? 'Toque no jogador do banco e depois na vaga, ou arraste até ela. Quem sai não volta.' : 'Toque para escalar na melhor vaga, ou arraste até a vaga que quiser. No campo, arraste para trocar ou para fora para tirar.'}</div>
+        ${setorizado(banco, (p) => cartao(p, [usados.has(p.id) ? 'usa' : '', j.saiu.includes(p.id) ? 'saiu' : '', UI.sel && UI.sel.id === p.id ? 'trava' : ''].join(' '), j.saiu.includes(p.id) ? '<span class="mk">saiu · não volta</span>' : '', `data-id="${esc(p.id)}"`))}</div>
+      ${modo === 'escalar' && cheios.length < 11 ? `<button type="button" class="sec" id="btComp">Completar o time</button>` : ''}
+      <button type="button" class="cta c${s + 1}" id="btPronto" ${modo === 'escalar' && cheios.length !== 11 ? 'disabled' : ''}>${esc(cta)} ${ICO.seta}</button>
+    </div>
+  </section>`);
+  st().querySelectorAll('[data-f]').forEach((b) => b.onclick = () => faz('form', { f: b.dataset.f }));
+  st().querySelectorAll('[data-post]').forEach((b) => b.onclick = () => faz('postura', { p: b.dataset.post }));
+  $('#btPronto').onclick = () => { UI.sel = null; faz('pronto'); };
+  const bc = $('#btComp'); if (bc) bc.onclick = () => faz('completar');
+  ligaArrastar(modo);
+}
+/* Arrastar com pointer events (serve para dedo e mouse). Clique sem arrasto cai no clique normal. */
+function ligaArrastar(modo) {
+  const campo = $('#campo'), banco = $('#banco'); if (!campo || !banco) return;
+  const j = S.j[UI.seat];
+  let fant = null, id = null, de = null, mov = false, x0 = 0, y0 = 0;
+  const pega = (e) => {
+    const b = e.target.closest('#banco .pc'), v = e.target.closest('#campo .vg:not(.vazia)');
+    if (!b && !v) return;
+    id = b ? b.dataset.id : (j.xi[+v.dataset.vaga] || {}).id; de = b ? 'banco' : +v.dataset.vaga;
+    if (!id) return;
+    mov = false; x0 = e.clientX; y0 = e.clientY;
+    if (b && e.pointerType !== 'mouse') {
+      // celular: na lista o dedo rola a tela; arrastar só dentro da prancheta
+      const fim = (ev) => {
+        document.removeEventListener('pointerup', fim); document.removeEventListener('pointercancel', fim);
+        if (ev.type === 'pointerup' && Math.abs(ev.clientX - x0) + Math.abs(ev.clientY - y0) < 10) clique(ev);
+      };
+      document.addEventListener('pointerup', fim); document.addEventListener('pointercancel', fim);
+      return;
+    }
+    document.addEventListener('pointermove', move); document.addEventListener('pointerup', solta, { once: true });
+    document.addEventListener('pointercancel', cancela, { once: true });
+  };
+  const cancela = () => {
+    document.removeEventListener('pointermove', move); document.removeEventListener('pointerup', solta);
+    if (fant) { fant.remove(); fant = null; }
+    mov = false;
+  };
+  const move = (e) => {
+    if (!mov) { if (Math.abs(e.clientX - x0) + Math.abs(e.clientY - y0) < 8) return; mov = true; fant = document.createElement('div'); fant.className = 'fant'; fant.textContent = sobre((j.elenco.find((p) => p.id === id) || {}).nome); document.body.appendChild(fant); }
+    fant.style.left = e.clientX + 'px'; fant.style.top = e.clientY + 'px';
+  };
+  const solta = (e) => {
+    document.removeEventListener('pointermove', move); document.removeEventListener('pointercancel', cancela);
+    if (fant) { fant.remove(); fant = null; }
+    const eraArrasto = mov; mov = false;
+    if (!eraArrasto) return clique(e);
+    const sob = document.elementFromPoint(e.clientX, e.clientY);
+    const v = sob && sob.closest && sob.closest('#campo .vg');
+    if (v) return faz('por', { idx: +v.dataset.vaga, id });
+    if (de !== 'banco' && modo === 'escalar') faz('tirarVaga', { idx: de });
+  };
+  const clique = (e) => {
+    const b = e.target.closest('#banco .pc'), v = e.target.closest('#campo .vg');
+    if (modo === 'escalar') {
+      if (b) return faz('auto', { id: b.dataset.id });
+      if (v && j.xi[+v.dataset.vaga]) return faz('tirarVaga', { idx: +v.dataset.vaga });
+      return;
+    }
+    /* intervalo: escolhe no banco, depois toca na vaga */
+    if (b) { if (j.xi.some((p) => p && p.id === b.dataset.id) || j.saiu.includes(b.dataset.id)) return; UI.sel = { id: b.dataset.id }; return render(); }
+    if (v && UI.sel) { const sid = UI.sel.id; UI.sel = null; return faz('por', { idx: +v.dataset.vaga, id: sid }); }
+  };
+  campo.addEventListener('pointerdown', pega); banco.addEventListener('pointerdown', pega);
+}
+
+/* ---------- 5. ao vivo ---------- */
+function telaVivo() {
+  const g = S.jogo;
+  const fimT = g.tempo === 1 ? 45 : 90;
+  const chave = g.id + ':' + g.tempo;
+  if (UI.relKey !== chave) { UI.relKey = chave; UI.min = g.tempo === 1 ? 0 : 45; UI.parado = false; clearInterval(UI.timer); UI.timer = null; }
+  const esperando = S.modo === 'online' && S.j[UI.seat].apito;
+  pinta(`${cab(g.tempo === 1 ? '1º tempo' : '2º tempo', '<span id="bugPl">0 – 0</span>')}
+  <section class="corpo viv">
+    <div class="pn placar">${[0, 1].map((k) => `<div class="t ${k ? 'd' : ''}" style="--c:var(--j${k + 1})"><div class="esc3">${im(LOGO, 'lg', 'PROMESSA')}</div><div><b>${esc(S.j[k].nome)}</b><span>${S.j[k].times.map(clubeNome).map(esc).join(' · ')} · ${S.j[k].form}</span></div></div>`).join('<div class="sc"><b class="num" id="vPl">0<i>×</i>0</b><span class="num" id="vMin">0\'</span></div>')}</div>
+    <div class="pn rola"><div class="feed" id="vFeed"></div></div>
+    <div class="mini">
+      <div class="pn pressao"><div class="lab"><span>Pressão</span><span>últimos 10'</span></div><div class="br"><i id="pA" style="flex:50"></i><i id="pB" style="flex:50"></i></div></div>
+      <div class="pn wgram" style="padding:10px"><div class="gramado"><span class="gA"></span><span class="gB"></span><span class="bola" id="bola"></span></div></div>
+      <div class="pn stt rola" id="vSt"></div>
+      <div class="ctrl" id="vCtrl"></div>
+    </div>
+  </section>`);
+  pintaVivo();
+  if (!UI.timer && UI.min < fimT && !esperando) UI.timer = setInterval(() => { UI.min++; pintaVivo(); if (UI.min >= fimT) { clearInterval(UI.timer); UI.timer = null; pintaVivo(); } }, 320 / UI.vel);
+}
+function pintaVivo() {
+  const g = S.jogo; if (!g || S.fase !== 'vivo') return;
+  const fimT = g.tempo === 1 ? 45 : 90;
+  const vis = g.ev.filter((e) => e.m <= UI.min);
+  const ga = vis.filter((e) => e.t === 'gol' && e.k === 0).length, gb = vis.filter((e) => e.t === 'gol' && e.k === 1).length;
+  const el = (id) => document.getElementById(id);
+  if (!el('vPl')) return;
+  el('vPl').innerHTML = ga + '<i>×</i>' + gb; el('bugPl').textContent = ga + ' – ' + gb; el('vMin').textContent = Math.min(UI.min, 90) + "'";
+  const corpo = (e) => e.t === 'gol' ? `<div><b class="t">GOL · ${esc(e.a)}</b><small>${esc(e.s)}</small></div>`
+    : e.t === 'verm' ? `<div><span class="cv"></span><b>${esc(e.a)}</b> expulso<small>${esc(e.s)}</small></div>`
+    : e.t === 'sub' ? `<div><b>${esc(S.j[e.k].nome)}</b> <span style="color:var(--dim)">mexe no time · ${esc(e.txt)}</span></div>`
+    : (() => { const [x, y] = String(e.s || '{A}').split('{A}'); return `<div><span style="color:var(--dim)">${esc(x)}</span><b>${esc(e.a)}</b><span style="color:var(--dim)">${esc(y || '')}</span></div>`; })();
+  el('vFeed').innerHTML = vis.slice().reverse().map((e) => {
+    if (e.t === 'neu') return `<div class="ev neu">${esc(e.a)}</div>`;
+    const cel = `<div class="ev ${e.t} ${e.k ? 'd' : 'e'}" style="${corJ(e.k)}">${corpo(e)}</div>`;
+    return e.k === 0 ? `${cel}<span class="mm">${e.m}'</span><span></span>` : `<span></span><span class="mm">${e.m}'</span>${cel}`;
+  }).join('') || '<div class="ev neu">Bola rolando</div>';
+  /* pressão: lances dos últimos 10 minutos (gol 3, finalização 1) */
+  const rec = vis.filter((e) => e.m > UI.min - 10 && e.k != null);
+  const pz = [0, 1].map((k) => 1 + rec.filter((e) => e.k === k).reduce((a, e) => a + (e.t === 'gol' ? 3 : e.t === 'lance' ? 1 : 0), 0));
+  el('pA').style.flex = pz[0]; el('pB').style.flex = pz[1];
+  const ult = vis[vis.length - 1];
+  el('bola').style.left = (ult && ult.k != null ? (ult.k === 0 ? 72 : 28) : 50) + '%';
+  const fin = [0, 1].map((k) => g.chutes.filter((c) => c.k === k && c.m <= UI.min).length);
+  const ama = [0, 1].map((k) => g.cartoes.filter((c) => c.k === k && c.m <= UI.min).length), ver = [0, 1].map((k) => g.ev.filter((e) => e.k === k && e.t === 'verm' && e.m <= UI.min).length);
+  el('vSt').innerHTML = `<span class="a num">${fin[0]}</span><span class="k">Finalizações</span><span class="b num">${fin[1]}</span>
+    <span class="a num">${g.st.posse}%</span><span class="k">Posse</span><span class="b num">${100 - g.st.posse}%</span>
+    <span class="a num">${ama[0]}</span><span class="k">Amarelos</span><span class="b num">${ama[1]}</span>
+    <span class="a num">${ver[0]}</span><span class="k">Vermelhos</span><span class="b num">${ver[1]}</span>`;
+  const acabou = UI.min >= fimT;
+  const esperando = S.modo === 'online' && S.j[UI.seat].apito;
+  el('vCtrl').innerHTML = acabou
+    ? (esperando ? `<span class="dica" style="align-self:center">Esperando ${esc(S.j[1 - UI.seat].nome)} terminar de assistir…</span>` : `<button type="button" class="cta" id="btApito" style="flex:1">${g.tempo === 1 ? 'Ir para o intervalo' : (g.ga === g.gb ? 'Ir para os pênaltis' : 'Ver o resultado')} ${ICO.seta}</button>`)
+    : `<button type="button" class="chip" data-vel="1" aria-pressed="${UI.vel === 1}">1×</button><button type="button" class="chip" data-vel="3" aria-pressed="${UI.vel === 3}">3×</button><button type="button" class="chip" id="btPular">Pular</button>`;
+  el('vCtrl').querySelectorAll('[data-vel]').forEach((b) => b.onclick = () => { UI.vel = +b.dataset.vel; clearInterval(UI.timer); UI.timer = null; telaVivo(); });
+  const pu = el('btPular'); if (pu) pu.onclick = () => { clearInterval(UI.timer); UI.timer = null; UI.min = fimT; pintaVivo(); };
+  const ap = el('btApito'); if (ap) ap.onclick = () => faz('apito');
+}
+
+/* ---------- 6. pênaltis ---------- */
+function telaPenaltis() {
+  const P = S.pen, g = S.jogo, s = UI.seat;
+  const feitos = (k) => P.g[k].filter((x) => x.ok).length;
+  const ln = (k) => `<div class="ln" style="--c:var(--j${k + 1})"><b>${esc(S.j[k].nome)}</b>${P.g[k].map((x) => `<i class="${x.ok ? 'g' : 'x'}" title="${esc(x.nome)}"></i>`).join('')}${Array.from({ length: Math.max(0, 5 - P.g[k].length) }, () => '<i class="p"></i>').join('')}</div>`;
+  const cob = cobradorDe(P.vez), gk = goleiroEm(1 - P.vez);
+  const pend = pendente(s);
+  const escuro = S.cfg.pen === 'escuro';
+  const Z = { E: 'Esquerda', M: 'Meio', D: 'Direita' };
+  const ult = P.ult ? `<div class="pnult ${P.ult.ok ? 'ok' : 'no'}">${esc(P.ult.nome)}: ${P.ult.ok ? 'GOL' : 'PERDEU'}${P.ult.cz ? ' · bateu ' + Z[P.ult.cz].toLowerCase() + ', goleiro pulou ' + (P.ult.gz === 'M' ? 'no meio' : 'para a ' + Z[P.ult.gz].toLowerCase()) : ''}</div>` : '';
+  let miolo;
+  if (!escuro) miolo = `<button type="button" class="cta c${P.vez + 1}" id="btCob">Cobrar · ${esc(cob ? cob.nome : '')} ${ICO.seta}</button>`;
+  else if (pend === 'chute' || pend === 'pulo') miolo = `<div class="dica">${pend === 'chute' ? 'Você bate: escolha o canto' : 'Você defende: escolha para onde o goleiro pula'}</div>`;
+  else miolo = `<div class="dica">Esperando ${esc(S.j[P.etapa === 'chute' ? P.vez : 1 - P.vez].nome)} escolher…</div>`;
+  const zonas = escuro && (pend === 'chute' || pend === 'pulo');
+  pinta(`${cab('Pênaltis', feitos(0) + '–' + feitos(1))}
+  <section class="corpo pen" style="${corJ(P.vez)}">
+    <div class="pn golpen">
+      <div class="duelo"><div class="q">${cob ? im(camisa(cob.cl)) : ''}<div><b style="color:var(--j${P.vez + 1})">${esc(cob ? cob.nome : '')}</b><span>cobra · força ${cob ? cob.forca : ''}</span></div></div><span class="x">contra</span>
+        <div class="q">${gk ? im(camisa(gk.cl)) : ''}<div><b>${esc(gk ? gk.nome : '')}</b><span>no gol · força ${gk ? gk.forca : ''}</span></div></div></div>
+      <div class="trave"><div class="zonas">${['E', 'M', 'D'].map((z) => `<button type="button" data-z="${z}" ${zonas ? '' : 'disabled'}>${Z[z]}<small>${z === 'M' ? 'arriscado' : 'canto'}</small></button>`).join('')}</div></div>
+      <div class="marcapen"></div>${ult}${miolo}
+    </div>
+    <div class="pn serie"><h3 class="h3">Cobranças${P.morte ? ' · morte súbita' : ''}</h3>${ln(0)}${ln(1)}
+      <p class="dica">${g.ga} × ${g.gb} no tempo normal.${escuro ? ' Mesmo lado do pulo: o goleiro tem boa chance de pegar. Lado errado: quase sempre gol. A força dos dois ainda pesa.' : ''}</p></div>
+  </section>`);
+  const b = $('#btCob'); if (b) b.onclick = () => faz('cobrar');
+  if (zonas) st().querySelectorAll('[data-z]').forEach((z) => z.onclick = () => faz('canto', { z: z.dataset.z }));
+}
+
+/* ---------- 7. fim ---------- */
+function telaFim() {
+  const g = S.jogo, venc = g.venc;
+  gravaRival();
+  const nA = notasDoTime(0), nB = notasDoTime(1);
+  const todos = nA.map((x) => ({ ...x, k: 0 })).concat(nB.map((x) => ({ ...x, k: 1 }))).sort((a, b) => b.n - a.n);
+  const cr = todos[0];
+  const md3 = S.cfg.formato === 'md3', acabou = !md3 || Math.max(...S.serie.v) >= 2;
+  const host = S.modo === 'local' || NET.papel === 'host';
+  const notas = (k, lista) => `<div class="pn rola notas"><h3 class="h3"><b style="color:var(--j${k + 1})">${esc(S.j[k].nome)}</b> · ${S.j[k].form}</h3><div class="grade">${lista.map(({ p, n }) =>
+    cartao(p, '', (g.gols[p.id] ? `<span class="mk" style="color:var(--ok)">${g.gols[p.id]} gol${g.gols[p.id] > 1 ? 's' : ''}</span>` : '') + (g.ass[p.id] ? `<span class="mk">${g.ass[p.id]} assist.</span>` : '')).replace(/<span class="f num">\d+<\/span>/, `<span class="nt ${classeNota(n)} num">${num(n, 1)}</span>`)).join('')}</div></div>`;
+  const sub = g.venceuPen != null ? `nos pênaltis, ${g.penA} × ${g.penB}` : (Math.abs(g.ga - g.gb) >= 3 ? 'com goleada' : 'no tempo normal');
+  pinta(`${cab('Fim de jogo', g.ga + '–' + g.gb)}
+  <section class="corpo fim">
+    <div class="pn ban" style="background:linear-gradient(90deg,rgba(var(--j${venc + 1}-rgb),.22),rgba(0,0,0,.5) 55%)"><div class="w"><small style="color:var(--j${venc + 1})">${md3 ? (acabou ? 'Campeão da série' : 'Vencedor do jogo ' + S.serie.jogo) : 'Vencedor'}</small><b style="color:var(--j${venc + 1})">${esc(S.j[venc].nome)}</b><span>${esc(sub)}</span></div>
+      <div class="sc"><b class="num">${g.ga} × ${g.gb}</b><span>${g.venceuPen != null ? 'pênaltis ' + g.penA + ' × ' + g.penB : 'tempo normal'}</span></div>
+      ${md3 ? `<div class="sr"><small>Série · melhor de 3</small><b class="num"><span class="a">${S.serie.v[0]}</span> – <span class="b">${S.serie.v[1]}</span></b><div class="dica">${acabou ? 'série encerrada' : 'quem perdeu rouba 1 antes do jogo ' + (S.serie.jogo + 1)}</div></div>` : '<div></div>'}</div>
+    <div class="pn craque"><span class="sel">Craque do jogo</span>${cr ? im(camisa(cr.p.cl)) : ''}<div><b>${esc(cr ? cr.p.nome : '')}</b><span>${cr ? esc(S.j[cr.k].nome) + ' · ' + esc(cr.p.pos) : ''}</span></div><span class="nt" style="color:var(--ouro);font:700 60px/1 'Teko',sans-serif">${cr ? num(cr.n, 1) : ''}</span>
+      <div class="acoes" style="justify-content:center;margin-top:8px">${!acabou ? (host ? `<button type="button" class="cta" id="btProx">Jogo ${S.serie.jogo + 1} ${ICO.seta}</button>` : `<span class="dica">${esc(S.j[0].nome)} começa o próximo jogo.</span>`) : `<button type="button" class="cta" id="btNovo">Novo duelo ${ICO.seta}</button>`}<button type="button" class="sec" onclick="location.href='index.html'">Menu</button></div></div>
+    ${notas(0, nA)}${notas(1, nB)}
+  </section>`);
+  const p = $('#btProx'); if (p) p.onclick = () => faz('proxJogo');
+  const n = $('#btNovo'); if (n) n.onclick = () => { if (S.modo === 'online') NET.sair(); location.href = ULT.on ? 'cartas/index.html#online' : 'jxj.html'; };
+  if (ULT.on) { const cab2 = document.querySelector('.corpo.fim'); if (cab2) cab2.insertAdjacentHTML('afterbegin', ULT.resumoFim()); }
+}
+
+/* =====================================================================
+   ONLINE — sala por código no Supabase Realtime (canal de broadcast, sem
+   banco). Quem cria a sala é o anfitrião: roda todas as regras e manda o
+   estado; o convidado só manda ações. O estado que vai para o convidado
+   esconde o que é segredo do anfitrião (trancado, descartável, escalação
+   antes do apito, canto do pênalti). O anfitrião, tecnicamente, tem tudo
+   no aparelho dele: é o preço de não ter servidor próprio.
+   ===================================================================== */
+const SALA = { url: 'https://qtdycffnwqblysfgvmck.supabase.co', chave: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF0ZHljZmZud3FibHlzZmd2bWNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE4MjM3MzIsImV4cCI6MjEwNzM5OTczMn0.BkAcm3zYNVoHV1xWDeKvMrLaZrC9Sobyrm5L5bf_Zq4' };
+const ALFA = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+const NET = {
+  papel: null, codigo: null, canal: null, cli: null, sid: Math.random().toString(36).slice(2, 10), rival: null, aviso: null,
+  async lib() {
+    if (window.supabase && window.supabase.createClient) return;
+    await new Promise((ok, falha) => { const s = document.createElement('script'); s.src = 'vendor/supabase-2.45.4.js'; s.onload = ok; s.onerror = () => falha(new Error('biblioteca da sala não carregou')); document.head.appendChild(s); });
+  },
+  async abre(codigo, papel) {
+    await this.lib();
+    this.cli = this.cli || window.supabase.createClient(SALA.url, SALA.chave, { auth: { persistSession: false } });
+    this.codigo = codigo; this.papel = papel;
+    const ch = this.cli.channel('jxj:' + codigo, { config: { broadcast: { self: false, ack: false }, presence: { key: papel + ':' + this.sid } } });
+    this.canal = ch;
+    ch.on('broadcast', { event: 'estado' }, ({ payload }) => this.recebeEstado(payload));
+    ch.on('broadcast', { event: 'acao' }, ({ payload }) => this.recebeAcao(payload));
+    ch.on('broadcast', { event: 'oi' }, ({ payload }) => this.recebeOi(payload));
+    ch.on('broadcast', { event: 'cheia' }, ({ payload }) => { if (payload && payload.sid === this.sid) { this.aviso = 'Essa sala já tem dois jogadores.'; this.sair(); S.fase = 'sala'; render(); } });
+    ch.on('presence', { event: 'leave' }, ({ key }) => {
+      if (this.papel === 'guest' && String(key).startsWith('host:')) { this.aviso = 'O anfitrião saiu da sala.'; render(); }
+      if (this.papel === 'host' && this.rival && key === 'guest:' + this.rival) { this.aviso = S.j[1].nome + ' saiu da sala. Se voltar com o mesmo código, o jogo continua.'; render(); }
+    });
+    ch.on('presence', { event: 'join' }, ({ key }) => { if (this.papel === 'host' && this.rival && key === 'guest:' + this.rival) { this.aviso = null; this.publica(); render(); } });
+    await new Promise((ok, falha) => {
+      const t = setTimeout(() => falha(new Error('sem resposta do servidor da sala')), 10000);
+      ch.subscribe((st) => { if (st === 'SUBSCRIBED') { clearTimeout(t); ok(); } else if (st === 'CHANNEL_ERROR' || st === 'TIMED_OUT') { clearTimeout(t); falha(new Error('conexão da sala: ' + st)); } });
+    });
+    await ch.track({ papel, em: Date.now() });
+  },
+  manda(evento, payload) {
+    if (!this.canal) return;
+    this.canal.send({ type: 'broadcast', event: evento, payload: Object.assign({ sid: this.sid }, payload) })
+      .then((r) => { if (r !== 'ok') console.warn('[jxj sala] envio ' + evento + ':', r); })
+      .catch((e) => console.error('[jxj sala] envio ' + evento + ':', e));
+  },
+  publica() { if (this.papel === 'host' && this.rival) this.manda('estado', { para: this.rival, S: vista(1) }); },
+  recebeEstado(p) {
+    if (this.papel !== 'guest' || !p || p.para !== this.sid || !p.S || p.S.v !== 2) return;
+    clearTimeout(this.espera);
+    const antes = S.fase;
+    S = p.S; S.modo = 'online';
+    if (antes !== S.fase) UI.sel = null;
+    if (ULT.on) ULT.chegouEstado();
+    render();
+  },
+  recebeAcao(p) {
+    if (this.papel !== 'host' || !p || p.sid !== this.rival || typeof p.tipo !== 'string') return;
+    if (act(1, p.tipo, p.d || {})) mudou(); else this.publica();
+  },
+  recebeOi(p) {
+    if (this.papel !== 'host' || !p || !p.sid) return;
+    if (ULT.on) return ULT.hostRecebeOi(p);
+    if (this.rival && this.rival !== p.sid) return this.manda('cheia', { sid: p.sid });
+    this.rival = p.sid;
+    act(1, 'nome', { nome: p.nome });
+    if (S.fase === 'sala') { S.fase = 'cfg'; }
+    this.aviso = null;
+    mudou();
+  },
+  async sair() { try { if (this.canal) await this.canal.unsubscribe(); } catch (e) { console.warn('[jxj sala] sair:', e); } this.canal = null; },
+};
+/** O que o convidado (assento k) pode ver: segredos do outro escondidos. */
+function vista(k) {
+  const V = JSON.parse(JSON.stringify(S));
+  const o = V.j[1 - k];
+  if (V.fase === 'roubo') { o.lock = o.desc = o.alvo = null; }
+  if ((V.fase === 'escalar' || V.fase === 'intervalo') && !(S.j[0].pronto && S.j[1].pronto)) { o.xi = o.xi.map(() => null); o.postura = 'eq'; o.entrou = []; o.saiu = []; }
+  if (V.fase === 'penaltis' && V.pen && V.pen.etapa === 'pulo' && V.pen.vez === 1 - k) V.pen.cz = null;
+  return V;
+}
+
+/* ---------- tela da sala ---------- */
+function telaSala() {
+  const meu = (() => { try { return localStorage.getItem('promessa-jxj-nome') || ''; } catch (e) { return ''; } })();
+  const aguardando = NET.papel === 'host' && NET.codigo;
+  pinta(`${cab('Sala online')}
+  <section class="corpo sala">
+    <div class="pn salaw"><h3 class="h3">Criar sala</h3>
+      ${aguardando ? `<div class="cod" aria-label="Código da sala">${NET.codigo.split('').map((c) => `<span>${c}</span>`).join('')}</div>
+        <p class="dica">Mande o código para o seu rival. A sala fica aberta enquanto esta tela estiver aberta.</p>
+        <div class="esp"><i></i><span>Esperando o rival entrar…</span></div>
+        <div class="acoes"><button type="button" class="sec" id="btCopia">Copiar código</button><button type="button" class="sec" id="btCanc">Cancelar</button></div>`
+      : `<label class="nome" style="--c:var(--j1)"><i></i><input id="nmH" value="${esc(meu)}" maxlength="14" placeholder="Seu nome" aria-label="Seu nome"></label>
+        <p class="dica">Você fica com o lado azul, escolhe as regras e roda a partida no seu aparelho.</p>
+        <button type="button" class="cta" id="btCria" style="align-self:flex-start">Criar sala ${ICO.seta}</button>`}
+    </div>
+    <div class="pn salaw"><h3 class="h3">Entrar com código</h3>
+      <label class="nome" style="--c:var(--j2)"><i></i><input id="nmG" value="${esc(meu)}" maxlength="14" placeholder="Seu nome" aria-label="Seu nome" ${aguardando ? 'disabled' : ''}></label>
+      <div class="cod in"><input id="cod" maxlength="4" autocomplete="off" spellcheck="false" aria-label="Código da sala" placeholder="K7Q4" ${aguardando ? 'disabled' : ''}></div>
+      <p class="dica">4 letras ou números. Você fica com o lado vermelho.</p>
+      <button type="button" class="cta" id="btEntra" style="align-self:flex-start" ${aguardando ? 'disabled' : ''}>Entrar ${ICO.seta}</button>
+    </div>
+    ${NET.aviso ? `<div class="erro" style="grid-column:1/-1">${esc(NET.aviso)}</div>` : ''}
+  </section>
+  <div class="rodape"><button type="button" class="sec" id="btVolta">Voltar</button></div>`);
+  const guardaNome = (v) => { try { localStorage.setItem('promessa-jxj-nome', v); } catch (e) { console.warn('[jxj] nome:', e); } };
+  const falhou = (e) => { console.error('[jxj sala]', e); NET.aviso = 'Não deu para conectar na sala. Confira a internet e tente de novo.'; NET.papel = null; NET.codigo = null; render(); };
+  const cria = $('#btCria');
+  if (cria) cria.onclick = async () => {
+    const nome = limpaNome($('#nmH').value, 'Jogador 1'); guardaNome(nome);
+    cria.disabled = true; NET.aviso = null;
+    const codigo = Array.from({ length: 4 }, () => ALFA[Math.floor(Math.random() * ALFA.length)]).join('');
+    try { S.j[0].nome = nome; S.j[1].nome = 'Rival'; await NET.abre(codigo, 'host'); render(); } catch (e) { falhou(e); }
+  };
+  const cp = $('#btCopia'); if (cp) cp.onclick = async () => { try { await navigator.clipboard.writeText(NET.codigo); cp.textContent = 'Copiado'; } catch (e) { console.warn('[jxj] copiar:', e); cp.textContent = NET.codigo; } };
+  const cc = $('#btCanc'); if (cc) cc.onclick = async () => { await NET.sair(); NET.papel = NET.codigo = null; render(); };
+  const ent = $('#btEntra');
+  if (ent) ent.onclick = async () => {
+    const codigo = String($('#cod').value || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if (codigo.length !== 4) { NET.aviso = 'O código tem 4 letras ou números.'; return render(); }
+    const nome = limpaNome($('#nmG').value, 'Jogador 2'); guardaNome(nome);
+    ent.disabled = true; NET.aviso = null;
+    try {
+      await NET.abre(codigo, 'guest');
+      NET.manda('oi', { nome });
+      NET.espera = setTimeout(() => { if (S.fase === 'sala') { NET.aviso = 'Sala ' + codigo + ' não encontrada. Confira o código com quem criou.'; NET.sair(); NET.papel = NET.codigo = null; render(); } }, 7000);
+    } catch (e) { falhou(e); }
+  };
+  $('#btVolta').onclick = async () => { await NET.sair(); NET.papel = NET.codigo = null; S.modo = null; S.fase = 'modo'; render(); };
+}
+
+/* =====================================================================
+   ULTIMATE ONLINE (jxj.html?ult=1) — mesmo motor e sala do JxJ online, mas:
+   - só online, com conta; elenco = cartas do jogador (servidor valida posse em meu_ult_*);
+   - sem draft nem roubo: vai direto para a escalação, jogo único;
+   - o placar é informado pelos dois lados (meu_ult_resultado) e só conta no ranking se bater.
+   O anfitrião ainda roda o motor (como no JxJ); a revalidação pelo convidado fica para a fase 2.
+   ===================================================================== */
+const ULT = {
+  on: new URLSearchParams(location.search).has('ult'),
+  sb: null, J: null, rev: {}, elenco: [], ids: [], partida: null, codigo: null, aviso: null, ocupado: false,
+  fila: null, oiTimer: null, reportado: false, res: null, saindo: false,
+  pausa: (ms) => new Promise((ok) => setTimeout(ok, ms)),
+  async inicia() {
+    try {
+      const P = window.Promessa;
+      if (!P || !P.sb) throw new Error('sessão do PROMESSA não carregou');
+      const u = await P.usuario();
+      if (!u) { location.replace('conta/login.html?next=' + encodeURIComponent('jxj.html?ult=1')); return; }
+      this.sb = P.sb; NET.cli = P.sb;
+      for (const t in (D.SLUGS || {})) this.rev[D.SLUGS[t]] = t;
+      const [r, J] = await Promise.all([
+        this.sb.from('cards').select('id,jogador_id,ovr_snapshot,em_venda,destruida_em').eq('dono_id', u.id).limit(5000),
+        fetch('dados/ult_jogadores.json').then((x) => { if (!x.ok) throw new Error('ult_jogadores ' + x.status); return x.json(); }),
+      ]);
+      if (r.error) throw r.error;
+      this.J = J;
+      // melhor versão de cada jogador; 2 goleiros garantidos; até 23 cartas
+      const melhor = {};
+      for (const c of r.data || []) {
+        if (c.em_venda || c.destruida_em || !J[c.jogador_id]) continue;
+        if (!melhor[c.jogador_id] || melhor[c.jogador_id].ovr_snapshot < c.ovr_snapshot) melhor[c.jogador_id] = c;
+      }
+      this.uid = u.id;
+      this.todas = Object.values(melhor).map((c) => this.jogador({ card: c.id, jogador: c.jogador_id, ovr: c.ovr_snapshot })).filter(Boolean).sort((a, b) => b.forca - a.forca);
+      let salvo = [];
+      try { salvo = JSON.parse(localStorage.getItem('promessa-ult-elenco-' + u.id) || '[]'); } catch (e) { console.warn('[ult] elenco salvo:', e); }
+      const valido = salvo.filter((id) => this.todas.some((p) => p.card === id));
+      this.aplica(valido.length >= 11 ? valido : this.automatico());
+      const apelido = (P.obterApelido ? P.obterApelido(u, null) : null) || (u.user_metadata && (u.user_metadata.nick || u.user_metadata.apelido)) || 'Você';
+      S.modo = 'online'; S.fase = 'ultsala';
+      S.cfg = { formato: 'unico', liga: '', montagem: 'ult', roubos: 0, pen: 'auto' };
+      S.j[0].nome = limpaNome(apelido, 'Você'); S.j[1].nome = 'Rival';
+    } catch (e) {
+      console.error('[ult] inicio:', e);
+      this.aviso = 'Não deu para carregar suas cartas. Tente de novo em instantes.';
+      S.modo = 'online'; S.fase = 'ultsala';
+    }
+    render();
+  },
+  jogador(x) {
+    const j = this.J && this.J[x.jogador];
+    if (!j) return null;
+    const slug = String(x.jogador).split('|')[0];
+    return { id: String(x.jogador), nome: j[0], pos: j[1], idade: j[2], nac: j[3], posAlt: [], forca: Number(x.ovr) || 50, cl: this.rev[slug] || j[4] || '', card: x.card };
+  },
+  // melhor time automático: 2 goleiros + os de maior força, até 23
+  automatico() {
+    const gols = this.todas.filter((p) => p.pos === 'GOL').slice(0, 2);
+    return gols.concat(this.todas.filter((p) => !gols.includes(p)).slice(0, 23 - gols.length)).map((p) => p.card);
+  },
+  aplica(ids) {
+    const set = new Set(ids);
+    this.elenco = this.todas.filter((p) => set.has(p.card));
+    this.ids = this.elenco.map((p) => p.card);
+  },
+  guarda() { try { localStorage.setItem('promessa-ult-elenco-' + this.uid, JSON.stringify(this.ids)); } catch (e) { console.warn('[ult] guardar elenco:', e); } },
+  telaElenco() {
+    const sel = this.rascunho, q = (this.busca || '').toLowerCase().trim();
+    const lista = this.todas.filter((p) => !q || p.nome.toLowerCase().includes(q) || p.pos.toLowerCase() === q || String(p.cl).toLowerCase().includes(q));
+    const n = sel.size, ok = n >= 11 && n <= 23;
+    const gol = this.todas.filter((p) => sel.has(p.card) && p.pos === 'GOL').length;
+    pinta(`${cab('Seu elenco')}
+    <section class="corpo" style="grid-template-rows:auto minmax(0,1fr) auto">
+      <div class="pn salaw"><p class="dica">Escolha de 11 a 23 cartas para levar à partida. Você tem ${this.todas.length} jogadores diferentes (a melhor carta de cada um).</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <input id="uBusca" class="inp" value="${esc(this.busca || '')}" placeholder="Buscar nome, clube ou posição (ex.: ZAG)" style="flex:1;min-width:180px;padding:10px;background:var(--pn2);border:1px solid var(--ln2);color:var(--br)">
+          <b class="num" style="font-size:26px;color:${ok ? 'var(--ok)' : 'var(--der)'}">${n}/23</b>
+        </div>
+        ${gol === 0 ? '<p class="dica" style="color:var(--ouro)">Sem goleiro: quem for para o gol joga fora de posição.</p>' : ''}
+      </div>
+      <div class="pn rola" style="padding:8px">${lista.length ? lista.map((p) => `<button type="button" data-uel="${esc(p.card)}" aria-pressed="${sel.has(p.card)}" style="display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;margin-bottom:6px;border:1px solid ${sel.has(p.card) ? 'var(--j1)' : 'var(--ln)'};background:${sel.has(p.card) ? 'rgba(var(--j1-rgb),.12)' : 'transparent'};color:var(--br);text-align:left">
+          <span style="width:22px;font-weight:800;color:var(--j1)">${sel.has(p.card) ? '<i style="display:inline-block;width:12px;height:12px;background:var(--j1)"></i>' : ''}</span><span style="width:42px;font-weight:700">${esc(p.pos)}</span>
+          <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(p.nome)}<small style="color:var(--dim)"> · ${esc(p.cl || '')}</small></span><b class="num" style="font-size:22px">${p.forca}</b></button>`).join('') : '<p class="dica">Nenhum jogador com esse filtro.</p>'}</div>
+      <div class="acoes" style="display:flex;gap:8px;flex-wrap:wrap">
+        <button type="button" class="cta" id="uElSalva" ${ok ? '' : 'disabled'}>Usar este elenco ${ICO.seta}</button>
+        <button type="button" class="sec" id="uElAuto">Melhor automático</button><button type="button" class="sec" id="uElLimpa">Limpar</button><button type="button" class="sec" id="uElCanc">Cancelar</button>
+      </div>
+    </section>`);
+    const b = $('#uBusca'); b.oninput = () => { this.busca = b.value; const pos = b.selectionStart; this.telaElenco(); const nb = $('#uBusca'); nb.focus(); nb.setSelectionRange(pos, pos); };
+    st().querySelectorAll('[data-uel]').forEach((x) => x.onclick = () => {
+      const id = x.dataset.uel;
+      if (sel.has(id)) sel.delete(id); else if (sel.size < 23) sel.add(id); else return;
+      const y = st().querySelector('.rola').scrollTop; this.telaElenco(); st().querySelector('.rola').scrollTop = y;
+    });
+    $('#uElSalva').onclick = () => { this.aplica([...sel]); this.guarda(); this.editando = false; render(); };
+    $('#uElAuto').onclick = () => { this.rascunho = new Set(this.automatico()); this.telaElenco(); };
+    $('#uElLimpa').onclick = () => { this.rascunho = new Set(); this.telaElenco(); };
+    $('#uElCanc').onclick = () => { this.editando = false; render(); };
+  },
+  forca() { return this.elenco.length ? Math.round(this.elenco.slice(0, 11).reduce((a, p) => a + p.forca, 0) / Math.min(11, this.elenco.length)) : 0; },
+  erro(e, padrao) { const m = String((e && e.message) || ''); return /[a-zà-ú]{4}/i.test(m) && !/fetch|network|jwt/i.test(m) ? m : padrao; },
+  tela() {
+    if (this.editando) return this.telaElenco();
+    const pode = this.elenco.length >= 11 && !this.ocupado;
+    const esperandoSala = NET.papel === 'host' && this.codigo && !NET.rival;
+    const naFila = !!this.fila;
+    const top = this.elenco.slice(0, 11).map((p) => `<span class="dica">${esc(p.pos)} ${esc(sobre(p.nome))} <b class="num">${p.forca}</b></span>`).join(' · ');
+    pinta(`${cab('Ultimate online')}
+    <section class="corpo sala">
+      <div class="pn salaw" style="grid-column:1/-1"><h3 class="h3">Seu time</h3>
+        ${this.elenco.length >= 11
+          ? `<p class="dica">${this.elenco.length} cartas · força média dos 11 melhores <b class="num">${this.forca()}</b>. A escalação você monta na próxima tela.</p><p>${top}</p>`
+          : (this.todas || []).length >= 11 ? `<p class="dica">Escolha pelo menos 11 cartas para jogar.</p>`
+          : `<p class="dica">Para jogar online você precisa de pelo menos 11 jogadores diferentes na coleção (sem anúncio no mercado). Você tem ${(this.todas || []).length}. Abra pacotes para completar o time.</p>`}
+        ${(this.todas || []).length >= 11 && !this.partida && !this.fila ? `<button type="button" class="sec" id="uElenco" style="align-self:flex-start">Escolher elenco</button>` : ''}
+      </div>
+      <div class="pn salaw"><h3 class="h3">Desafiar um amigo</h3>
+        ${esperandoSala ? `<div class="cod" aria-label="Código da sala">${this.codigo.split('').map((c) => `<span>${c}</span>`).join('')}</div>
+          <p class="dica">Mande o código. A sala expira em 30 minutos.</p><div class="esp"><i></i><span>Esperando o rival…</span></div>
+          <div class="acoes"><button type="button" class="sec" id="uCopia">Copiar código</button><button type="button" class="sec" id="uCanc">Cancelar</button></div>`
+        : `<button type="button" class="cta" id="uCria" ${pode && !naFila ? '' : 'disabled'} style="align-self:flex-start">Criar sala ${ICO.seta}</button>
+          <div class="cod in"><input id="uCod" maxlength="4" autocomplete="off" spellcheck="false" aria-label="Código da sala" placeholder="K7Q4" ${pode && !naFila ? '' : 'disabled'}></div>
+          <button type="button" class="sec" id="uEntra" ${pode && !naFila ? '' : 'disabled'} style="align-self:flex-start">Entrar com código</button>`}
+      </div>
+      <div class="pn salaw"><h3 class="h3">Partida rápida</h3>
+        ${naFila ? `<div class="esp"><i></i><span>Procurando rival com força parecida…</span></div><button type="button" class="sec" id="uSaiFila">Sair da fila</button>`
+          : `<p class="dica">Pareia você com alguém de força parecida. Vitórias contam no ranking do mês.</p>
+             <button type="button" class="cta" id="uFila" ${pode && !esperandoSala ? '' : 'disabled'} style="align-self:flex-start">Entrar na fila ${ICO.seta}</button>`}
+      </div>
+      ${this.aviso || NET.aviso ? `<div class="erro" style="grid-column:1/-1">${esc(this.aviso || NET.aviso)}</div>` : ''}
+    </section>
+    <div class="rodape"><button type="button" class="sec" id="uVolta">Voltar ao Ultimate</button></div>`);
+    const on = (id, fn) => { const b = $('#' + id); if (b) b.onclick = fn; };
+    on('uElenco', () => { this.rascunho = new Set(this.ids); this.busca = ''; this.editando = true; render(); });
+    on('uCria', () => this.criaSala());
+    on('uEntra', () => this.entraSala());
+    on('uFila', () => this.entraFila());
+    on('uSaiFila', () => this.saiFila());
+    on('uCanc', async () => { await this.abandona(); await NET.sair(); NET.papel = null; this.codigo = this.partida = null; render(); });
+    on('uCopia', async (ev) => { try { await navigator.clipboard.writeText(this.codigo); ev.target.textContent = 'Copiado'; } catch (e) { console.warn('[ult] copiar:', e); ev.target.textContent = this.codigo; } });
+    on('uVolta', async () => { await this.saiFila(); await this.abandona(); await NET.sair(); location.href = 'cartas/index.html#online'; });
+  },
+  async criaSala() {
+    this.ocupado = true; this.aviso = NET.aviso = null; render();
+    try {
+      const r = await this.sb.rpc('meu_ult_cria_sala', { p_cards: this.ids });
+      if (r.error) throw r.error;
+      this.partida = r.data.partida; this.codigo = r.data.codigo;
+      await NET.abre('ult-' + this.partida, 'host');
+    } catch (e) { console.error('[ult] cria sala:', e); this.aviso = this.erro(e, 'Não deu para criar a sala. Tente de novo.'); NET.papel = null; this.codigo = this.partida = null; }
+    this.ocupado = false; render();
+  },
+  async entraSala() {
+    const cod = String(($('#uCod') || {}).value || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if (cod.length !== 4) { this.aviso = 'O código tem 4 letras ou números.'; return render(); }
+    this.ocupado = true; this.aviso = NET.aviso = null; render();
+    try {
+      const r = await this.sb.rpc('meu_ult_entra_sala', { p_codigo: cod, p_cards: this.ids });
+      if (r.error) throw r.error;
+      this.partida = r.data.partida;
+      await this.conectaConvidado();
+    } catch (e) { console.error('[ult] entra sala:', e); this.aviso = this.erro(e, 'Não deu para entrar na sala.'); this.ocupado = false; render(); }
+  },
+  async conectaConvidado() {
+    await NET.abre('ult-' + this.partida, 'guest');
+    // o anfitrião pode ainda estar entrando no canal: repete o "oi" até o estado chegar
+    let n = 0;
+    const oi = () => { if (S.fase !== 'ultsala' || n++ > 15) { clearInterval(this.oiTimer); if (S.fase === 'ultsala') { this.aviso = 'O rival não respondeu. Tente de novo.'; this.ocupado = false; render(); } return; } NET.manda('oi', { nome: S.j[0].nome }); };
+    oi(); this.oiTimer = setInterval(oi, 2000);
+  },
+  async entraFila() {
+    this.aviso = null; this.fila = true; render();
+    const tenta = async () => {
+      if (!this.fila) return;
+      try {
+        const r = await this.sb.rpc('meu_ult_fila', { p_cards: this.ids });
+        if (r.error) throw r.error;
+        const d = r.data || {};
+        if (d.partida) {
+          clearInterval(this.fila); this.fila = null; this.partida = d.partida;
+          if (d.papel === 'host') { await NET.abre('ult-' + this.partida, 'host'); render(); }
+          else {
+            const e = await this.sb.rpc('meu_ult_elenco_partida', { p_partida: this.partida, p_cards: this.ids });
+            if (e.error) throw e.error;
+            this.ocupado = true; render(); await this.conectaConvidado();
+          }
+        }
+      } catch (e) { console.error('[ult] fila:', e); clearInterval(this.fila); this.fila = null; this.aviso = this.erro(e, 'A fila caiu. Tente de novo.'); render(); }
+    };
+    await tenta(); if (this.fila) this.fila = setInterval(tenta, 3000);
+  },
+  async saiFila() {
+    if (!this.fila) return;
+    clearInterval(this.fila); this.fila = null;
+    try { const r = await this.sb.rpc('meu_ult_sai_fila'); if (r.error) throw r.error; } catch (e) { console.warn('[ult] sair da fila:', e); }
+    render();
+  },
+  async hostRecebeOi(p) {
+    if (NET.rival && NET.rival !== p.sid) return NET.manda('cheia', { sid: p.sid });
+    if (NET.rival === p.sid && S.fase !== 'ultsala') return NET.publica();
+    NET.rival = p.sid;
+    S.j[1].nome = limpaNome(p.nome, 'Rival');
+    // o elenco do rival vem do servidor (validado lá), nunca do que ele mandou pelo canal
+    let el = null;
+    for (let i = 0; i < 6 && !el; i++) {
+      try { const r = await this.sb.rpc('meu_ult_elenco_partida', { p_partida: this.partida, p_cards: null }); if (r.error) throw r.error; el = r.data && r.data.elenco_guest; }
+      catch (e) { console.warn('[ult] elenco do rival:', e); }
+      if (!el) await this.pausa(1500);
+    }
+    if (!el) { NET.aviso = 'O elenco do rival não chegou. A partida foi cancelada.'; await this.abandona(); return render(); }
+    S.j[0].elenco = this.elenco.map((x) => ({ ...x }));
+    S.j[1].elenco = el.map((x) => this.jogador(x)).filter(Boolean);
+    iniciaEscalacao(); mudou();
+  },
+  chegouEstado() { clearInterval(this.oiTimer); this.ocupado = false; if (S.fase === 'fim') this.reporta(); },
+  async reporta() {
+    if (this.reportado || !this.partida || !S.jogo) return;
+    this.reportado = true;
+    try {
+      const r = await this.sb.rpc('meu_ult_resultado', { p_partida: this.partida, p_gols_host: S.jogo.ga, p_gols_guest: S.jogo.gb });
+      if (r.error) throw r.error;
+      this.res = r.data;
+      // o segundo a informar fecha a partida; o primeiro confere de novo em alguns segundos
+      if (this.res && this.res.estado === 'aguardando_rival') {
+        await this.pausa(4000);
+        const r2 = await this.sb.rpc('meu_ult_resultado', { p_partida: this.partida, p_gols_host: S.jogo.ga, p_gols_guest: S.jogo.gb });
+        if (!r2.error) this.res = r2.data;
+      }
+    } catch (e) { console.error('[ult] resultado:', e); this.res = { estado: 'erro' }; }
+    if (S.fase === 'fim') render();
+  },
+  resumoFim() {
+    const r = this.res;
+    const txt = !r ? 'Enviando o resultado…'
+      : r.estado === 'finalizada' ? (r.conta_ranking ? (S.jogo.ga === S.jogo.gb ? 'Empate registrado no ranking do mês.' : 'Resultado registrado no ranking do mês.') : 'Partida registrada, sem pontuar no ranking (' + (r.motivo || 'regra anti-farm') + ').')
+      : r.estado === 'anulada' ? 'Partida anulada: ' + (r.motivo || 'resultado não confirmado') + '.'
+      : r.estado === 'aguardando_rival' ? 'Esperando o rival confirmar o placar.' : 'Não deu para registrar o resultado.';
+    return `<div class="pn" style="grid-column:1/-1;text-align:center"><span class="dica">${esc(txt)}</span></div>`;
+  },
+  async abandona() {
+    if (!this.partida || this.saindo || S.fase === 'fim') return;
+    this.saindo = true;
+    try { const r = await this.sb.rpc('meu_ult_abandona', { p_partida: this.partida }); if (r.error) throw r.error; } catch (e) { console.warn('[ult] abandono:', e); }
+    this.saindo = false;
+  },
+};
+
+/* ---------- início ---------- */
+window.addEventListener('beforeunload', () => { if (NET.canal) NET.sair(); if (ULT.on) ULT.abandona(); });
+carregar().then(() => (ULT.on ? ULT.inicia() : render())).catch((e) => {
+  console.error('[jxj] base:', e);
+  pinta('<section class="corpo"><div class="pn"><h3 class="h3">Não consegui carregar a base</h3><p class="dica">Abra o jogo pelo servidor local (servir-2.0.bat), não por duplo clique no arquivo.</p><button type="button" class="sec" onclick="location.href=\'index.html\'">Menu</button></div></section>');
+});
+
+</script>
+</body>
+</html>

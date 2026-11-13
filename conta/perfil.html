@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<link rel="icon" type="image/x-icon" href="/favicon.ico?v=20261022">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon.png?v=20261022">
+<link rel="shortcut icon" href="/favicon.ico?v=20261022">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=20261022">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PROMESSA — Perfil</title>
+<style>
+  :root{--bg:#06080c;--card:#0c1118;--borda:#1a2432;--txt:#eaf0f6;--mut:#7e8da0;--verde:#00ff87;--ouro:#f5c542;--verm:#ff4d5e}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{min-height:100vh;background:radial-gradient(900px 500px at 50% -10%,rgba(0,255,135,.10),transparent 65%),var(--bg);color:var(--txt);font-family:'Plus Jakarta Sans',system-ui,sans-serif;padding:28px 18px}
+  .wrap{max-width:680px;margin:0 auto}
+  .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+  .back{color:var(--mut);text-decoration:none;font-size:13px;font-weight:700;padding:8px 12px;border:1px solid var(--borda);border-radius:9px}
+  .back:hover{color:var(--txt);border-color:#2a3a50}
+  .card{background:var(--card);border:1px solid var(--borda);border-radius:16px;padding:24px;margin-bottom:16px}
+  .head{display:flex;align-items:center;gap:16px;padding-bottom:20px;border-bottom:1px solid var(--borda);flex-wrap:wrap}
+  .av{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#00ff87,#009e54);color:#041a0e;font-family:'Bebas Neue',sans-serif;font-size:30px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .who h1{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px}
+  .who p{color:var(--mut);font-size:13px;margin-top:2px}
+  .saldo{margin-left:auto;text-align:right;background:#080c12;border:1px solid var(--borda);padding:10px 14px;border-radius:11px}
+  .saldo .lbl{font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:1px;font-weight:700}
+  .saldo .val{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:800;color:var(--ouro);margin-top:2px}
+  .sec{margin-top:20px}
+  .sec h2{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:var(--mut);margin-bottom:10px}
+  .row{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:#080c12;border:1px solid var(--borda);border-radius:10px;margin-bottom:8px;font-size:13px;gap:10px;flex-wrap:wrap}
+  .row a{color:var(--verde);text-decoration:none;font-weight:700}
+  .edit-box{display:flex;gap:8px;align-items:center;width:100%;margin-top:6px;flex-wrap:wrap}
+  .inp{flex:1;min-width:180px;padding:10px 12px;border-radius:9px;border:1px solid var(--borda);background:#05080d;color:var(--txt);font-family:inherit;font-size:13px;font-weight:600;outline:none}
+  .inp:focus{border-color:var(--verde);box-shadow:0 0 0 2px rgba(0,255,135,.15)}
+  .btn{padding:11px 16px;border-radius:10px;border:1px solid var(--borda);background:#101823;color:var(--txt);font-weight:700;font-size:13px;cursor:pointer;text-decoration:none;display:inline-block}
+  .btn:hover{border-color:#2c3e56}
+  .btn.pri{background:linear-gradient(180deg,#00ff87,#00c968);color:#041a0e;border:none; font-weight:800}
+  .btn.pri:hover{filter:brightness(1.06)}
+  .btn.sair{border-color:rgba(255,77,94,.35);color:#ff8692}
+  .btn.sair:hover{background:rgba(255,77,94,.10)}
+  .acoes{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .msg-ok{font-size:12px;color:var(--verde);font-weight:700;margin-top:6px;display:none}
+  .msg-err{font-size:12px;color:var(--verm);font-weight:700;margin-top:6px;display:none}
+</style>
+<meta name="theme-color" content="#061009"><link rel="stylesheet" href="/comum/ui-promessa.css"><script type="module" src="/comum/promessa-boot.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="back" href="../index.html">← Voltar ao jogo</a>
+    <a class="back" href="../cartas/index.html">Ir para o Ultimate →</a>
+  </div>
+
+  <div class="card" id="conteudo">
+    <div class="head">
+      <div class="av" id="av">P</div>
+      <div class="who">
+        <h1 id="nome">Carregando…</h1>
+        <p id="email">—</p>
+      </div>
+      <div class="saldo">
+        <div class="lbl">PromeCoins</div>
+        <div class="val" id="moedas">—</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>Apelido (aparece na HUD superior)</h2>
+      <div class="row" style="flex-direction:column;align-items:stretch">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span>Seu apelido atual</span>
+          <strong id="apelido-atual" style="color:var(--verde)">—</strong>
+        </div>
+        <form class="edit-box" id="form-apelido">
+          <input class="inp" id="inp-apelido" type="text" maxlength="24" minlength="2" placeholder="Digite seu novo apelido…" aria-label="Novo apelido">
+          <button class="btn pri" type="submit" id="btn-salvar-apelido">Salvar apelido</button>
+        </form>
+        <div class="msg-ok" id="msg-ok">✓ Apelido atualizado! Ele já aparece na HUD lá em cima.</div>
+        <div class="msg-err" id="msg-err"></div>
+      </div>
+    </div>
+
+    <div class="sec" id="sec-conta">
+      <h2>Conta</h2>
+      <div class="row"><span>Modo</span><strong id="modo">—</strong></div>
+      <div class="row"><span>ID da conta</span><span id="uid" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mut)">—</span></div>
+      <div class="row"><span>Save na nuvem</span><span style="color:var(--mut)">Sincronização automática em breve</span></div>
+    </div>
+
+    <div class="sec">
+      <h2>Regras e documentos</h2>
+      <div class="row"><span>Como funciona cada modo e o Ultimate</span><a href="regras.html">Ler regras →</a></div>
+      <div class="row"><span>Termos de Uso</span><a href="termos.html">Abrir →</a></div>
+      <div class="row"><span>Política de Privacidade (LGPD)</span><a href="privacidade.html">Abrir →</a></div>
+    </div>
+
+    <div class="sec">
+      <h2>Gerenciar Sessão</h2>
+      <div class="acoes" id="acoes-conta" style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn sair" id="btn-sair">Sair da conta</button>
+        <button class="btn" style="border-color:rgba(255,77,94,.4);color:#ff8692;background:rgba(255,77,94,.06)" id="btn-excluir">Excluir conta / Resetar dados</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="vendor/supabase.js?v=20261022"></script>
+<script src="config.js?v=20261022"></script>
+<script src="sessao.js?v=20261025"></script>
+<script>
+(async function () {
+  var u = await window.Promessa.usuario();
+  var p = u ? await window.Promessa.perfil() : null;
+  var apelido = window.Promessa.obterApelido(u, p);
+
+  function atualizaCabecalho(nick) {
+    document.getElementById('nome').textContent = nick;
+    document.getElementById('av').textContent = (nick[0] || 'P').toUpperCase();
+    document.getElementById('apelido-atual').textContent = nick;
+    var inp = document.getElementById('inp-apelido');
+    if (inp && !inp.value) inp.value = nick;
+  }
+
+  atualizaCabecalho(apelido);
+
+  if (!u) {
+    document.getElementById('email').textContent = 'Modo convidado · sem conta conectada';
+    document.getElementById('modo').textContent = 'Convidado (progresso salvo neste navegador)';
+    document.getElementById('uid').textContent = 'local';
+    document.getElementById('moedas').textContent = '0';
+    document.getElementById('acoes-conta').innerHTML =
+      '<a class="btn pri" href="login.html">Entrar ou criar conta</a>' +
+      '<a class="btn" href="../index.html">Voltar ao jogo</a>';
+  } else {
+    document.getElementById('email').textContent = u.email || '';
+    document.getElementById('modo').textContent = 'Conectado';
+    document.getElementById('uid').textContent = u.id;
+    try {
+      var s = await window.Promessa.saldo();
+      var elM = document.getElementById('moedas');
+      if (window.PromessaUI) window.PromessaUI.contar(elM, Number(s) || 0); else elM.textContent = s.toLocaleString('pt-BR');
+    } catch (e) { console.warn('[perfil] saldo:', e); document.getElementById('moedas').textContent = '-'; }
+    document.getElementById('btn-sair').onclick = function () { window.Promessa.sair(); };
+  }
+
+  var btnExc = document.getElementById('btn-excluir');
+  if (btnExc) {
+    btnExc.onclick = async function () {
+      var conf = confirm('ATENÇÃO: Deseja realmente excluir seus dados locais e desconectar sua conta? Esta ação apagará os saves e configurações salvos neste navegador.');
+      if (!conf) return;
+      var conf2 = prompt('Para confirmar a exclusão, digite EXCLUIR:');
+      if (conf2 !== 'EXCLUIR') {
+        alert('Operação cancelada.');
+        return;
+      }
+      try {
+        localStorage.clear();
+        sessionStorage.clear();
+      } catch (e) {}
+      try {
+        if (window.Promessa && window.Promessa.sair) await window.Promessa.sair();
+      } catch (e) {}
+      alert('Dados locais excluídos com sucesso. Você será redirecionado para o início.');
+      location.href = '../index.html';
+    };
+  }
+
+  document.getElementById('form-apelido').addEventListener('submit', async function (ev) {
+    ev.preventDefault();
+    var inp = document.getElementById('inp-apelido');
+    var btn = document.getElementById('btn-salvar-apelido');
+    var ok = document.getElementById('msg-ok');
+    var err = document.getElementById('msg-err');
+    ok.style.display = 'none';
+    err.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Salvando…';
+    try {
+      var salvo = await window.Promessa.salvarApelido(inp.value);
+      atualizaCabecalho(salvo);
+      inp.value = salvo;
+      ok.style.display = 'block';
+    } catch (e) {
+      err.textContent = (e && e.message) || 'Não foi possível salvar o apelido.';
+      err.style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Salvar apelido';
+    }
+  });
+})();
+</script>
+</body>
+</html>
